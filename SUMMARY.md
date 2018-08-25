@@ -1,4 +1,3 @@
 # Summary
 
-* [Introduction](README.md)
-
+* [个人介绍](README.md)
