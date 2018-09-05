@@ -13,7 +13,7 @@ categories: blank update
 结果：
 执行 `script`中的内容，并且查询`User`数据发送给`www.test.com`,如果`www.test.com`是自己的服务器，我们可以在服务器中截取`User`用户数据，比如`cookie`
 
-我们可以看raw的源代码，其实就是用`html_safe`实现的
+我们可以看`raw`的源代码，其实就是用`html_safe`实现的
 {% highlight ruby %}
 def raw(stringish)
   stringish.to_s.html_safe
@@ -22,7 +22,7 @@ end
 
 - ### html_safe
 
-html_safe是完全把你的html内容原本原样的输出，这种事非常不安全的，把`script`标签的内容输出并执行结果，比如会造成XSS攻击
+`html_safe`是完全把你的`html`内容原本原样的输出，这种事非常不安全的，把`script`标签的内容输出并执行结果，比如会造成XSS攻击
 和`raw`一样，同上
 
 - ### sanitize

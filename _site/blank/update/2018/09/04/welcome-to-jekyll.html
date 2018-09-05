@@ -58,7 +58,7 @@
 <p>结果：
 执行 <code class="highlighter-rouge">script</code>中的内容，并且查询<code class="highlighter-rouge">User</code>数据发送给<code class="highlighter-rouge">www.test.com</code>,如果<code class="highlighter-rouge">www.test.com</code>是自己的服务器，我们可以在服务器中截取<code class="highlighter-rouge">User</code>用户数据，比如<code class="highlighter-rouge">cookie</code></p>
 
-<p>我们可以看raw的源代码，其实就是用<code class="highlighter-rouge">html_safe</code>实现的</p>
+<p>我们可以看<code class="highlighter-rouge">raw</code>的源代码，其实就是用<code class="highlighter-rouge">html_safe</code>实现的</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">raw</span><span class="p">(</span><span class="n">stringish</span><span class="p">)</span>
   <span class="n">stringish</span><span class="p">.</span><span class="nf">to_s</span><span class="p">.</span><span class="nf">html_safe</span>
@@ -70,7 +70,7 @@
   </li>
 </ul>
 
-<p>html_safe是完全把你的html内容原本原样的输出，这种事非常不安全的，把<code class="highlighter-rouge">script</code>标签的内容输出并执行结果，比如会造成XSS攻击
+<p><code class="highlighter-rouge">html_safe</code>是完全把你的<code class="highlighter-rouge">html</code>内容原本原样的输出，这种事非常不安全的，把<code class="highlighter-rouge">script</code>标签的内容输出并执行结果，比如会造成XSS攻击
 和<code class="highlighter-rouge">raw</code>一样，同上</p>
 
 <ul>
