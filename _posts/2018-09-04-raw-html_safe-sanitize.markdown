@@ -2,7 +2,7 @@
 layout: post
 title:  "rails中的 raw, html_safe, sanitize"
 date:   2018-09-04 18:10:22 +0800
-categories: blank update
+categories:
 ---
 避免使用`raw`和`html_safe`, 安全使用`sanitize`
 - ### raw
