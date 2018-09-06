@@ -1,0 +1,81 @@
+---
+layout: post
+title:  "rails中的 erb代码执行原理"
+date:   2018-09-05 19:33:22 +0800
+categories:
+---
+在`rails erb`文件中嵌入`ruby`代码，举个例子：
+{% highlight ruby %}
+@a = 1
+<div><%= @a %></div>
+{% endhighlight %}
+
+`rails`输出的是：`<div>1</div>`
+
+`rails`实现是：`ERB.new("<div><%= @a %></div>").result`
+
+查看`erb.rb`源代码：
+
+{% highlight ruby %}
+def initialize(str, safe_level=nil, trim_mode=nil, eoutvar='_erbout')
+  @safe_level = safe_level
+  compiler = make_compiler(trim_mode)
+  set_eoutvar(compiler, eoutvar)
+  @src, @encoding, @frozen_string = *compiler.compile(str)
+  @filename = nil
+  @lineno = 0
+end
+
+def result(b=new_toplevel)
+  if @safe_level
+    proc {
+      $SAFE = @safe_level
+      eval(@src, b, (@filename || '(erb)'), @lineno)
+    }.call
+  else
+    eval(@src, b, (@filename || '(erb)'), @lineno)
+  end
+end
+{% endhighlight %}
+
+首先初始化`ERB`，然后result方法里调用`eval`,取变量的值相当于：`eval("@a")`
+都是用`eval("你的ruby代码")`，执行并返回
+
+那么`<%%>`呢？
+
+`erb.rb`中通过字符串匹配来识别`ruby`代码，代码如下：
+
+{% highlight ruby %}
+ERB_STAG = %w(<%= <%# <%)
+def is_erb_stag?(s)
+  ERB_STAG.member?(s)
+end
+
+def compile_stag(stag, out, scanner)
+  case stag
+  when PercentLine
+    add_put_cmd(out, content) if content.size > 0
+    self.content = +''
+    out.push(stag.to_s)
+    out.cr
+  when :cr
+    out.cr
+  when '<%', '<%=', '<%#'
+    scanner.stag = stag
+    add_put_cmd(out, content) if content.size > 0
+    self.content = +''
+  when "\n"
+    content << "\n"
+    add_put_cmd(out, content)
+    self.content = +''
+  when '<%%'
+    content << '<%'
+  else
+    content << stag
+  end
+end
+{% endhighlight %}
+
+因为要解析`erb`，所有的都是字符串`ERB`底层非常灵性的使用`eval`执行`ruby`代码
+
+更多操作可以看`ruby元编程`
