@@ -76,6 +76,6 @@ def compile_stag(stag, out, scanner)
 end
 {% endhighlight %}
 
-因为要解析`erb`，所有的都是字符串`ERB`底层非常灵性的使用`eval`执行`ruby`代码
+因为要解析`erb`，erb中的代码传到`ruby`中都是字符串,`ERB`底层非常灵性的使用`eval`解析字符串，运行`ruby`代码
 
 更多操作可以看`ruby元编程`
