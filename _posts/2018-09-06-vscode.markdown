@@ -1,7 +1,148 @@
 ---
 layout: post
-title:  "vscode搭建ruby IDE"
+title:  "vscode搭建ruby IDE（mac os）"
 date:   2018-09-06 20:20:22 +0800
 categories:
 ---
+首先下载[`vscode`](https://code.visualstudio.com)，安装
+
+- #### 1. 安装扩展
+
+`command + shift + p` 安装扩展，搜索ruby，安装[ruby扩展](https://github.com/rubyide/vscode-ruby)，并且启用
+
+- #### 2. 运行项目
+
+ 打开rails项目，`command + shift + d`, 设置`launch.json`,我的配置如下：
+{% highlight ruby %}
+{
+    // 使用 IntelliSense 了解相关属性。
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Local File",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/main.rb",
+        },
+        {
+            "name": "Rails server",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/bin/rails",
+        }
+    ]
+}
+{% endhighlight %}
+然后运行，报如下错误：
+{% highlight ruby %}
+Ignoring websocket-driver-0.7.0 because its extensions are not built.  Try: gem pristine websocket-driver --version 0.7.0
+Ignoring websocket-driver-0.6.5 because its extensions are not built.  Try: gem pristine websocket-driver --version 0.6.5
+/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:120:in `require': cannot load such file -- debase (LoadError)
+	from /System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:120:in `require'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/gems/ruby-debug-ide-0.6.1/lib/ruby-debug-ide.rb:9:in `<top (required)>'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/gems/ruby-debug-ide-0.6.1/bin/rdebug-ide:8:in `require_relative'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/gems/ruby-debug-ide-0.6.1/bin/rdebug-ide:8:in `<top (required)>'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/bin/rdebug-ide:26:in `load'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/bin/rdebug-ide:26:in `<main>'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/bin/ruby_executable_hooks:24:in `eval'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/bin/ruby_executable_hooks:24:in `<main>'
+{% endhighlight %}
+
+- #### 3. 开始找问题
+
+我的终端运行`rails s`没有问题，再`vscode`的终端设置`rvm`的`ruby`版本，然后`rails s`也没问题，
+很奇怪，然后我关掉`vscode`终端，在打开，输入`ruby -v`，如下：
+
+{% highlight ruby %}
+niejingfadeMacBook-Pro% ruby -v
+ruby 2.3.7p456 (2018-03-28 revision 63024) [universal.x86_64-darwin17]
+niejingfadeMacBook-Pro% rvm list
+   ruby-2.1.4 [ x86_64 ]
+=* ruby-2.5.1 [ x86_64 ]
+
+# => - current
+# =* - current && default
+#  * - default
+{% endhighlight %}
+
+- #### 4. 分析问题
+
+我的`rvm`里没有2.3.7的`ruby`版本，怎么`vscode`使用的是我本地没有的版本呢？
+原来是mac系统自带的`ruby`版本，并没有放入`rvm`中。
+
+- #### 5. 解决问题
+
+要`vscode`加载我的`rvm`，并且用里面的`ruby`版本
+
+在`github`中找到配置的资料，详情请看[这里](https://github.com/rubyide/vscode-ruby/issues/214#issuecomment-393111908)
+在终端输入以下命令：
+{% highlight ruby %}
+printf "\n\"env\": {\n  \"PATH\": \"$PATH\",\n  \"GEM_HOME\": \"$GEM_HOME\",\n  \"GEM_PATH\": \"$GEM_PATH\",\n  \"RUBY_VERSION\": \"$RUBY_VERSION\"\n}\n\n"
+{% endhighlight %}
+得到我的`rvm`环境路径和ruby环境路径：
+{% highlight ruby %}
+niejingfadeMacBook-Pro% printf "\n\"env\": {\n  \"PATH\": \"$PATH\",\n  \"GEM_HOME\": \"$GEM_HOME\",\n  \"GEM_PATH\": \"$GEM_PATH\",\n  \"RUBY_VERSION\": \"$RUBY_VERSION\"\n}\n\n"
+
+"env": {
+  "PATH": "/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global/bin:/Users/niejingfa/.rvm/rubies/ruby-2.5.1/bin:/Users/niejingfa/.rvm/bin:/bin:/usr/bin:/usr/local/bin:/usr/local/opt/sqlite/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/sqlite/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/usr/local/opt/mysql@5.7/bin:/usr/local/etc",
+  "GEM_HOME": "/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine",
+  "GEM_PATH": "/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global",
+  "RUBY_VERSION": "ruby-2.5.1"
+}
+{% endhighlight %}
+然后把这个配置加入launch.json中，就可以快乐的debug和运行了
+
+----------
+
+
+#### 我的launch.json配置：
+
+{% highlight ruby %}
+{
+    // 使用 IntelliSense 了解相关属性。
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Local File",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/main.rb",
+            "env": {
+                "PATH": "/bin:/usr/bin:/usr/local/bin:/usr/local/opt/sqlite/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global/bin:/Users/niejingfa/.rvm/rubies/ruby-2.5.1/bin:/Users/niejingfa/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/sqlite/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/Users/niejingfa/.rvm/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc",
+                "GEM_HOME": "/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine",
+                "GEM_PATH": "/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global",
+                "RUBY_VERSION": "ruby-2.5.1"
+              }
+        },
+        {
+            "name": "Rails server",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/bin/rails",
+            "args": [
+                "server"
+            ],
+            "env": {
+                "PATH": "/bin:/usr/bin:/usr/local/bin:/usr/local/opt/sqlite/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global/bin:/Users/niejingfa/.rvm/rubies/ruby-2.5.1/bin:/Users/niejingfa/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/sqlite/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/Users/niejingfa/.rvm/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc",
+                "GEM_HOME": "/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine",
+                "GEM_PATH": "/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global",
+                "RUBY_VERSION": "ruby-2.5.1"
+              }
+        }
+    ]
+}
+{% endhighlight %}
+
+
+
+
+
 
