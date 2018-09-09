@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "vscode搭建ruby IDE（mac os）"
-date:   2018-09-06 20:20:22 +0800
+date:   2018-09-09 17:44:22 +0800
 categories:
 ---
 首先下载[`vscode`](https://code.visualstudio.com)，安装
