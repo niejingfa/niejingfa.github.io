@@ -1,0 +1,16 @@
+js代码如下：
+关闭窗口，点击事件会使当前窗口close
+```ruby
+$(".btn-close-ask-why-delay-dialog").click ->
+    $target = $("#ask_why_delay_div")
+    $target.dialog("close")
+```
+
+有些时候js加载在页面局部块`.btn-close-ask-why-delay-dialog`的前面，如果再想执行这段js，就会报错，可以使用`delegate`
+使用 delegate() 方法的事件处理程序适用于当前或未来的元素,代码如下：
+
+```ruby
+$(document).delegate '.btn-close-ask-why-delay-dialog', 'click', ->
+    $target = $("#ask_why_delay_div")
+    $target.dialog("close")
+```
