@@ -1,3 +1,9 @@
+---
+layout: post
+title:  "delegate 处理程序适用于当前或未来的元素"
+date:   2018-10-22 09:33:22 +0800
+categories:
+---
 js代码如下：
 关闭窗口，点击事件会使当前窗口close
 ```ruby
