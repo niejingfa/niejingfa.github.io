@@ -10,6 +10,11 @@ categories:
 
 `command + shift + p` 安装扩展，搜索ruby，安装[ruby扩展](https://github.com/rubyide/vscode-ruby)，并且启用
 
+```ruby
+If you are using Ruby v2.x
+gem install ruby-debug-ide -v 0.4.32 or higher versions
+gem install debase -v 0.2.1 or higher versions
+```
 - #### 2. 运行项目
 
  打开rails项目，`command + shift + d`, 设置`launch.json`,我的配置如下：
