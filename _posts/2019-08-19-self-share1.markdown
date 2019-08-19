@@ -1,0 +1,72 @@
+---
+layout: post
+title:  "个人小结"
+date:   2019-08-19 16:36:22 +0800
+categories:
+---
+
+- #### 1. Rails 5 取 旧的 oracle datetime 类型数据， 取出来会变成 date 类型
+
+  - 官方推荐 还是跑[migrate](https://github.com/rsim/oracle-enhanced/blob/master/README.md)
+{% highlight ruby %}
+  Upgrade Rails 4.2 or older version to Rails 5
+  If your Oracle table columns have been created for Rails :datetime attributes in Rails 4.2 or earlier, they need to migrate to :datetime in Rails 5 using one of two following ways:
+
+  Rails migration code example:
+    change_column :posts, :created_at, :datetime
+    change_column :posts, :updated_at, :datetime
+  or
+
+  SQL statement example
+    ALTER TABLE "POSTS" MODIFY "CREATED_AT" TIMESTAMP
+    ALTER TABLE "POSTS" MODIFY "UPDATED_AT" TIMESTAMP
+  In Rails 5 without running this migration or sql statement, these attributes will be handled as Rails :date type.
+{% endhighlight %}
+
+  - 不需要改数据类型
+    在 `model` 里加：
+      {% highlight ruby %}  attribute :created_at :datetime {% endhighlight ruby %}
+
+    存的时候 要存 Time.now.strftime('%Y%m%d%H%M%S')
+
+
+- #### 2. [rubyXL](https://github.com/weshatheleopard/rubyXL) 文件大的时候标记颜色很慢， 因为要把文件读到内存中再修改
+
+- #### 3. git 储藏
+
+  - 储藏当前分支修改的文件: {% highlight ruby %} git stash -u {% endhighlight ruby %}
+
+  - 恢复最后一个储藏： {% highlight ruby %} git stash pop {% endhighlight ruby %}
+
+- #### 4. [annotate](https://github.com/ctran/annotate_models)  bundle exec annotate --with-comment 2.7.3 以上， 每次记不住这个命令，都要查询文档
+
+- #### 5. 项目类别加载很慢，减少命中数据库次数，一次读出来，然后在代码里做处理，[jb](https://github.com/amatsuda/jb/) gem  _.json.jb 循环 render模板也会消耗一些时间，循环次数太多，建议在一个 render模板代码里做处理
+
+- #### 6. 修改一个input 输入框提示文字的样式
+{% highlight ruby %} 
+.red-placeholder{
+  textarea::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #FFAEB9;
+  }
+
+  textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #FFAEB9;
+    opacity: 1;
+  }
+  textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #FFAEB9;
+    opacity: 1;
+  }
+  textarea:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #FFAEB9;
+  }
+}
+{% endhighlight ruby %}
+
+- #### 7. 正则表达式 [^a] 和 ?!a 有些不相同
+
+  - [^a] 不是 a 的 所有集合
+  - ?!a 不能含有 a 的 所有集合
+
+
+- #### 8. 类方法里定义实例变量为类实例变量，会缓存一段时间， 类加载的时候才会更新，一般需要重启才能更新
