@@ -1,0 +1,60 @@
+---
+layout: post
+title:  "个人小结2"
+date:   2019-08-19 18:16:22 +0800
+categories:
+---
+
+- #### 1. div 不支持失焦 聚焦(@blur, @focus) 使用 [v-click-outside](https://github.com/ndelvalle/v-click-outside)
+
+- #### 2. 不翻墙，访问 github 过慢， 安装 brew 过慢， 可以修改 sudo vi /etc/hosts
+{% highlight ruby %}
+  192.30.253.112    github.com
+  151.101.72.133    assets-cdn.github.com
+  151.101.193.194   github.global.ssl.fastly.net
+{% endhighlight %}
+
+- #### 3. brew install 软件很慢，更换镜像源, 我使用清华源
+{% highlight ruby %}
+  cd "$(brew --repo)"
+  git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+
+  cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+  git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+
+  brew update
+{% endhighlight %}
+
+- #### 4. node 版本控制工具 nvm, 项目中要用 node 版本必须为 10.16.0, 版本太高会有问题
+- #### 5. RccOrgAuth::RedisClient.sync 同步 auth 的 redis 数据，权限相关
+- #### 6. 配置 redis, vi /ect/hosts
+{% highlight ruby %}
+  127.0.0.1   cloud-service
+{% endhighlight %}
+
+- #### 7. vuejs 父子组件通信，父组件与子组件通信，子组件能不能修改父组件的传过来的参数，就再定义一个值 = 父组件参数， 然后修改使用，通过 this.$emit 更新 父组件参数
+
+- #### 8. oracle ORA-21561
+{% highlight ruby %}
+  OCIError: ORA-21561: 生成 OID 失败
+  from oci8.c:603:in oci8lib_250.bundle
+{% endhighlight %}
+  - - [解决方法：](https://github.com/joeferner/node-oracle/issues/47#issuecomment-38309484)
+  {% highlight ruby %}
+    $ echo "127.0.0.1 $(hostname)" | sudo tee -a /etc/hosts
+  {% endhighlight %}
+
+- #### 9. git stash 命令
+{% highlight ruby %}
+  git stash list //查看stash 列表
+  git stash drop stash@{0} //这是删除第一个队列
+{% endhighlight %}
+
+- #### 10. Jira 配置 dashboard
+```ruby
+10.1. 新建一个 filter(过滤器), 把你要查询的条件放进去， 比如： assignee = blank.nie AND status= DONE
+10.2. 新建一个 dashboard, 命一个名字
+10.3. Add a gadget， load all gadget，添加一个 Filter Results， 然后把你的 filter 添加进去，就好了
+```
+
+  
