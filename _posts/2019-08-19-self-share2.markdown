@@ -74,14 +74,13 @@ categories:
   # 在 lib/tasks/ 新建一个 listener.rake 文件
   namespace :listener do
     desc 'test'
-      # :environment 将告诉Rake加载整个应用程序环境，让相关任务访问类、helper等。如果没有:environment，您将无法使用任何这些附加功能
-      # reach 里面这样写 task :test => :environment
-      # rails 新项目可以这样写 task test: :environment
-      task :test => :environment do
-        $redis.subscribe('test') do |on|
-          on.message do |channel, msg|
-            p msg
-          end
+    # :environment 将告诉Rake加载整个应用程序环境，让相关任务访问类、helper等。如果没有:environment，您将无法使用任何这些附加功能
+    # reach 里面这样写 task :test => :environment
+    # rails 新项目可以这样写 task test: :environment
+    task :test => :environment do
+      $redis.subscribe('test') do |on|
+        on.message do |channel, msg|
+          p msg
         end
       end
     end
