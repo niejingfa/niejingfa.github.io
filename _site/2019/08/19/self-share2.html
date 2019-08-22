@@ -121,12 +121,46 @@
 <ul>
   <li>
     <h4 id="10-jira-配置-dashboard">10. Jira 配置 dashboard</h4>
-    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">10.1</span><span class="o">.</span> <span class="err">新建一个</span> <span class="n">filter</span><span class="p">(</span><span class="err">过滤器</span><span class="p">),</span> <span class="err">把你要查询的条件放进去，</span> <span class="err">比如：</span> <span class="n">assignee</span> <span class="o">=</span> <span class="n">blank</span><span class="p">.</span><span class="nf">nie</span> <span class="no">AND</span> <span class="n">status</span><span class="o">=</span> <span class="no">DONE</span>
-<span class="mf">10.2</span><span class="o">.</span> <span class="err">新建一个</span> <span class="n">dashboard</span><span class="p">,</span> <span class="err">命一个名字</span>
-<span class="mf">10.3</span><span class="o">.</span> <span class="no">Add</span> <span class="n">a</span> <span class="n">gadget</span><span class="err">，</span> <span class="nb">load</span> <span class="n">all</span> <span class="n">gadget</span><span class="err">，添加一个</span> <span class="no">Filter</span> <span class="no">Results</span><span class="err">，</span> <span class="err">然后把你的</span> <span class="n">filter</span> <span class="err">添加进去，就好了</span>
-</code></pre></div>    </div>
+  </li>
+  <li>10.1. 新建一个 filter(过滤器), 把你要查询的条件放进去， 比如： assignee = blank.nie AND status= DONE</li>
+  <li>10.2. 新建一个 dashboard, 命一个名字</li>
+  <li>
+    <p>10.3. Add a gadget， load all gadget，添加一个 Filter Results， 然后把你的 filter 添加进去，就好了</p>
+  </li>
+  <li>
+    <h4 id="11-redis-订阅发布-监听">11. redis 订阅发布 监听</h4>
   </li>
 </ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1"># 连接 redis</span>
+  <span class="vg">$redis</span> <span class="o">=</span> <span class="no">Redis</span><span class="p">.</span><span class="nf">new</span>
+  <span class="c1"># 发布</span>
+  <span class="vg">$redis</span><span class="p">.</span><span class="nf">instance</span><span class="p">.</span><span class="nf">publish</span><span class="p">(</span><span class="s1">'test'</span><span class="p">,</span> <span class="s1">'message'</span><span class="p">)</span>
+  <span class="c1"># 订阅</span>
+  <span class="vg">$redis</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s1">'test'</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">on</span><span class="o">|</span>
+    <span class="n">on</span><span class="p">.</span><span class="nf">message</span> <span class="k">do</span> <span class="o">|</span><span class="n">channel</span><span class="p">,</span> <span class="n">msg</span><span class="o">|</span>
+      <span class="nb">p</span> <span class="n">msg</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="c1"># 项目中开一个进程去监听</span>
+  <span class="c1"># 在 lib/tasks/ 新建一个 listener.rake 文件</span>
+  <span class="n">namespace</span> <span class="ss">:listener</span> <span class="k">do</span>
+    <span class="n">desc</span> <span class="s1">'test'</span>
+      <span class="c1"># :environment 将告诉Rake加载整个应用程序环境，让相关任务访问类、helper等。如果没有:environment，您将无法使用任何这些附加功能</span>
+      <span class="c1"># reach 里面这样写 task :test =&gt; :environment</span>
+      <span class="c1"># rails 新项目可以这样写 task test: :environment</span>
+      <span class="n">task</span> <span class="ss">:test</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
+        <span class="vg">$redis</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="s1">'test'</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">on</span><span class="o">|</span>
+          <span class="n">on</span><span class="p">.</span><span class="nf">message</span> <span class="k">do</span> <span class="o">|</span><span class="n">channel</span><span class="p">,</span> <span class="n">msg</span><span class="o">|</span>
+            <span class="nb">p</span> <span class="n">msg</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  <span class="c1"># 启监听</span>
+  <span class="n">rake</span> <span class="n">listener</span><span class="ss">:test</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/2019/08/19/self-share2.html" hidden></a>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-19T18:33:35+08:00</updated><id>http://localhost:4000/</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">个人小结2</title><link href="http://localhost:4000/2019/08/19/self-share2.html" rel="alternate" type="text/html" title="个人小结2" /><published>2019-08-19T18:16:22+08:00</published><updated>2019-08-19T18:16:22+08:00</updated><id>http://localhost:4000/2019/08/19/self-share2</id><content type="html" xml:base="http://localhost:4000/2019/08/19/self-share2.html">&lt;ul&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-22T16:55:53+08:00</updated><id>http://localhost:4000/</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">个人小结2</title><link href="http://localhost:4000/2019/08/19/self-share2.html" rel="alternate" type="text/html" title="个人小结2" /><published>2019-08-19T18:16:22+08:00</published><updated>2019-08-19T18:16:22+08:00</updated><id>http://localhost:4000/2019/08/19/self-share2</id><content type="html" xml:base="http://localhost:4000/2019/08/19/self-share2.html">&lt;ul&gt;
   &lt;li&gt;
     &lt;h4 id=&quot;1-div-不支持失焦-聚焦blur-focus-使用-v-click-outside&quot;&gt;1. div 不支持失焦 聚焦(@blur, @focus) 使用 &lt;a href=&quot;https://github.com/ndelvalle/v-click-outside&quot;&gt;v-click-outside&lt;/a&gt;&lt;/h4&gt;
   &lt;/li&gt;
@@ -74,12 +74,46 @@
 &lt;ul&gt;
   &lt;li&gt;
     &lt;h4 id=&quot;10-jira-配置-dashboard&quot;&gt;10. Jira 配置 dashboard&lt;/h4&gt;
-    &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mf&quot;&gt;10.1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;新建一个&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;过滤器&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;把你要查询的条件放进去，&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;比如：&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;assignee&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;nie&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DONE&lt;/span&gt;
-&lt;span class=&quot;mf&quot;&gt;10.2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;新建一个&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dashboard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;命一个名字&lt;/span&gt;
-&lt;span class=&quot;mf&quot;&gt;10.3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gadget&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gadget&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，添加一个&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Filter&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Results&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;然后把你的&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;添加进去，就好了&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">1. div 不支持失焦 聚焦(@blur, @focus) 使用 v-click-outside</summary></entry><entry><title type="html">个人小结1</title><link href="http://localhost:4000/2019/08/19/self-share1.html" rel="alternate" type="text/html" title="个人小结1" /><published>2019-08-19T16:36:22+08:00</published><updated>2019-08-19T16:36:22+08:00</updated><id>http://localhost:4000/2019/08/19/self-share1</id><content type="html" xml:base="http://localhost:4000/2019/08/19/self-share1.html">&lt;ul&gt;
+  &lt;li&gt;10.1. 新建一个 filter(过滤器), 把你要查询的条件放进去， 比如： assignee = blank.nie AND status= DONE&lt;/li&gt;
+  &lt;li&gt;10.2. 新建一个 dashboard, 命一个名字&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;10.3. Add a gadget， load all gadget，添加一个 Filter Results， 然后把你的 filter 添加进去，就好了&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;11-redis-订阅发布-监听&quot;&gt;11. redis 订阅发布 监听&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;  &lt;span class=&quot;c1&quot;&gt;# 连接 redis&lt;/span&gt;
+  &lt;span class=&quot;vg&quot;&gt;$redis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Redis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# 发布&lt;/span&gt;
+  &lt;span class=&quot;vg&quot;&gt;$redis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'test'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'message'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# 订阅&lt;/span&gt;
+  &lt;span class=&quot;vg&quot;&gt;$redis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'test'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# 项目中开一个进程去监听&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# 在 lib/tasks/ 新建一个 listener.rake 文件&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:listener&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test'&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# :environment 将告诉Rake加载整个应用程序环境，让相关任务访问类、helper等。如果没有:environment，您将无法使用任何这些附加功能&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# reach 里面这样写 task :test =&amp;gt; :environment&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# rails 新项目可以这样写 task test: :environment&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:environment&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+        &lt;span class=&quot;vg&quot;&gt;$redis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'test'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+            &lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# 启监听&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rake&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;listener&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:test&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">1. div 不支持失焦 聚焦(@blur, @focus) 使用 v-click-outside</summary></entry><entry><title type="html">个人小结1</title><link href="http://localhost:4000/2019/08/19/self-share1.html" rel="alternate" type="text/html" title="个人小结1" /><published>2019-08-19T16:36:22+08:00</published><updated>2019-08-19T16:36:22+08:00</updated><id>http://localhost:4000/2019/08/19/self-share1</id><content type="html" xml:base="http://localhost:4000/2019/08/19/self-share1.html">&lt;ul&gt;
   &lt;li&gt;
     &lt;h4 id=&quot;1-rails-5-取-旧的-oracle-datetime-类型数据-取出来会变成-date-类型&quot;&gt;1. Rails 5 取 旧的 oracle datetime 类型数据， 取出来会变成 date 类型&lt;/h4&gt;
 

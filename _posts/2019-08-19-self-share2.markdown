@@ -51,10 +51,43 @@ categories:
 {% endhighlight %}
 
 - #### 10. Jira 配置 dashboard
-```ruby
-10.1. 新建一个 filter(过滤器), 把你要查询的条件放进去， 比如： assignee = blank.nie AND status= DONE
-10.2. 新建一个 dashboard, 命一个名字
-10.3. Add a gadget， load all gadget，添加一个 Filter Results， 然后把你的 filter 添加进去，就好了
-```
+
+- 10.1. 新建一个 filter(过滤器), 把你要查询的条件放进去， 比如： assignee = blank.nie AND status= DONE
+- 10.2. 新建一个 dashboard, 命一个名字
+- 10.3. Add a gadget， load all gadget，添加一个 Filter Results， 然后把你的 filter 添加进去，就好了
+
+- #### 11. redis 订阅发布 监听
+
+{% highlight ruby %}
+  # 连接 redis
+  $redis = Redis.new
+  # 发布
+  $redis.instance.publish('test', 'message')
+  # 订阅
+  $redis.subscribe('test') do |on|
+    on.message do |channel, msg|
+      p msg
+    end
+  end
+
+  # 项目中开一个进程去监听
+  # 在 lib/tasks/ 新建一个 listener.rake 文件
+  namespace :listener do
+    desc 'test'
+      # :environment 将告诉Rake加载整个应用程序环境，让相关任务访问类、helper等。如果没有:environment，您将无法使用任何这些附加功能
+      # reach 里面这样写 task :test => :environment
+      # rails 新项目可以这样写 task test: :environment
+      task :test => :environment do
+        $redis.subscribe('test') do |on|
+          on.message do |channel, msg|
+            p msg
+          end
+        end
+      end
+    end
+  end
+  # 启监听
+  rake listener:test
+{% endhighlight %}
 
   
