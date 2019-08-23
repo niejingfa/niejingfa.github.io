@@ -59,7 +59,7 @@ categories:
 - #### 11. redis 订阅发布 监听
 
 {% highlight ruby %}
-  # 连接 redis
+  # 连接 redis 默认连接的 host: 127.0.0.1  post: 6379
   $redis = Redis.new
   # 发布
   $redis.instance.publish('test', 'message')

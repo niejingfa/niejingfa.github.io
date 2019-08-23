@@ -132,7 +132,7 @@
   </li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1"># 连接 redis</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1"># 连接 redis 默认连接的 host: 127.0.0.1  post: 6379</span>
   <span class="vg">$redis</span> <span class="o">=</span> <span class="no">Redis</span><span class="p">.</span><span class="nf">new</span>
   <span class="c1"># 发布</span>
   <span class="vg">$redis</span><span class="p">.</span><span class="nf">instance</span><span class="p">.</span><span class="nf">publish</span><span class="p">(</span><span class="s1">'test'</span><span class="p">,</span> <span class="s1">'message'</span><span class="p">)</span>
