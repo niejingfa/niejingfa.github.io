@@ -38,7 +38,7 @@ categories:
 
   - 恢复最后一个储藏： {% highlight ruby %} git stash pop {% endhighlight ruby %}
 
-- #### 4. [annotate](https://github.com/ctran/annotate_models)  bundle exec annotate --with-comment 2.7.3 以上， 每次记不住这个命令，都要查询文档
+- #### 4. [annotate](https://github.com/ctran/annotate_models)  bundle exec annotate --with-comment 2.7.3 以上， 每次记不住这个命令，都要查询文档 ------ bundle exec annotate -I, --with-comment 2.7.5 以上
 
 - #### 5. 项目类别加载很慢，减少命中数据库次数，一次读出来，然后在代码里做处理，[jb](https://github.com/amatsuda/jb/) gem  _.json.jb 循环 render模板也会消耗一些时间，循环次数太多，建议在一个 render模板代码里做处理
 
