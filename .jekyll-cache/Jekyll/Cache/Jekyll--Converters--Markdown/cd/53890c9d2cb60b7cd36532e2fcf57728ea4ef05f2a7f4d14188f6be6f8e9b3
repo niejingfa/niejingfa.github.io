@@ -1,0 +1,8 @@
+I"�<ul>
+  <li>区别：
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>`rmagick` 有内存泄漏的问题
+用 `minimagick` 代替 `rmagick`
+</code></pre></div>    </div>
+  </li>
+</ul>
+:ET

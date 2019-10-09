@@ -1,0 +1,5 @@
+I"�<p>在<code class="highlighter-rouge">rails erb</code>文件中嵌入<code class="highlighter-rouge">ruby</code>代码，举个例子：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vi">@a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;&lt;</span><span class="sx">%= @a %&gt;&lt;/div&gt;</span></code></pre></figure>
+:ET

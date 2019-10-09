@@ -4,7 +4,7 @@ title: 关于我
 permalink: /about/
 ---
 
-### ruby程序员
+### ruby and vuejs programmer
 
 ### github联系我：[blank](https://github.com/niejingfa)
 

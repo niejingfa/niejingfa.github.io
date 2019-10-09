@@ -1,0 +1,97 @@
+I"�<ul>
+  <li>
+    <h4 id="1-rails-5-取-旧的-oracle-datetime-类型数据-取出来会变成-date-类型">1. Rails 5 取 旧的 oracle datetime 类型数据， 取出来会变成 date 类型</h4>
+
+    <ul>
+      <li>官方推荐 还是跑<a href="https://github.com/rsim/oracle-enhanced/blob/master/README.md">migrate</a></li>
+    </ul>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="no">Upgrade</span> <span class="no">Rails</span> <span class="mf">4.2</span> <span class="n">or</span> <span class="n">older</span> <span class="n">version</span> <span class="n">to</span> <span class="no">Rails</span> <span class="mi">5</span>
+  <span class="no">If</span> <span class="n">your</span> <span class="no">Oracle</span> <span class="n">table</span> <span class="n">columns</span> <span class="n">have</span> <span class="n">been</span> <span class="n">created</span> <span class="k">for</span> <span class="no">Rails</span> <span class="ss">:datetime</span> <span class="n">attributes</span> <span class="k">in</span> <span class="no">Rails</span> <span class="mf">4.2</span> <span class="n">or</span> <span class="n">earlier</span><span class="p">,</span> <span class="n">they</span> <span class="n">need</span> <span class="n">to</span> <span class="n">migrate</span> <span class="n">to</span> <span class="ss">:datetime</span> <span class="k">in</span> <span class="no">Rails</span> <span class="mi">5</span> <span class="n">using</span> <span class="n">one</span> <span class="n">of</span> <span class="n">two</span> <span class="n">following</span> <span class="ss">ways:
+
+  </span><span class="no">Rails</span> <span class="n">migration</span> <span class="n">code</span> <span class="ss">example:
+    </span><span class="n">change_column</span> <span class="ss">:posts</span><span class="p">,</span> <span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:datetime</span>
+    <span class="n">change_column</span> <span class="ss">:posts</span><span class="p">,</span> <span class="ss">:updated_at</span><span class="p">,</span> <span class="ss">:datetime</span>
+  <span class="n">or</span>
+
+  <span class="no">SQL</span> <span class="n">statement</span> <span class="n">example</span>
+    <span class="no">ALTER</span> <span class="no">TABLE</span> <span class="s2">"POSTS"</span> <span class="no">MODIFY</span> <span class="s2">"CREATED_AT"</span> <span class="no">TIMESTAMP</span>
+    <span class="no">ALTER</span> <span class="no">TABLE</span> <span class="s2">"POSTS"</span> <span class="no">MODIFY</span> <span class="s2">"UPDATED_AT"</span> <span class="no">TIMESTAMP</span>
+  <span class="no">In</span> <span class="no">Rails</span> <span class="mi">5</span> <span class="n">without</span> <span class="n">running</span> <span class="n">this</span> <span class="n">migration</span> <span class="n">or</span> <span class="n">sql</span> <span class="n">statement</span><span class="p">,</span> <span class="n">these</span> <span class="n">attributes</span> <span class="n">will</span> <span class="n">be</span> <span class="n">handled</span> <span class="n">as</span> <span class="no">Rails</span> <span class="ss">:date</span> <span class="n">type</span><span class="o">.</span></code></pre></figure>
+
+<ul>
+  <li>不需要改数据类型
+在 <code class="highlighter-rouge">model</code> 里加：</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="n">attribute</span> <span class="ss">:created_at</span> <span class="ss">:datetime</span> </code></pre></figure>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>存的时候 要存 Time.now.strftime('%Y%m%d%H%M%S')
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <h4 id="2-rubyxl-文件大的时候标记颜色很慢-因为要把文件读到内存中再修改">2. <a href="https://github.com/weshatheleopard/rubyXL">rubyXL</a> 文件大的时候标记颜色很慢， 因为要把文件读到内存中再修改</h4>
+  </li>
+  <li>
+    <h4 id="3-git-储藏">3. git 储藏</h4>
+
+    <ul>
+      <li>储藏当前分支修改的文件:</li>
+    </ul>
+  </li>
+</ul>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"> <span class="n">git</span> <span class="n">stash</span> <span class="o">-</span><span class="n">u</span> </code></pre></figure>
+
+<ul>
+  <li>恢复最后一个储藏：</li>
+</ul>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"> <span class="n">git</span> <span class="n">stash</span> <span class="n">pop</span> </code></pre></figure>
+
+<ul>
+  <li>
+    <h4 id="4-annotate--bundle-exec-annotate-with-comment-273-以上-每次记不住这个命令都要查询文档--bundle-exec-annotate--i-with-comment-275-以上">4. <a href="https://github.com/ctran/annotate_models">annotate</a>  bundle exec annotate –with-comment 2.7.3 以上， 每次记不住这个命令，都要查询文档 —— bundle exec annotate -I, –with-comment 2.7.5 以上</h4>
+  </li>
+  <li>
+    <h4 id="5-项目类别加载很慢减少命中数据库次数一次读出来然后在代码里做处理jb-gem--_jsonjb-循环-render模板也会消耗一些时间循环次数太多建议在一个-render模板代码里做处理">5. 项目类别加载很慢，减少命中数据库次数，一次读出来，然后在代码里做处理，<a href="https://github.com/amatsuda/jb/">jb</a> gem  _.json.jb 循环 render模板也会消耗一些时间，循环次数太多，建议在一个 render模板代码里做处理</h4>
+  </li>
+  <li>
+    <h4 id="6-修改一个input-输入框提示文字的样式">6. 修改一个input 输入框提示文字的样式</h4>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"> 
+<span class="p">.</span><span class="nf">red</span><span class="o">-</span><span class="n">placeholder</span><span class="p">{</span>
+  <span class="n">textarea</span><span class="o">::-</span><span class="n">webkit</span><span class="o">-</span><span class="n">input</span><span class="o">-</span><span class="n">placeholder</span> <span class="p">{</span> <span class="sr">/* WebKit, Blink, Edge */</span>
+    <span class="ss">color: </span><span class="c1">#FFAEB9;</span>
+  <span class="p">}</span>
+
+  <span class="n">textarea</span><span class="p">:</span><span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">placeholder</span> <span class="p">{</span> <span class="sr">/* Mozilla Firefox 4 to 18 */</span>
+    <span class="ss">color: </span><span class="c1">#FFAEB9;</span>
+    <span class="ss">opacity: </span><span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">textarea</span><span class="o">::-</span><span class="n">moz</span><span class="o">-</span><span class="n">placeholder</span> <span class="p">{</span> <span class="sr">/* Mozilla Firefox 19+ */</span>
+    <span class="ss">color: </span><span class="c1">#FFAEB9;</span>
+    <span class="ss">opacity: </span><span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">textarea</span><span class="p">:</span><span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">input</span><span class="o">-</span><span class="n">placeholder</span> <span class="p">{</span> <span class="sr">/* Internet Explorer 10-11 */</span>
+    <span class="ss">color: </span><span class="c1">#FFAEB9;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>
+    <h4 id="7-正则表达式-a-和-a-有些不相同">7. 正则表达式 [^a] 和 ?!a 有些不相同</h4>
+
+    <ul>
+      <li>[^a] 不是 a 的 所有集合</li>
+      <li>?!a 不能含有 a 的 所有集合</li>
+    </ul>
+  </li>
+  <li>
+    <h4 id="8-类方法里定义实例变量为类实例变量会缓存一段时间-类加载的时候才会更新一般需要重启才能更新">8. 类方法里定义实例变量为类实例变量，会缓存一段时间， 类加载的时候才会更新，一般需要重启才能更新</h4>
+  </li>
+</ul>
+:ET

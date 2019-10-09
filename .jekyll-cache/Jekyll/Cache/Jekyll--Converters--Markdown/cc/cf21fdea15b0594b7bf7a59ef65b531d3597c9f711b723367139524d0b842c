@@ -1,0 +1,19 @@
+I"�<ol>
+  <li>区别：
+    <ul>
+      <li><code class="highlighter-rouge">rmagick</code> 有内存泄漏的问题</li>
+      <li>用 <code class="highlighter-rouge">minimagick</code> 代替 <code class="highlighter-rouge">rmagick</code></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">rmagick</code> 用法以及问题
+    <ul>
+      <li>
+        <h4 id="在-ubuntu-下-安装">在 <code class="highlighter-rouge">Ubuntu</code> 下, 安装：</h4>
+        <p>sudo apt-get install libmagickwand-dev</p>
+      </li>
+      <li>在 <code class="highlighter-rouge">Ubuntu</code> 下, 安装：<br />
+ sudo apt-get install libmagickwand-dev</li>
+    </ul>
+  </li>
+</ol>
+:ET

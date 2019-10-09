@@ -1,0 +1,15 @@
+I"5<p>js代码如下：
+关闭窗口，点击事件会使当前窗口close</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span><span class="p">(</span><span class="s2">".btn-close-ask-why-delay-dialog"</span><span class="p">).</span><span class="nf">click</span> <span class="o">-&gt;</span>
+    <span class="vg">$target</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="s2">"#ask_why_delay_div"</span><span class="p">)</span>
+    <span class="vg">$target</span><span class="p">.</span><span class="nf">dialog</span><span class="p">(</span><span class="s2">"close"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>有些时候js加载在页面局部块<code class="highlighter-rouge">.btn-close-ask-why-delay-dialog</code>的前面，如果再想执行这段js，就会报错，可以使用<code class="highlighter-rouge">delegate</code>
+使用 delegate() 方法的事件处理程序适用于当前或未来的元素,代码如下：</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span><span class="p">(</span><span class="n">document</span><span class="p">).</span><span class="nf">delegate</span> <span class="s1">'.btn-close-ask-why-delay-dialog'</span><span class="p">,</span> <span class="s1">'click'</span><span class="p">,</span> <span class="o">-&gt;</span>
+    <span class="vg">$target</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="s2">"#ask_why_delay_div"</span><span class="p">)</span>
+    <span class="vg">$target</span><span class="p">.</span><span class="nf">dialog</span><span class="p">(</span><span class="s2">"close"</span><span class="p">)</span>
+</code></pre></div></div>
+:ET

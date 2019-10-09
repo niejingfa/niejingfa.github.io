@@ -1,0 +1,156 @@
+I"xU<p>首先下载<a href="https://code.visualstudio.com"><code class="highlighter-rouge">vscode</code></a>，安装</p>
+
+<ul>
+  <li>
+    <h4 id="1-安装扩展">1. 安装扩展</h4>
+  </li>
+</ul>
+
+<p><code class="highlighter-rouge">command + shift + p</code> 安装扩展，搜索ruby，安装<a href="https://github.com/rubyide/vscode-ruby">ruby扩展</a>，并且启用</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="no">Ruby</span> <span class="n">v2</span><span class="p">.</span><span class="nf">x</span>
+<span class="n">gem</span> <span class="n">install</span> <span class="n">ruby</span><span class="o">-</span><span class="n">debug</span><span class="o">-</span><span class="n">ide</span> <span class="o">-</span><span class="n">v</span> <span class="mf">0.4</span><span class="o">.</span><span class="mi">32</span> <span class="n">or</span> <span class="n">higher</span> <span class="n">versions</span>
+<span class="n">gem</span> <span class="n">install</span> <span class="n">debase</span> <span class="o">-</span><span class="n">v</span> <span class="mf">0.2</span><span class="o">.</span><span class="mi">1</span> <span class="n">or</span> <span class="n">higher</span> <span class="n">versions</span>
+</code></pre></div></div>
+<ul>
+  <li>
+    <h4 id="2-运行项目">2. 运行项目</h4>
+  </li>
+</ul>
+
+<p>打开rails项目，<code class="highlighter-rouge">command + shift + d</code>, 设置<code class="highlighter-rouge">launch.json</code>,我的配置如下：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">{</span>
+    <span class="sr">//</span> <span class="err">使用</span> <span class="no">IntelliSense</span> <span class="err">了解相关属性。</span>
+    <span class="sr">//</span> <span class="err">悬停以查看现有属性的描述。</span>
+    <span class="sr">//</span> <span class="err">欲了解更多信息，请访问</span><span class="p">:</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">go</span><span class="p">.</span><span class="nf">microsoft</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">fwlink</span><span class="o">/</span><span class="p">?</span><span class="n">linkid</span><span class="o">=</span><span class="mi">830387</span>
+    <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"0.2.0"</span><span class="p">,</span>
+    <span class="s2">"configurations"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Debug Local File"</span><span class="p">,</span>
+            <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Ruby"</span><span class="p">,</span>
+            <span class="s2">"request"</span><span class="p">:</span> <span class="s2">"launch"</span><span class="p">,</span>
+            <span class="s2">"cwd"</span><span class="p">:</span> <span class="s2">"${workspaceRoot}"</span><span class="p">,</span>
+            <span class="s2">"program"</span><span class="p">:</span> <span class="s2">"${workspaceRoot}/main.rb"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Rails server"</span><span class="p">,</span>
+            <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Ruby"</span><span class="p">,</span>
+            <span class="s2">"request"</span><span class="p">:</span> <span class="s2">"launch"</span><span class="p">,</span>
+            <span class="s2">"cwd"</span><span class="p">:</span> <span class="s2">"${workspaceRoot}"</span><span class="p">,</span>
+            <span class="s2">"program"</span><span class="p">:</span> <span class="s2">"${workspaceRoot}/bin/rails"</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>然后运行，报如下错误：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Ignoring</span> <span class="n">websocket</span><span class="o">-</span><span class="n">driver</span><span class="o">-</span><span class="mf">0.7</span><span class="o">.</span><span class="mi">0</span> <span class="n">because</span> <span class="n">its</span> <span class="n">extensions</span> <span class="n">are</span> <span class="n">not</span> <span class="n">built</span><span class="o">.</span>  <span class="no">Try</span><span class="p">:</span> <span class="n">gem</span> <span class="n">pristine</span> <span class="n">websocket</span><span class="o">-</span><span class="n">driver</span> <span class="o">--</span><span class="n">version</span> <span class="mf">0.7</span><span class="o">.</span><span class="mi">0</span>
+<span class="no">Ignoring</span> <span class="n">websocket</span><span class="o">-</span><span class="n">driver</span><span class="o">-</span><span class="mf">0.6</span><span class="o">.</span><span class="mi">5</span> <span class="n">because</span> <span class="n">its</span> <span class="n">extensions</span> <span class="n">are</span> <span class="n">not</span> <span class="n">built</span><span class="o">.</span>  <span class="no">Try</span><span class="p">:</span> <span class="n">gem</span> <span class="n">pristine</span> <span class="n">websocket</span><span class="o">-</span><span class="n">driver</span> <span class="o">--</span><span class="n">version</span> <span class="mf">0.6</span><span class="o">.</span><span class="mi">5</span>
+<span class="sr">/System/</span><span class="no">Library</span><span class="o">/</span><span class="no">Frameworks</span><span class="o">/</span><span class="no">Ruby</span><span class="p">.</span><span class="nf">framework</span><span class="o">/</span><span class="no">Versions</span><span class="o">/</span><span class="mf">2.3</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="mf">2.3</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">rubygems</span><span class="o">/</span><span class="n">core_ext</span><span class="o">/</span><span class="n">kernel_require</span><span class="p">.</span><span class="nf">rb</span><span class="p">:</span><span class="mi">120</span><span class="ss">:in</span> <span class="sb">`require': cannot load such file -- debase (LoadError)
+	from /System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:120:in `</span><span class="nb">require</span><span class="s1">'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/gems/ruby-debug-ide-0.6.1/lib/ruby-debug-ide.rb:9:in `&lt;top (required)&gt;'</span>
+	<span class="n">from</span> <span class="sr">/Users/nie</span><span class="n">jingfa</span><span class="o">/</span><span class="p">.</span><span class="nf">rvm</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="n">debug</span><span class="o">-</span><span class="n">ide</span><span class="o">-</span><span class="mf">0.6</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">rdebug</span><span class="o">-</span><span class="n">ide</span><span class="p">:</span><span class="mi">8</span><span class="ss">:in</span> <span class="sb">`require_relative'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/gems/ruby-debug-ide-0.6.1/bin/rdebug-ide:8:in `</span><span class="o">&lt;</span><span class="n">top</span> <span class="p">(</span><span class="n">required</span><span class="p">)</span><span class="o">&gt;</span><span class="s1">'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/bin/rdebug-ide:26:in `load'</span>
+	<span class="n">from</span> <span class="sr">/Users/nie</span><span class="n">jingfa</span><span class="o">/</span><span class="p">.</span><span class="nf">rvm</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">rdebug</span><span class="o">-</span><span class="n">ide</span><span class="p">:</span><span class="mi">26</span><span class="ss">:in</span> <span class="sb">`&lt;main&gt;'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/bin/ruby_executable_hooks:24:in `</span><span class="nb">eval</span><span class="s1">'
+	from /Users/niejingfa/.rvm/gems/ruby-2.5.1/bin/ruby_executable_hooks:24:in `&lt;main&gt;'</span></code></pre></figure>
+
+<ul>
+  <li>
+    <h4 id="3-开始找问题">3. 开始找问题</h4>
+  </li>
+</ul>
+
+<p>我的终端运行<code class="highlighter-rouge">rails s</code>没有问题，再<code class="highlighter-rouge">vscode</code>的终端设置<code class="highlighter-rouge">rvm</code>的<code class="highlighter-rouge">ruby</code>版本，然后<code class="highlighter-rouge">rails s</code>也没问题，
+很奇怪，然后我关掉<code class="highlighter-rouge">vscode</code>终端，在打开，输入<code class="highlighter-rouge">ruby -v</code>，如下：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">niejingfadeMacBook</span><span class="o">-</span><span class="no">Pro</span><span class="o">%</span> <span class="n">ruby</span> <span class="o">-</span><span class="n">v</span>
+<span class="n">ruby</span> <span class="mf">2.3</span><span class="o">.</span><span class="mi">7</span><span class="n">p456</span> <span class="p">(</span><span class="mi">2018</span><span class="o">-</span><span class="mo">03</span><span class="o">-</span><span class="mi">28</span> <span class="n">revision</span> <span class="mi">63024</span><span class="p">)</span> <span class="p">[</span><span class="n">universal</span><span class="p">.</span><span class="nf">x86_64</span><span class="o">-</span><span class="n">darwin17</span><span class="p">]</span>
+<span class="n">niejingfadeMacBook</span><span class="o">-</span><span class="no">Pro</span><span class="o">%</span> <span class="n">rvm</span> <span class="n">list</span>
+   <span class="n">ruby</span><span class="o">-</span><span class="mf">2.1</span><span class="o">.</span><span class="mi">4</span> <span class="p">[</span> <span class="n">x86_64</span> <span class="p">]</span>
+<span class="o">=*</span> <span class="n">ruby</span><span class="o">-</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">1</span> <span class="p">[</span> <span class="n">x86_64</span> <span class="p">]</span>
+
+<span class="c1"># =&gt; - current</span>
+<span class="c1"># =* - current &amp;&amp; default</span>
+<span class="c1">#  * - default</span></code></pre></figure>
+
+<ul>
+  <li>
+    <h4 id="4-分析问题">4. 分析问题</h4>
+  </li>
+</ul>
+
+<p>我的<code class="highlighter-rouge">rvm</code>里没有2.3.7的<code class="highlighter-rouge">ruby</code>版本，怎么<code class="highlighter-rouge">vscode</code>使用的是我本地没有的版本呢？
+原来是mac系统自带的<code class="highlighter-rouge">ruby</code>版本，并没有放入<code class="highlighter-rouge">rvm</code>中。</p>
+
+<ul>
+  <li>
+    <h4 id="5-解决问题">5. 解决问题</h4>
+  </li>
+</ul>
+
+<p>要<code class="highlighter-rouge">vscode</code>加载我的<code class="highlighter-rouge">rvm</code>，并且用里面的<code class="highlighter-rouge">ruby</code>版本</p>
+
+<p>在<code class="highlighter-rouge">github</code>中找到配置的资料，详情请看<a href="https://github.com/rubyide/vscode-ruby/issues/214#issuecomment-393111908">这里</a>
+在终端输入以下命令：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">printf</span> <span class="s2">"</span><span class="se">\n\"</span><span class="s2">env</span><span class="se">\"</span><span class="s2">: {</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">PATH</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">$PATH</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">GEM_HOME</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">$GEM_HOME</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">GEM_PATH</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">$GEM_PATH</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">RUBY_VERSION</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">$RUBY_VERSION</span><span class="se">\"\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">"</span></code></pre></figure>
+
+<p>得到我的<code class="highlighter-rouge">rvm</code>环境路径和ruby环境路径：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">niejingfadeMacBook</span><span class="o">-</span><span class="no">Pro</span><span class="o">%</span> <span class="nb">printf</span> <span class="s2">"</span><span class="se">\n\"</span><span class="s2">env</span><span class="se">\"</span><span class="s2">: {</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">PATH</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">$PATH</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">GEM_HOME</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">$GEM_HOME</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">GEM_PATH</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">$GEM_PATH</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">RUBY_VERSION</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">$RUBY_VERSION</span><span class="se">\"\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">"</span>
+
+<span class="s2">"env"</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">"PATH"</span><span class="p">:</span> <span class="s2">"/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global/bin:/Users/niejingfa/.rvm/rubies/ruby-2.5.1/bin:/Users/niejingfa/.rvm/bin:/bin:/usr/bin:/usr/local/bin:/usr/local/opt/sqlite/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/sqlite/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/usr/local/opt/mysql@5.7/bin:/usr/local/etc"</span><span class="p">,</span>
+  <span class="s2">"GEM_HOME"</span><span class="p">:</span> <span class="s2">"/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine"</span><span class="p">,</span>
+  <span class="s2">"GEM_PATH"</span><span class="p">:</span> <span class="s2">"/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global"</span><span class="p">,</span>
+  <span class="s2">"RUBY_VERSION"</span><span class="p">:</span> <span class="s2">"ruby-2.5.1"</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>然后把这个配置加入launch.json中，就可以快乐的debug和运行了</p>
+
+<hr />
+
+<h4 id="我的launchjson配置">我的launch.json配置：</h4>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">{</span>
+    <span class="sr">//</span> <span class="err">使用</span> <span class="no">IntelliSense</span> <span class="err">了解相关属性。</span>
+    <span class="sr">//</span> <span class="err">悬停以查看现有属性的描述。</span>
+    <span class="sr">//</span> <span class="err">欲了解更多信息，请访问</span><span class="p">:</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">go</span><span class="p">.</span><span class="nf">microsoft</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">fwlink</span><span class="o">/</span><span class="p">?</span><span class="n">linkid</span><span class="o">=</span><span class="mi">830387</span>
+    <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"0.2.0"</span><span class="p">,</span>
+    <span class="s2">"configurations"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Debug Local File"</span><span class="p">,</span>
+            <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Ruby"</span><span class="p">,</span>
+            <span class="s2">"request"</span><span class="p">:</span> <span class="s2">"launch"</span><span class="p">,</span>
+            <span class="s2">"cwd"</span><span class="p">:</span> <span class="s2">"${workspaceRoot}"</span><span class="p">,</span>
+            <span class="s2">"program"</span><span class="p">:</span> <span class="s2">"${workspaceRoot}/main.rb"</span><span class="p">,</span>
+            <span class="s2">"env"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"PATH"</span><span class="p">:</span> <span class="s2">"/bin:/usr/bin:/usr/local/bin:/usr/local/opt/sqlite/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global/bin:/Users/niejingfa/.rvm/rubies/ruby-2.5.1/bin:/Users/niejingfa/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/sqlite/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/Users/niejingfa/.rvm/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc"</span><span class="p">,</span>
+                <span class="s2">"GEM_HOME"</span><span class="p">:</span> <span class="s2">"/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine"</span><span class="p">,</span>
+                <span class="s2">"GEM_PATH"</span><span class="p">:</span> <span class="s2">"/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global"</span><span class="p">,</span>
+                <span class="s2">"RUBY_VERSION"</span><span class="p">:</span> <span class="s2">"ruby-2.5.1"</span>
+              <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Rails server"</span><span class="p">,</span>
+            <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Ruby"</span><span class="p">,</span>
+            <span class="s2">"request"</span><span class="p">:</span> <span class="s2">"launch"</span><span class="p">,</span>
+            <span class="s2">"cwd"</span><span class="p">:</span> <span class="s2">"${workspaceRoot}"</span><span class="p">,</span>
+            <span class="s2">"program"</span><span class="p">:</span> <span class="s2">"${workspaceRoot}/bin/rails"</span><span class="p">,</span>
+            <span class="s2">"args"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"server"</span>
+            <span class="p">],</span>
+            <span class="s2">"env"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"PATH"</span><span class="p">:</span> <span class="s2">"/bin:/usr/bin:/usr/local/bin:/usr/local/opt/sqlite/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine/bin:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global/bin:/Users/niejingfa/.rvm/rubies/ruby-2.5.1/bin:/Users/niejingfa/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/sqlite/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/usr/local/opt/mysql@5.7/bin:/usr/local/etc:/Users/niejingfa/.rvm/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/etc"</span><span class="p">,</span>
+                <span class="s2">"GEM_HOME"</span><span class="p">:</span> <span class="s2">"/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine"</span><span class="p">,</span>
+                <span class="s2">"GEM_PATH"</span><span class="p">:</span> <span class="s2">"/Users/niejingfa/.rvm/gems/ruby-2.5.1@redmine:/Users/niejingfa/.rvm/gems/ruby-2.5.1@global"</span><span class="p">,</span>
+                <span class="s2">"RUBY_VERSION"</span><span class="p">:</span> <span class="s2">"ruby-2.5.1"</span>
+              <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></figure>
+
+:ET

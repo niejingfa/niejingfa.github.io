@@ -1,0 +1,9 @@
+I"d<ul>
+  <li>
+    <h3 id="1--使用-homebrew-安装-postgresql">1.  使用 Homebrew 安装 PostgreSQL</h3>
+    <p>安装</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="err">$</span> <span class="n">brew</span> <span class="n">install</span> <span class="n">postgres</span></code></pre></figure>
+:ET

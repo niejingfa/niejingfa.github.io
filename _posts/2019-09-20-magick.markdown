@@ -4,3 +4,10 @@ title:  "rmagick 和 minimagick 切图的使用"
 date:   2019-09-20 16:57:22 +0800
 categories:
 ---
+### 1. 区别：
+- #### `rmagick` 有内存泄漏的问题
+- #### 用 `minimagick` 代替 `rmagick`
+
+### 2. `rmagick` 用法以及问题
+- #### 在 `Ubuntu` 下, 安装：  
+    $ `sudo apt-get install libmagickwand-dev`

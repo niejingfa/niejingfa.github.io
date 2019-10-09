@@ -1,0 +1,18 @@
+I"�<h3 id="1-区别">1. 区别：</h3>
+<ul>
+  <li>
+    <h4 id="rmagick-有内存泄漏的问题"><code class="highlighter-rouge">rmagick</code> 有内存泄漏的问题</h4>
+  </li>
+  <li>
+    <h4 id="用-minimagick-代替-rmagick">用 <code class="highlighter-rouge">minimagick</code> 代替 <code class="highlighter-rouge">rmagick</code></h4>
+  </li>
+</ul>
+
+<h3 id="2-rmagick-用法以及问题">2. <code class="highlighter-rouge">rmagick</code> 用法以及问题</h3>
+<ul>
+  <li>
+    <h4 id="在-ubuntu-下-安装">在 <code class="highlighter-rouge">Ubuntu</code> 下, 安装：</h4>
+    <p>$ <code class="highlighter-rouge">sudo apt-get install libmagickwand-dev</code></p>
+  </li>
+</ul>
+:ET

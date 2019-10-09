@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-23T09:09:53+08:00</updated><id>http://localhost:4000/</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">个人小结2</title><link href="http://localhost:4000/2019/08/19/self-share2.html" rel="alternate" type="text/html" title="个人小结2" /><published>2019-08-19T18:16:22+08:00</published><updated>2019-08-19T18:16:22+08:00</updated><id>http://localhost:4000/2019/08/19/self-share2</id><content type="html" xml:base="http://localhost:4000/2019/08/19/self-share2.html">&lt;ul&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-08T17:04:04+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">rmagick 和 minimagick 切图的使用</title><link href="http://localhost:4000/2019/09/20/magick.html" rel="alternate" type="text/html" title="rmagick 和 minimagick 切图的使用" /><published>2019-09-20T16:57:22+08:00</published><updated>2019-09-20T16:57:22+08:00</updated><id>http://localhost:4000/2019/09/20/magick</id><content type="html" xml:base="http://localhost:4000/2019/09/20/magick.html">&lt;h3 id=&quot;1-区别&quot;&gt;1. 区别：&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;rmagick-有内存泄漏的问题&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rmagick&lt;/code&gt; 有内存泄漏的问题&lt;/h4&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;用-minimagick-代替-rmagick&quot;&gt;用 &lt;code class=&quot;highlighter-rouge&quot;&gt;minimagick&lt;/code&gt; 代替 &lt;code class=&quot;highlighter-rouge&quot;&gt;rmagick&lt;/code&gt;&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-rmagick-用法以及问题&quot;&gt;2. &lt;code class=&quot;highlighter-rouge&quot;&gt;rmagick&lt;/code&gt; 用法以及问题&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;在-ubuntu-下-安装&quot;&gt;在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Ubuntu&lt;/code&gt; 下, 安装：&lt;/h4&gt;
+    &lt;p&gt;$ &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo apt-get install libmagickwand-dev&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">1. 区别： rmagick 有内存泄漏的问题 用 minimagick 代替 rmagick</summary></entry><entry><title type="html">个人小结2</title><link href="http://localhost:4000/2019/08/19/self-share2.html" rel="alternate" type="text/html" title="个人小结2" /><published>2019-08-19T18:16:22+08:00</published><updated>2019-08-19T18:16:22+08:00</updated><id>http://localhost:4000/2019/08/19/self-share2</id><content type="html" xml:base="http://localhost:4000/2019/08/19/self-share2.html">&lt;ul&gt;
   &lt;li&gt;
     &lt;h4 id=&quot;1-div-不支持失焦-聚焦blur-focus-使用-v-click-outside&quot;&gt;1. div 不支持失焦 聚焦(@blur, @focus) 使用 &lt;a href=&quot;https://github.com/ndelvalle/v-click-outside&quot;&gt;v-click-outside&lt;/a&gt;&lt;/h4&gt;
   &lt;/li&gt;
@@ -166,7 +182,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;h4 id=&quot;4-annotate--bundle-exec-annotate-with-comment-273-以上-每次记不住这个命令都要查询文档&quot;&gt;4. &lt;a href=&quot;https://github.com/ctran/annotate_models&quot;&gt;annotate&lt;/a&gt;  bundle exec annotate –with-comment 2.7.3 以上， 每次记不住这个命令，都要查询文档&lt;/h4&gt;
+    &lt;h4 id=&quot;4-annotate--bundle-exec-annotate-with-comment-273-以上-每次记不住这个命令都要查询文档--bundle-exec-annotate--i-with-comment-275-以上&quot;&gt;4. &lt;a href=&quot;https://github.com/ctran/annotate_models&quot;&gt;annotate&lt;/a&gt;  bundle exec annotate –with-comment 2.7.3 以上， 每次记不住这个命令，都要查询文档 —— bundle exec annotate -I, –with-comment 2.7.5 以上&lt;/h4&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;h4 id=&quot;5-项目类别加载很慢减少命中数据库次数一次读出来然后在代码里做处理jb-gem--_jsonjb-循环-render模板也会消耗一些时间循环次数太多建议在一个-render模板代码里做处理&quot;&gt;5. 项目类别加载很慢，减少命中数据库次数，一次读出来，然后在代码里做处理，&lt;a href=&quot;https://github.com/amatsuda/jb/&quot;&gt;jb&lt;/a&gt; gem  _.json.jb 循环 render模板也会消耗一些时间，循环次数太多，建议在一个 render模板代码里做处理&lt;/h4&gt;

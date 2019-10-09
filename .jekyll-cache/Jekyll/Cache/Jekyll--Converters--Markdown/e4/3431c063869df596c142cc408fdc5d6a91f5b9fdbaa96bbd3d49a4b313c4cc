@@ -1,0 +1,10 @@
+I"d<h3 id="1-区别">1. 区别：</h3>
+<ul>
+  <li>
+    <h4 id="rmagick-有内存泄漏的问题"><code class="highlighter-rouge">rmagick</code> 有内存泄漏的问题</h4>
+  </li>
+  <li>
+    <h4 id="用-minimagick-代替-rmagick">用 <code class="highlighter-rouge">minimagick</code> 代替 <code class="highlighter-rouge">rmagick</code></h4>
+  </li>
+</ul>
+:ET
