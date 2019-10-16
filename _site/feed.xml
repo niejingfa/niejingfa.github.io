@@ -1,4 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-08T17:04:04+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">rmagick 和 minimagick 切图的使用</title><link href="http://localhost:4000/2019/09/20/magick.html" rel="alternate" type="text/html" title="rmagick 和 minimagick 切图的使用" /><published>2019-09-20T16:57:22+08:00</published><updated>2019-09-20T16:57:22+08:00</updated><id>http://localhost:4000/2019/09/20/magick</id><content type="html" xml:base="http://localhost:4000/2019/09/20/magick.html">&lt;h3 id=&quot;1-区别&quot;&gt;1. 区别：&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-16T20:27:59+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">Rails 删除小结</title><link href="http://localhost:4000/2019/10/16/self-share3.html" rel="alternate" type="text/html" title="Rails 删除小结" /><published>2019-10-16T17:47:22+08:00</published><updated>2019-10-16T17:47:22+08:00</updated><id>http://localhost:4000/2019/10/16/self-share3</id><content type="html" xml:base="http://localhost:4000/2019/10/16/self-share3.html">&lt;h3 id=&quot;1-沙盒sandbox模式&quot;&gt;1. 沙盒(&lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt;)模式&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;可用沙盒模式进行测试rails-c---sandbox&quot;&gt;可用沙盒模式进行测试，&lt;code class=&quot;highlighter-rouge&quot;&gt;rails c --sandbox&lt;/code&gt;&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt; &lt;span class=&quot;c1&quot;&gt;# Any modifications you make will be rolled back on exit&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;sandbox-模式会模拟-增删改-数据以及关联关系并不会提交事务所以不会插入到库-所有的操作都会在退出的时候-rollback&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt; 模式，会模拟 增删改 数据以及关联关系，并不会提交事务，所以不会插入到库， 所有的操作都会在退出的时候 &lt;code class=&quot;highlighter-rouge&quot;&gt;rollback&lt;/code&gt;&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-delete_all&quot;&gt;2. &lt;code class=&quot;highlighter-rouge&quot;&gt;delete_all&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;delete_all-不会走-callback-会直接生成一条-delete-sql-语句比如&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;delete_all&lt;/code&gt; 不会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;, 会直接生成一条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句，比如：&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt; &lt;span class=&quot;no&quot;&gt;Project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;delete_all&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# =&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECTS&quot; WHERE &quot;PROJECTS&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 1]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;3-destroy_all&quot;&gt;3. &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy_all&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;destroy_all-会走-callback相关的数据也都删除-会生成多条-delete-sql-语句&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;destroy_all&lt;/code&gt; 会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;（相关的数据也都删除）, 会生成多条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;destroy_all&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# =&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECTS&quot; WHERE &quot;PROJECTS&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 1]]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECTS&quot; WHERE &quot;PROJECTS&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 2]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;同时也会把模型中-has_many-配置了-dependent-delete_all-或者-dependent-destroy-的给删除掉&quot;&gt;同时也会把模型中 &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 配置了 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy&lt;/code&gt; 的给删除掉&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;31-destroy_all-之-has_many-中的参数-dependent-delete_all&quot;&gt;3.1. &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy_all&lt;/code&gt; 之 &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 中的参数 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;dependent-delete_all-会生成一条-delete-sql-语句-has_many-关系数据全部删除-has_many关联的模型不会走-callback&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt; 会生成一条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句, &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 关系数据全部删除, &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt;关联的模型不会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;destroy_all&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# =&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECTS&quot; WHERE &quot;PROJECTS&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 1]]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECT_EXTRA_PROPERTIES&quot; WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;PROJECT_ID&quot; = :a1  [[&quot;project_id&quot;, 1]]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECTS&quot; WHERE &quot;PROJECTS&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 2]]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECT_EXTRA_PROPERTIES&quot; WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;PROJECT_ID&quot; = :a1  [[&quot;project_id&quot;, 2]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;32-destroy_all-之-has_many-中的参数-dependent-destroy_all&quot;&gt;3.2. &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy_all&lt;/code&gt; 之 &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 中的参数 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy_all&lt;/code&gt;&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;dependent-destroy-会生成多条-delete-sql-语句-has_many-全部删除-会走-callback相关的数据也都删除&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy&lt;/code&gt; 会生成多条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句, &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 全部删除, 会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;（相关的数据也都删除）&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;destroy_all&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# =&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECTS&quot; WHERE &quot;PROJECTS&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 1]]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 多条&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECT_EXTRA_PROPERTIES&quot; WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 1804]]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECT_EXTRA_PROPERTIES&quot; WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 1803]]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECTS&quot; WHERE &quot;PROJECTS&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 2]]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 多条&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECT_EXTRA_PROPERTIES&quot; WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 1806]]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECT_EXTRA_PROPERTIES&quot; WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 1805]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;4-特别注意has_manydelete_all&quot;&gt;4. &lt;strong&gt;特别注意：&lt;code class=&quot;highlighter-rouge&quot;&gt;has_many.delete_all&lt;/code&gt;&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;sb&quot;&gt;`Project.find(1).project_extra_properties.delete_all`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;并不一定会生成一条&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`delete SQL`&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;语句&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;41-如果你的-has_many-配置了-dependent-参数-dependent-destroy-或者-dependent-delete_all&quot;&gt;4.1. &lt;strong&gt;如果你的 &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 配置了 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent&lt;/code&gt; 参数 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt;&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;会生成一条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECT_EXTRA_PROPERTIES&quot; WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;PROJECT_ID&quot; = :a1  [[&quot;project_id&quot;, 1]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;42-如果你的-has_many-没有配置-dependent-destroy-或者-dependent-delete_all&quot;&gt;4.2. &lt;strong&gt;如果你的 &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 没有配置 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt;&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;而是会生成一条-update-sql-语句&quot;&gt;而是会生成一条 &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; SQL 语句&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#  UPDATE &quot;PROJECT_EXTRA_PROPERTIES&quot; SET &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;PROJECT_ID&quot; = NULL WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;PROJECT_ID&quot; = :a1  [[&quot;project_id&quot;, 1]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">1. 沙盒(sandbox)模式 可用沙盒模式进行测试，rails c --sandbox # Any modifications you make will be rolled back on exit sandbox 模式，会模拟 增删改 数据以及关联关系，并不会提交事务，所以不会插入到库， 所有的操作都会在退出的时候 rollback</summary></entry><entry><title type="html">rmagick 和 minimagick 切图的使用</title><link href="http://localhost:4000/2019/09/20/magick.html" rel="alternate" type="text/html" title="rmagick 和 minimagick 切图的使用" /><published>2019-09-20T16:57:22+08:00</published><updated>2019-09-20T16:57:22+08:00</updated><id>http://localhost:4000/2019/09/20/magick</id><content type="html" xml:base="http://localhost:4000/2019/09/20/magick.html">&lt;h3 id=&quot;1-区别&quot;&gt;1. 区别：&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;
     &lt;h4 id=&quot;rmagick-有内存泄漏的问题&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rmagick&lt;/code&gt; 有内存泄漏的问题&lt;/h4&gt;

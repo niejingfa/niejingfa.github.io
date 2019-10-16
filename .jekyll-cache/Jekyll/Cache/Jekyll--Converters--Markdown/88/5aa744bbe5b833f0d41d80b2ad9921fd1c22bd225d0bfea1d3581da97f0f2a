@@ -1,0 +1,18 @@
+I"�<ol>
+  <li><code class="highlighter-rouge">delete_all</code> 小结</li>
+</ol>
+
+<p>delete_all 不会走 callback, 会直接生成一条 delete SQL 语句
+Project.where(id: 1).delete_all</p>
+<h1 id="delete-from-projects-where-projectsid--a1--id-1">DELETE FROM “PROJECTS” WHERE “PROJECTS”.”ID” = :a1  [[“id”, 1]]</h1>
+
+<p>destroy_all 会走 callback, 会生成多条 delete SQL 语句
+Project.where(id: [1, 2]).delete_all</p>
+<h1 id="delete-from-projects-where-projectsid--a1--id-1-1">DELETE FROM “PROJECTS” WHERE “PROJECTS”.”ID” = :a1  [[“id”, 1]]</h1>
+<h1 id="delete-from-projects-where-projectsid--a1--id-2">DELETE FROM “PROJECTS” WHERE “PROJECTS”.”ID” = :a1  [[“id”, 2]]</h1>
+
+<p>同时也会把模型中 has_many 配置了 dependent: :delete_all 或者 dependent: :destroy 的给删除掉</p>
+
+<p>dependent: :delete_all 会生成一条 delete SQL 语句, has_many 全部删除</p>
+<h1 id="delete-from-projects_survey_seeds-where-projects_survey_seedsproject_id--a1--project_id-2">DELETE FROM “PROJECTS_SURVEY_SEEDS” WHERE “PROJECTS_SURVEY_SEEDS”.”PROJECT_ID” = :a1  [[“project_id”, 2]]</h1>
+:ET

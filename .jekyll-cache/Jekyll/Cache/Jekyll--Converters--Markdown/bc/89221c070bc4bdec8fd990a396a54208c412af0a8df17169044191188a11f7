@@ -1,6 +1,0 @@
-I"�<ul>
-  <li>区别：</li>
-  <li><code class="highlighter-rouge">rmagick</code> 有内存泄漏的问题**</li>
-  <li>用 <code class="highlighter-rouge">minimagick</code> 代替 <code class="highlighter-rouge">rmagick</code>**</li>
-</ul>
-:ET

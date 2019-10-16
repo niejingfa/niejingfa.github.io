@@ -1,0 +1,9 @@
+I",<ol>
+  <li><code class="highlighter-rouge">delete_all</code> 小结</li>
+</ol>
+
+<p>Project.where(id: 1).delete_all</p>
+<h1 id="delete-from-projects-where-projectsid--a1--id-1">DELETE FROM “PROJECTS” WHERE “PROJECTS”.”ID” = :a1  [[“id”, 1]]</h1>
+<p>delete_all 不会走 callback,</p>
+
+:ET
