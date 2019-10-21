@@ -28,3 +28,5 @@ categories:
 #### 8. [json](http://www.bejson.com/) 在线生成JSON，一系列操作JSON
 
 #### 9. [MAC OS 软件](https://github.com/serhii-londar/open-source-mac-os-apps) mac上好用且免费的软件
+
+#### 10. [简历](https://github.com/geekcompany/ResumeSample) 程序员简历模板
