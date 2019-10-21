@@ -1,5 +1,0 @@
-I"r<h1 id="可用-rails-c-sandbox-测试">可用 rails c –sandbox 测试</h1>
-<p>sandbox 模式，会模拟 增删改 数据以及关联关系，并不会提交事务，所以不会插入到库
-所有的操作都会在退出的时候 rollback</p>
-<h1 id="any-modifications-you-make-will-be-rolled-back-on-exit">Any modifications you make will be rolled back on exit</h1>
-:ET

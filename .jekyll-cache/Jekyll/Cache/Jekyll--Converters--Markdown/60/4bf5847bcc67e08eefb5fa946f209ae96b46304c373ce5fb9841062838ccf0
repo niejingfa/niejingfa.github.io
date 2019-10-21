@@ -1,9 +1,0 @@
-I"�<ol>
-  <li><code class="highlighter-rouge">delete_all</code> 小结</li>
-</ol>
-
-<p>Post.where(type: 1).delete_all
-# 
-delete_all 不会走 callback,</p>
-
-:ET
