@@ -4,3 +4,20 @@ title:  "vuejs 中的生命周期"
 date:   2019-10-21 18:01:22 +0800
 categories:
 ---
+
+#### 1. 新建Vue实例， vm = new Vue({  })
+
+* **beforeCreate**
+* **created**
+* **beforeMount**
+* **mounted**
+
+挂载完毕
+
+#### 2. 当 data 被修改时:
+* **beforeUpdate**
+* **updated**
+
+#### 3. 当 vm.$destroy() 时:
+* **beforeDestroy**
+* **destroyed**

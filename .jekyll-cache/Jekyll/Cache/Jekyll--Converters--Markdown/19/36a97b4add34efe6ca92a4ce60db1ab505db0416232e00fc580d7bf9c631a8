@@ -1,0 +1,72 @@
+I"D<h4 id="es6-常用的数组有这几种">es6 常用的数组有这几种：</h4>
+<ul>
+  <li><strong>复制数组</strong></li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">a2</span> <span class="o">=</span> <span class="nx">a1</span><span class="p">;</span>
+<span class="nx">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">a1</span> <span class="c1">// [2, 2]</span></code></pre></figure>
+
+<p>上面代码中，a2并不是a1的克隆，而是指向同一份数据的另一个指针。修改a2，会直接导致a1的变化。</p>
+
+<p>ES5 只能用变通方法来复制数组。</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">a2</span> <span class="o">=</span> <span class="nx">a1</span><span class="p">.</span><span class="nx">concat</span><span class="p">();</span>
+
+<span class="nx">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">a1</span> <span class="c1">// [1, 2]</span></code></pre></figure>
+
+<p>上面代码中，a1会返回原数组的克隆，再修改a2就不会对a1产生影响。</p>
+
+<p>扩展运算符提供了复制数组的简便写法。</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="c1">// 写法一</span>
+<span class="kd">const</span> <span class="nx">a2</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">a1</span><span class="p">];</span>
+<span class="c1">// 写法二</span>
+<span class="kd">const</span> <span class="p">[...</span><span class="nx">a2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">a1</span><span class="p">;</span></code></pre></figure>
+
+<p>上面的两种写法，a2都是a1的克隆。</p>
+
+<ul>
+  <li><strong>合并数组</strong></li>
+</ul>
+
+<p>扩展运算符提供了数组合并的新写法。</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">b</span><span class="dl">'</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">c</span><span class="dl">'</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">arr3</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">d</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">e</span><span class="dl">'</span><span class="p">];</span>
+
+<span class="c1">// ES5 的合并数组</span>
+<span class="nx">arr1</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">arr2</span><span class="p">,</span> <span class="nx">arr3</span><span class="p">);</span>
+<span class="c1">// [ 'a', 'b', 'c', 'd', 'e' ]</span>
+
+<span class="c1">// ES6 的合并数组</span>
+<span class="p">[...</span><span class="nx">arr1</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr2</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr3</span><span class="p">]</span>
+<span class="c1">// [ 'a', 'b', 'c', 'd', 'e' ]</span></code></pre></figure>
+
+<p>不过，这两种方法都是浅拷贝，使用的时候需要注意。</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">const</span> <span class="nx">a1</span> <span class="o">=</span> <span class="p">[{</span> <span class="na">foo</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}];</span>
+<span class="kd">const</span> <span class="nx">a2</span> <span class="o">=</span> <span class="p">[{</span> <span class="na">bar</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}];</span>
+
+<span class="kd">const</span> <span class="nx">a3</span> <span class="o">=</span> <span class="nx">a1</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">a2</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">a4</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">a1</span><span class="p">,</span> <span class="p">...</span><span class="nx">a2</span><span class="p">];</span>
+
+<span class="nx">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="nx">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">// true</span>
+<span class="nx">a4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="nx">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">// true</span></code></pre></figure>
+
+<p>上面代码中，a3和a4是用两种不同方法合并而成的新数组，但是它们的成员都是对原数组成员的引用，这就是浅拷贝。如果修改了原数组的成员，会同步反映到新数组</p>
+
+<p>未完待续…</p>
+
+<p><br />
+<br />
+<br />
+转自 阮一峰 《ECMAScript 6 入门》</p>
+
+<p>原文链接： <a href="http://es6.ruanyifeng.com/#docs/array">http://es6.ruanyifeng.com/#docs/array</a></p>
+:ET

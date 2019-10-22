@@ -7,15 +7,15 @@
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="vuejs 中的生命周期" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail" />
-<meta property="og:description" content="个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail" />
+<meta name="description" content="1. 新建Vue实例， vm = new Vue({ })" />
+<meta property="og:description" content="1. 新建Vue实例， vm = new Vue({ })" />
 <link rel="canonical" href="http://localhost:4000/2019/10/21/vuejs-1.html" />
 <meta property="og:url" content="http://localhost:4000/2019/10/21/vuejs-1.html" />
 <meta property="og:site_name" content="blank的个人博客" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-10-21T18:01:22+08:00" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/2019/10/21/vuejs-1.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/10/21/vuejs-1.html"},"description":"个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail","headline":"vuejs 中的生命周期","dateModified":"2019-10-21T18:01:22+08:00","datePublished":"2019-10-21T18:01:22+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"url":"http://localhost:4000/2019/10/21/vuejs-1.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/10/21/vuejs-1.html"},"description":"1. 新建Vue实例， vm = new Vue({ })","headline":"vuejs 中的生命周期","dateModified":"2019-10-21T18:01:22+08:00","datePublished":"2019-10-21T18:01:22+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blank的个人博客" /></head>
 <body><header class="site-header" role="banner">
@@ -45,7 +45,28 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    
+    <h4 id="1-新建vue实例-vm--new-vue--">1. 新建Vue实例， vm = new Vue({  })</h4>
+
+<ul>
+  <li><strong>beforeCreate</strong></li>
+  <li><strong>created</strong></li>
+  <li><strong>beforeMount</strong></li>
+  <li><strong>mounted</strong></li>
+</ul>
+
+<p>挂载完毕</p>
+
+<h4 id="2-当-data-被修改时">2. 当 data 被修改时:</h4>
+<ul>
+  <li><strong>beforeUpdate</strong></li>
+  <li><strong>updated</strong></li>
+</ul>
+
+<h4 id="3-当-vmdestroy-时">3. 当 vm.$destroy() 时:</h4>
+<ul>
+  <li><strong>beforeDestroy</strong></li>
+  <li><strong>destroyed</strong></li>
+</ul>
 
   </div><a class="u-url" href="/2019/10/21/vuejs-1.html" hidden></a>
 </article>

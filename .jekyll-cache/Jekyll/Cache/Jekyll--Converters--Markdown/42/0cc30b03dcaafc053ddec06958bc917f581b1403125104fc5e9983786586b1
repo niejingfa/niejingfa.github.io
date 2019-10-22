@@ -1,0 +1,23 @@
+I"B<h4 id="1-新建vue实例-vm--new-vue--">1. 新建Vue实例， vm = new Vue({  })</h4>
+
+<ul>
+  <li><strong>beforeCreate</strong></li>
+  <li><strong>created</strong></li>
+  <li><strong>beforeMount</strong></li>
+  <li><strong>mounted</strong></li>
+</ul>
+
+<p>挂载完毕</p>
+
+<h4 id="2-当-data-被修改时">2. 当 data 被修改时:</h4>
+<ul>
+  <li><strong>beforeUpdate</strong></li>
+  <li><strong>updated</strong></li>
+</ul>
+
+<h4 id="3-当-vmdestroy-时">3. 当 vm.$destroy() 时:</h4>
+<ul>
+  <li><strong>beforeDestroy</strong></li>
+  <li><strong>destroyed</strong></li>
+</ul>
+:ET
