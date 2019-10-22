@@ -1,55 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-21T18:08:19+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">vuejs 中的生命周期</title><link href="http://localhost:4000/2019/10/21/vuejs-1.html" rel="alternate" type="text/html" title="vuejs 中的生命周期" /><published>2019-10-21T18:01:22+08:00</published><updated>2019-10-21T18:01:22+08:00</updated><id>http://localhost:4000/2019/10/21/vuejs-1</id><content type="html" xml:base="http://localhost:4000/2019/10/21/vuejs-1.html"></content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">常用开发工具</title><link href="http://localhost:4000/2019/10/17/developer-tool1.html" rel="alternate" type="text/html" title="常用开发工具" /><published>2019-10-17T11:30:22+08:00</published><updated>2019-10-17T11:30:22+08:00</updated><id>http://localhost:4000/2019/10/17/developer-tool1</id><content type="html" xml:base="http://localhost:4000/2019/10/17/developer-tool1.html">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;简单记录一下常用工具，还有很多，想起来再补&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;1-dash--mac-os--离线文档查询&quot;&gt;1. &lt;a href=&quot;https://kapeli.com/dash&quot;&gt;dash&lt;/a&gt;  (MAC OS)  离线文档查询&lt;/h4&gt;
-
-&lt;h4 id=&quot;2-postman---测试-httphttps-请求-的客户端&quot;&gt;2. &lt;a href=&quot;https://www.getpostman.com/&quot;&gt;postman&lt;/a&gt;   测试 http/https 请求 的客户端&lt;/h4&gt;
-
-&lt;h4 id=&quot;3-postwoman---在线测试-httphttps-请求&quot;&gt;3. &lt;a href=&quot;https://postwoman.io/&quot;&gt;postwoman&lt;/a&gt;   在线测试 http/https 请求&lt;/h4&gt;
-
-&lt;h4 id=&quot;4-vscode---代码编辑器&quot;&gt;4. &lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;vscode&lt;/a&gt;   代码编辑器&lt;/h4&gt;
-
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-22T16:29:58+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">pry 常用使用方法</title><link href="http://localhost:4000/2019/10/22/pry.html" rel="alternate" type="text/html" title="pry 常用使用方法" /><published>2019-10-22T11:30:22+08:00</published><updated>2019-10-22T11:30:22+08:00</updated><id>http://localhost:4000/2019/10/22/pry</id><content type="html" xml:base="http://localhost:4000/2019/10/22/pry.html">&lt;h4 id=&quot;常用的有以下几个gem&quot;&gt;常用的有以下几个gem：&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;h5 id=&quot;41-gitlens--vscode-git工具&quot;&gt;4.1. &lt;code class=&quot;highlighter-rouge&quot;&gt;gitlens&lt;/code&gt;  vscode git工具&lt;/h5&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/deivid-rodriguez/pry-byebug&quot;&gt;pry-byebug&lt;/a&gt; （推荐）&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;h5 id=&quot;42-open-in-browser--vscode-页面用浏览器打开工具&quot;&gt;4.2. &lt;code class=&quot;highlighter-rouge&quot;&gt;open in browser&lt;/code&gt;  vscode 页面用浏览器打开工具&lt;/h5&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/rweng/pry-rails&quot;&gt;pry-rails&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;h5 id=&quot;43-ruby-vscode-ruby工具&quot;&gt;4.3. &lt;code class=&quot;highlighter-rouge&quot;&gt;ruby&lt;/code&gt; vscode ruby工具&lt;/h5&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;h5 id=&quot;44-vetur-vscode-vuejs工具&quot;&gt;4.4. &lt;code class=&quot;highlighter-rouge&quot;&gt;vetur&lt;/code&gt; vscode vuejs工具&lt;/h5&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/pry/pry&quot;&gt;pry&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;5-oh-my-zsh--命令行提示主体颜色&quot;&gt;5. &lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot;&gt;oh-my-zsh&lt;/a&gt;  命令行提示/主体颜色&lt;/h4&gt;
+&lt;h4 id=&quot;通用&quot;&gt;通用：&lt;/h4&gt;
 
-&lt;h4 id=&quot;6-ngrok--github链接-内网转发&quot;&gt;6. &lt;a href=&quot;https://ngrok.com/&quot;&gt;ngrok&lt;/a&gt;  &lt;a href=&quot;https://github.com/inconshreveable/ngrok&quot;&gt;github链接&lt;/a&gt; 内网转发&lt;/h4&gt;
-
-&lt;h4 id=&quot;7-翻墙工具&quot;&gt;7. &lt;a href=&quot;https://github.com/Alvin9999/new-pac/wiki&quot;&gt;翻墙工具&lt;/a&gt;&lt;/h4&gt;
-
-&lt;h4 id=&quot;8-json-在线生成json一系列操作json&quot;&gt;8. &lt;a href=&quot;http://www.bejson.com/&quot;&gt;json&lt;/a&gt; 在线生成JSON，一系列操作JSON&lt;/h4&gt;
-
-&lt;h4 id=&quot;9-mac-os-软件-mac上好用且免费的软件&quot;&gt;9. &lt;a href=&quot;https://github.com/serhii-londar/open-source-mac-os-apps&quot;&gt;MAC OS 软件&lt;/a&gt; mac上好用且免费的软件&lt;/h4&gt;</content><author><name></name></author><summary type="html">简单记录一下常用工具，还有很多，想起来再补</summary></entry><entry><title type="html">Rails 删除小结</title><link href="http://localhost:4000/2019/10/16/self-share3.html" rel="alternate" type="text/html" title="Rails 删除小结" /><published>2019-10-16T17:47:22+08:00</published><updated>2019-10-16T17:47:22+08:00</updated><id>http://localhost:4000/2019/10/16/self-share3</id><content type="html" xml:base="http://localhost:4000/2019/10/16/self-share3.html">&lt;h3 id=&quot;1-沙盒sandbox模式&quot;&gt;1. 沙盒(&lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt;)模式&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;h4 id=&quot;可用沙盒模式进行测试rails-c---sandbox&quot;&gt;可用沙盒模式进行测试，&lt;code class=&quot;highlighter-rouge&quot;&gt;rails c --sandbox&lt;/code&gt;&lt;/h4&gt;
+    &lt;p&gt;在代码片段里加入（即可断点）： &lt;code class=&quot;highlighter-rouge&quot;&gt;binding.pry&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;退出到下一个 binding.pry ： &lt;code class=&quot;highlighter-rouge&quot;&gt;exit&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;退出: &lt;code class=&quot;highlighter-rouge&quot;&gt;exit-program&lt;/code&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt; &lt;span class=&quot;c1&quot;&gt;# Any modifications you make will be rolled back on exit&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;pry-byebug&quot;&gt;pry-byebug:&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;break&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;跳到下一步： &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;next&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;finish&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;continue&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;backtrace&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;跳到上一步：&lt;code class=&quot;highlighter-rouge&quot;&gt;up&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;跳到下一步：&lt;code class=&quot;highlighter-rouge&quot;&gt;down&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;frame&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;也还可以自定义:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;defined?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;PryByebug&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Pry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;alias_command&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'c'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'continue'&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Pry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;alias_command&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'step'&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Pry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;alias_command&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'next'&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Pry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;alias_command&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'f'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'finish'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;简单的使用： &lt;code class=&quot;highlighter-rouge&quot;&gt;pry-rails&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;复杂的调试断点： &lt;code class=&quot;highlighter-rouge&quot;&gt;pry-byebug&lt;/code&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">常用的有以下几个gem： pry-byebug （推荐）</summary></entry><entry><title type="html">vuejs 中的生命周期</title><link href="http://localhost:4000/2019/10/21/vuejs-1.html" rel="alternate" type="text/html" title="vuejs 中的生命周期" /><published>2019-10-21T18:01:22+08:00</published><updated>2019-10-21T18:01:22+08:00</updated><id>http://localhost:4000/2019/10/21/vuejs-1</id><content type="html" xml:base="http://localhost:4000/2019/10/21/vuejs-1.html"></content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">常用开发工具</title><link href="http://localhost:4000/2019/10/17/developer-tool1.html" rel="alternate" type="text/html" title="常用开发工具" /><published>2019-10-17T11:30:22+08:00</published><updated>2019-10-17T11:30:22+08:00</updated><id>http://localhost:4000/2019/10/17/developer-tool1</id><content type="html" xml:base="http://localhost:4000/2019/10/17/developer-tool1.html">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;简单记录一下常用工具，还有很多，想起来再补&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;h4 id=&quot;sandbox-模式会模拟-增删改-数据以及关联关系并不会提交事务所以不会插入到库-所有的操作都会在退出的时候-rollback&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt; 模式，会模拟 增删改 数据以及关联关系，并不会提交事务，所以不会插入到库， 所有的操作都会在退出的时候 &lt;code class=&quot;highlighter-rouge&quot;&gt;rollback&lt;/code&gt;&lt;/h4&gt;
+    &lt;p&gt;&lt;a href=&quot;https://kapeli.com/dash&quot;&gt;dash&lt;/a&gt;  (MAC OS)  离线文档查询&lt;/p&gt;
   &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.getpostman.com/&quot;&gt;postman&lt;/a&gt;   测试 http/https 请求 的客户端&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://postwoman.io/&quot;&gt;postwoman&lt;/a&gt;   在线测试 http/https 请求&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;vscode&lt;/a&gt;   代码编辑器&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;gitlens&lt;/code&gt;  vscode git工具&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;open in browser&lt;/code&gt;  vscode 页面用浏览器打开工具&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby&lt;/code&gt; vscode ruby工具&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vetur&lt;/code&gt; vscode vuejs工具&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot;&gt;oh-my-zsh&lt;/a&gt;  命令行提示/主体颜色&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://ngrok.com/&quot;&gt;ngrok&lt;/a&gt;  &lt;a href=&quot;https://github.com/inconshreveable/ngrok&quot;&gt;github链接&lt;/a&gt; 内网转发&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/Alvin9999/new-pac/wiki&quot;&gt;翻墙工具&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.bejson.com/&quot;&gt;json&lt;/a&gt; 在线生成JSON，一系列操作JSON&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/serhii-londar/open-source-mac-os-apps&quot;&gt;MAC OS 软件&lt;/a&gt; mac上好用且免费的软件&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/geekcompany/ResumeSample&quot;&gt;简历&lt;/a&gt; 程序员简历模板&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">简单记录一下常用工具，还有很多，想起来再补</summary></entry><entry><title type="html">Rails 删除小结</title><link href="http://localhost:4000/2019/10/16/self-share3.html" rel="alternate" type="text/html" title="Rails 删除小结" /><published>2019-10-16T17:47:22+08:00</published><updated>2019-10-16T17:47:22+08:00</updated><id>http://localhost:4000/2019/10/16/self-share3</id><content type="html" xml:base="http://localhost:4000/2019/10/16/self-share3.html">&lt;h3 id=&quot;1-沙盒sandbox模式&quot;&gt;1. 沙盒(&lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt;)模式&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;可用沙盒模式进行测试，&lt;code class=&quot;highlighter-rouge&quot;&gt;rails c --sandbox&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;    &lt;span class=&quot;c1&quot;&gt;# Any modifications you make will be rolled back on exit&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt; 模式，会模拟 增删改 数据以及关联关系，并不会提交事务，所以不会插入到库， 所有的操作都会在退出的时候 &lt;code class=&quot;highlighter-rouge&quot;&gt;rollback&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;2-delete_all&quot;&gt;2. &lt;code class=&quot;highlighter-rouge&quot;&gt;delete_all&lt;/code&gt;&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;delete_all-不会走-callback-会直接生成一条-delete-sql-语句比如&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;delete_all&lt;/code&gt; 不会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;, 会直接生成一条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句，比如：&lt;/h4&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;delete_all&lt;/code&gt; 不会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;, 会直接生成一条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句，比如：&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt; &lt;span class=&quot;no&quot;&gt;Project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;delete_all&lt;/span&gt;
@@ -58,9 +117,7 @@
 
 &lt;h3 id=&quot;3-destroy_all&quot;&gt;3. &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy_all&lt;/code&gt;&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;h5 id=&quot;destroy_all-会走-callback相关的数据也都删除-会生成多条-delete-sql-语句&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;destroy_all&lt;/code&gt; 会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;（相关的数据也都删除）, 会生成多条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句&lt;/h5&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;destroy_all&lt;/code&gt; 会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;（相关的数据也都删除）, 会生成多条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;destroy_all&lt;/span&gt;
@@ -69,16 +126,12 @@
 &lt;span class=&quot;c1&quot;&gt;# DELETE FROM &quot;PROJECTS&quot; WHERE &quot;PROJECTS&quot;.&quot;ID&quot; = :a1  [[&quot;id&quot;, 2]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;同时也会把模型中-has_many-配置了-dependent-delete_all-或者-dependent-destroy-的给删除掉&quot;&gt;同时也会把模型中 &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 配置了 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy&lt;/code&gt; 的给删除掉&lt;/h4&gt;
-  &lt;/li&gt;
+  &lt;li&gt;同时也会把模型中 &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 配置了 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy&lt;/code&gt; 的给删除掉&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;31-destroy_all-之-has_many-中的参数-dependent-delete_all&quot;&gt;3.1. &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy_all&lt;/code&gt; 之 &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 中的参数 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt;&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;dependent-delete_all-会生成一条-delete-sql-语句-has_many-关系数据全部删除-has_many关联的模型不会走-callback&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt; 会生成一条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句, &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 关系数据全部删除, &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt;关联的模型不会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;&lt;/h4&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :delete_all&lt;/code&gt; 会生成一条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句, &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 关系数据全部删除, &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt;关联的模型不会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;destroy_all&lt;/span&gt;
@@ -91,9 +144,7 @@
 &lt;h4 id=&quot;32-destroy_all-之-has_many-中的参数-dependent-destroy_all&quot;&gt;3.2. &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy_all&lt;/code&gt; 之 &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 中的参数 &lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy_all&lt;/code&gt;&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;dependent-destroy-会生成多条-delete-sql-语句-has_many-全部删除-会走-callback相关的数据也都删除&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy&lt;/code&gt; 会生成多条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句, &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 全部删除, 会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;（相关的数据也都删除）&lt;/h4&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dependent: :destroy&lt;/code&gt; 会生成多条 &lt;code class=&quot;highlighter-rouge&quot;&gt;delete SQL&lt;/code&gt; 语句, &lt;code class=&quot;highlighter-rouge&quot;&gt;has_many&lt;/code&gt; 全部删除, 会走 &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt;（相关的数据也都删除）&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;destroy_all&lt;/span&gt;
@@ -645,73 +696,4 @@
               &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">首先下载vscode，安装</summary></entry><entry><title type="html">rails中的 erb代码执行原理</title><link href="http://localhost:4000/2018/09/05/erb.html" rel="alternate" type="text/html" title="rails中的 erb代码执行原理" /><published>2018-09-05T19:33:22+08:00</published><updated>2018-09-05T19:33:22+08:00</updated><id>http://localhost:4000/2018/09/05/erb</id><content type="html" xml:base="http://localhost:4000/2018/09/05/erb.html">&lt;p&gt;在&lt;code class=&quot;highlighter-rouge&quot;&gt;rails erb&lt;/code&gt;文件中嵌入&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby&lt;/code&gt;代码，举个例子：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;vi&quot;&gt;@a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;%= @a %&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rails&lt;/code&gt;输出的是：&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;div&amp;gt;1&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rails&lt;/code&gt;实现是：&lt;code class=&quot;highlighter-rouge&quot;&gt;ERB.new(&quot;&amp;lt;div&amp;gt;&amp;lt;%= @a %&amp;gt;&amp;lt;/div&amp;gt;&quot;).result&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;查看&lt;code class=&quot;highlighter-rouge&quot;&gt;erb.rb&lt;/code&gt;源代码：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;safe_level&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;trim_mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eoutvar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'_erbout'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;vi&quot;&gt;@safe_level&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;safe_level&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;compiler&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make_compiler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trim_mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;set_eoutvar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compiler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eoutvar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;vi&quot;&gt;@src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@encoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@frozen_string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compiler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;vi&quot;&gt;@filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;
-  &lt;span class=&quot;vi&quot;&gt;@lineno&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_toplevel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@safe_level&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;proc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;vg&quot;&gt;$SAFE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@safe_level&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'(erb)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@lineno&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'(erb)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@lineno&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;首先初始化&lt;code class=&quot;highlighter-rouge&quot;&gt;ERB&lt;/code&gt;，然后result方法里调用&lt;code class=&quot;highlighter-rouge&quot;&gt;eval&lt;/code&gt;,取变量的值相当于：&lt;code class=&quot;highlighter-rouge&quot;&gt;eval(&quot;@a&quot;)&lt;/code&gt;
-都是用&lt;code class=&quot;highlighter-rouge&quot;&gt;eval(&quot;你的ruby代码&quot;)&lt;/code&gt;，执行并返回&lt;/p&gt;
-
-&lt;p&gt;那么&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;%%&amp;gt;&lt;/code&gt;呢？&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;erb.rb&lt;/code&gt;中通过字符串匹配来识别&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby&lt;/code&gt;代码，代码如下：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;ERB_STAG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%w(&amp;lt;%= &amp;lt;%# &amp;lt;%)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;is_erb_stag?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;ERB_STAG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;member?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;compile_stag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scanner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stag&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PercentLine&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;add_put_cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;cr&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:cr&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;cr&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;%'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;%='&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;%#'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;scanner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;stag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stag&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;add_put_cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;add_put_cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;%%'&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;%'&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stag&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;因为要解析&lt;code class=&quot;highlighter-rouge&quot;&gt;erb&lt;/code&gt;，erb中的代码传到&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby&lt;/code&gt;中都是字符串,&lt;code class=&quot;highlighter-rouge&quot;&gt;ERB&lt;/code&gt;底层非常灵性的使用&lt;code class=&quot;highlighter-rouge&quot;&gt;eval&lt;/code&gt;解析字符串，运行&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby&lt;/code&gt;代码&lt;/p&gt;
-
-&lt;p&gt;更多操作可以看&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby元编程&lt;/code&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">在rails erb文件中嵌入ruby代码，举个例子： @a = 1 &amp;lt;div&amp;gt;&amp;lt;%= @a %&amp;gt;&amp;lt;/div&amp;gt;</summary></entry></feed>
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">首先下载vscode，安装</summary></entry></feed>

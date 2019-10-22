@@ -1,0 +1,61 @@
+I".
+<h4 id="常用的有以下几个gem">常用的有以下几个gem：</h4>
+<ul>
+  <li>
+    <p><a href="https://github.com/deivid-rodriguez/pry-byebug">pry-byebug</a> （推荐）</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/rweng/pry-rails">pry-rails</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/pry/pry">pry</a></p>
+  </li>
+</ul>
+
+<h4 id="通用">通用：</h4>
+
+<ul>
+  <li>
+    <p>在代码片段里加入（即可断点）： <code class="highlighter-rouge">binding.pry</code></p>
+  </li>
+  <li>
+    <p>退出到下一个 binding.pry ： <code class="highlighter-rouge">exit</code></p>
+  </li>
+  <li>
+    <p>退出: <code class="highlighter-rouge">exit-program</code></p>
+  </li>
+</ul>
+
+<h4 id="pry-byebug">pry-byebug:</h4>
+
+<p><code class="highlighter-rouge">break</code></p>
+
+<p><code class="highlighter-rouge">step</code></p>
+
+<p><code class="highlighter-rouge">next</code></p>
+
+<p><code class="highlighter-rouge">finish</code></p>
+
+<p><code class="highlighter-rouge">continue</code></p>
+
+<p><code class="highlighter-rouge">backtrace</code></p>
+
+<p><code class="highlighter-rouge">up</code></p>
+
+<p><code class="highlighter-rouge">down</code></p>
+
+<p><code class="highlighter-rouge">frame</code></p>
+
+<p>也还可以自定义</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">if</span> <span class="k">defined?</span><span class="p">(</span><span class="no">PryByebug</span><span class="p">)</span>
+  <span class="no">Pry</span><span class="p">.</span><span class="nf">commands</span><span class="p">.</span><span class="nf">alias_command</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'continue'</span>
+  <span class="no">Pry</span><span class="p">.</span><span class="nf">commands</span><span class="p">.</span><span class="nf">alias_command</span> <span class="s1">'s'</span><span class="p">,</span> <span class="s1">'step'</span>
+  <span class="no">Pry</span><span class="p">.</span><span class="nf">commands</span><span class="p">.</span><span class="nf">alias_command</span> <span class="s1">'n'</span><span class="p">,</span> <span class="s1">'next'</span>
+  <span class="no">Pry</span><span class="p">.</span><span class="nf">commands</span><span class="p">.</span><span class="nf">alias_command</span> <span class="s1">'f'</span><span class="p">,</span> <span class="s1">'finish'</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>简单的使用： <code class="highlighter-rouge">pry-rails</code></p>
+
+<p>复杂的调试断点： <code class="highlighter-rouge">pry-byebug</code></p>
+:ET

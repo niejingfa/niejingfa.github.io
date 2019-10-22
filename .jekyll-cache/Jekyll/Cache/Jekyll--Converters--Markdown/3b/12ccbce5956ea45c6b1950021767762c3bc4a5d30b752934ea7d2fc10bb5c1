@@ -1,0 +1,32 @@
+I"�<p>常用的有以下几个gem：</p>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/rweng/pry-rails">pry-rails</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/pry/pry">pry</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/deivid-rodriguez/pry-byebug">pry-byebug</a></p>
+  </li>
+</ul>
+
+<p>在代码片段里加入（即可断点）： <code class="highlighter-rouge">binding.pry</code></p>
+
+<p>退出到下一个 binding.pry ： <code class="highlighter-rouge">exit</code></p>
+
+<p>退出: <code class="highlighter-rouge">exit-program</code></p>
+
+<p>pry-byebug: 
+<code class="highlighter-rouge">break</code>
+<code class="highlighter-rouge">step</code>
+<code class="highlighter-rouge">next</code>
+<code class="highlighter-rouge">finish</code>
+<code class="highlighter-rouge">continue</code>
+<code class="highlighter-rouge">backtrace</code>
+`</p>
+
+<p>简单的使用： <code class="highlighter-rouge">pry-rails</code>
+复杂的调试断点： <code class="highlighter-rouge">pry-byebug</code></p>
+:ET

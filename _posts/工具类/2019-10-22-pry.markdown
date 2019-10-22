@@ -1,0 +1,56 @@
+---
+layout: post
+title:  "pry 常用使用方法"
+date:   2019-10-22 11:30:22 +0800
+categories:
+---
+
+#### 常用的有以下几个gem：
+- [pry-byebug](https://github.com/deivid-rodriguez/pry-byebug) （推荐）
+
+- [pry-rails](https://github.com/rweng/pry-rails) 
+
+- [pry](https://github.com/pry/pry)
+
+#### 通用：
+
+* 在代码片段里加入（即可断点）： `binding.pry`
+
+* 退出到下一个 binding.pry ： `exit`
+
+* 退出: `exit-program`
+
+#### pry-byebug: 
+
+`break`
+
+跳到下一步： `step`
+
+`next`
+
+`finish`
+
+`continue`
+
+`backtrace`
+
+跳到上一步：`up`
+
+跳到下一步：`down`
+
+`frame`
+
+也还可以自定义:
+
+{% highlight ruby %}
+if defined?(PryByebug)
+  Pry.commands.alias_command 'c', 'continue'
+  Pry.commands.alias_command 's', 'step'
+  Pry.commands.alias_command 'n', 'next'
+  Pry.commands.alias_command 'f', 'finish'
+end
+{% endhighlight ruby %}
+
+简单的使用： `pry-rails`
+
+复杂的调试断点： `pry-byebug`

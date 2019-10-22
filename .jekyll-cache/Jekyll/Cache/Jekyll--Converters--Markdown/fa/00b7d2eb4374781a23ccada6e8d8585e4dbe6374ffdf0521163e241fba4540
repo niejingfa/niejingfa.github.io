@@ -1,0 +1,17 @@
+I"�<ul>
+  <li>
+    <p><a href="https://github.com/pry/pry">pry</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/rweng/pry-rails">pry-rails</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/deivid-rodriguez/pry-byebug">pry-byebug</a></p>
+  </li>
+</ul>
+
+<p>在代码片段里写入： <code class="highlighter-rouge">binding.pry</code></p>
+
+<p>退出到下一个 binding.pry ： <code class="highlighter-rouge">exit</code>
+退出: <code class="highlighter-rouge">exit-program</code></p>
+:ET

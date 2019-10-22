@@ -1,0 +1,45 @@
+I"<p><code class="highlighter-rouge">简单记录一下常用工具，还有很多，想起来再补</code></p>
+
+<ul>
+  <li>
+    <p><a href="https://kapeli.com/dash">dash</a>  (MAC OS)  离线文档查询</p>
+  </li>
+  <li>
+    <p><a href="https://www.getpostman.com/">postman</a>   测试 http/https 请求 的客户端</p>
+  </li>
+  <li>
+    <ol>
+      <li><a href="https://postwoman.io/">postwoman</a>   在线测试 http/https 请求</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li><a href="https://code.visualstudio.com/">vscode</a>   代码编辑器</li>
+    </ol>
+  </li>
+  <li>
+    <h5 id="41-gitlens--vscode-git工具">4.1. <code class="highlighter-rouge">gitlens</code>  vscode git工具</h5>
+  </li>
+  <li>
+    <h5 id="42-open-in-browser--vscode-页面用浏览器打开工具">4.2. <code class="highlighter-rouge">open in browser</code>  vscode 页面用浏览器打开工具</h5>
+  </li>
+  <li>
+    <h5 id="43-ruby-vscode-ruby工具">4.3. <code class="highlighter-rouge">ruby</code> vscode ruby工具</h5>
+  </li>
+  <li>
+    <h5 id="44-vetur-vscode-vuejs工具">4.4. <code class="highlighter-rouge">vetur</code> vscode vuejs工具</h5>
+  </li>
+</ul>
+
+<h4 id="5-oh-my-zsh--命令行提示主体颜色">5. <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>  命令行提示/主体颜色</h4>
+
+<h4 id="6-ngrok--github链接-内网转发">6. <a href="https://ngrok.com/">ngrok</a>  <a href="https://github.com/inconshreveable/ngrok">github链接</a> 内网转发</h4>
+
+<h4 id="7-翻墙工具">7. <a href="https://github.com/Alvin9999/new-pac/wiki">翻墙工具</a></h4>
+
+<h4 id="8-json-在线生成json一系列操作json">8. <a href="http://www.bejson.com/">json</a> 在线生成JSON，一系列操作JSON</h4>
+
+<h4 id="9-mac-os-软件-mac上好用且免费的软件">9. <a href="https://github.com/serhii-londar/open-source-mac-os-apps">MAC OS 软件</a> mac上好用且免费的软件</h4>
+
+<h4 id="10-简历-程序员简历模板">10. <a href="https://github.com/geekcompany/ResumeSample">简历</a> 程序员简历模板</h4>
+:ET
