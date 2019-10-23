@@ -30,3 +30,5 @@ categories:
 * [MAC OS 软件](https://github.com/serhii-londar/open-source-mac-os-apps) mac上好用且免费的软件
 
 * [简历](https://github.com/geekcompany/ResumeSample) 程序员简历模板
+
+* [ppt](https://github.com/zulko/eagle.js/) 一个用Vue.js构建的易破解的幻灯片框架
