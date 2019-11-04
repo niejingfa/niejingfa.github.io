@@ -39,7 +39,7 @@ Project.where(id: [1, 2]).destroy_all
 # DELETE FROM "PROJECT_EXTRA_PROPERTIES" WHERE "PROJECT_EXTRA_PROPERTIES"."PROJECT_ID" = :a1  [["project_id", 2]]
 {% endhighlight ruby %}
 
-#### 3.2. `destroy_all` 之 `has_many` 中的参数 `dependent: :destroy_all`
+#### 3.2. `destroy_all` 之 `has_many` 中的参数 `dependent: :destroy`
 
   * `dependent: :destroy` 会生成多条 `delete SQL` 语句, `has_many` 全部删除, 会走 `callback`（相关的数据也都删除）
 {% highlight ruby %}
