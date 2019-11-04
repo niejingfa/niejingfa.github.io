@@ -72,13 +72,15 @@ Project.where(id: [1, 2]).destroy_all
 #  UPDATE "PROJECT_EXTRA_PROPERTIES" SET "PROJECT_EXTRA_PROPERTIES"."PROJECT_ID" = NULL WHERE "PROJECT_EXTRA_PROPERTIES"."PROJECT_ID" = :a1  [["project_id", 1]]
 {% endhighlight ruby %}
 
+<hr>
+<br>
+{% highlight ruby %}
+# select * from projects where project_name = NULL
+# select * from projects where project_name is NULL
+{% endhighlight ruby %}
 
+以上两条语句查询出的结果不一样
+`project_name = NULL` 永远不会为 `true`
 
-
-
-
-
-
-
-
+用 `project_name is NULL` 代替 
 

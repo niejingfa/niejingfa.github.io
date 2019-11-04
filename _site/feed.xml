@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-22T17:45:43+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">ES6 数组操作</title><link href="http://localhost:4000/2019/10/22/vuejs-2.html" rel="alternate" type="text/html" title="ES6 数组操作" /><published>2019-10-22T17:01:22+08:00</published><updated>2019-10-22T17:01:22+08:00</updated><id>http://localhost:4000/2019/10/22/vuejs-2</id><content type="html" xml:base="http://localhost:4000/2019/10/22/vuejs-2.html">&lt;h4 id=&quot;es6-常用的数组有这几种&quot;&gt;es6 常用的数组有这几种：&lt;/h4&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-04T14:25:14+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">ES6 对象的扩展（遍历）</title><link href="http://localhost:4000/2019/10/22/vuejs-3.html" rel="alternate" type="text/html" title="ES6 对象的扩展（遍历）" /><published>2019-10-22T18:01:22+08:00</published><updated>2019-10-22T18:01:22+08:00</updated><id>http://localhost:4000/2019/10/22/vuejs-3</id><content type="html" xml:base="http://localhost:4000/2019/10/22/vuejs-3.html"></content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">ES6 数组操作</title><link href="http://localhost:4000/2019/10/22/vuejs-2.html" rel="alternate" type="text/html" title="ES6 数组操作" /><published>2019-10-22T17:01:22+08:00</published><updated>2019-10-22T17:01:22+08:00</updated><id>http://localhost:4000/2019/10/22/vuejs-2</id><content type="html" xml:base="http://localhost:4000/2019/10/22/vuejs-2.html">&lt;h4 id=&quot;es6-常用的数组有这几种&quot;&gt;es6 常用的数组有这几种：&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;复制数组&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -187,7 +187,10 @@
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;https://github.com/geekcompany/ResumeSample&quot;&gt;简历&lt;/a&gt; 程序员简历模板&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">简单记录一下常用工具，还有很多，想起来再补</summary></entry><entry><title type="html">Rails 删除小结</title><link href="http://localhost:4000/2019/10/16/self-share3.html" rel="alternate" type="text/html" title="Rails 删除小结" /><published>2019-10-16T17:47:22+08:00</published><updated>2019-10-16T17:47:22+08:00</updated><id>http://localhost:4000/2019/10/16/self-share3</id><content type="html" xml:base="http://localhost:4000/2019/10/16/self-share3.html">&lt;h3 id=&quot;1-沙盒sandbox模式&quot;&gt;1. 沙盒(&lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt;)模式&lt;/h3&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/zulko/eagle.js/&quot;&gt;ppt&lt;/a&gt; 一个用Vue.js构建的易破解的幻灯片框架&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">简单记录一下常用工具，还有很多，想起来再补</summary></entry><entry><title type="html">Rails 删除小结</title><link href="http://localhost:4000/2019/10/16/rails-delete.html" rel="alternate" type="text/html" title="Rails 删除小结" /><published>2019-10-16T17:47:22+08:00</published><updated>2019-10-16T17:47:22+08:00</updated><id>http://localhost:4000/2019/10/16/rails-delete</id><content type="html" xml:base="http://localhost:4000/2019/10/16/rails-delete.html">&lt;h3 id=&quot;1-沙盒sandbox模式&quot;&gt;1. 沙盒(&lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt;)模式&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;可用沙盒模式进行测试，&lt;code class=&quot;highlighter-rouge&quot;&gt;rails c --sandbox&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -265,7 +268,19 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#  UPDATE &quot;PROJECT_EXTRA_PROPERTIES&quot; SET &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;PROJECT_ID&quot; = NULL WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;PROJECT_ID&quot; = :a1  [[&quot;project_id&quot;, 1]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">1. 沙盒(sandbox)模式 可用沙盒模式进行测试，rails c --sandbox # Any modifications you make will be rolled back on exit sandbox 模式，会模拟 增删改 数据以及关联关系，并不会提交事务，所以不会插入到库， 所有的操作都会在退出的时候 rollback</summary></entry><entry><title type="html">rmagick 和 minimagick 切图的使用</title><link href="http://localhost:4000/2019/09/20/magick.html" rel="alternate" type="text/html" title="rmagick 和 minimagick 切图的使用" /><published>2019-09-20T16:57:22+08:00</published><updated>2019-09-20T16:57:22+08:00</updated><id>http://localhost:4000/2019/09/20/magick</id><content type="html" xml:base="http://localhost:4000/2019/09/20/magick.html">&lt;h3 id=&quot;1-区别&quot;&gt;1. 区别：&lt;/h3&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#  UPDATE &quot;PROJECT_EXTRA_PROPERTIES&quot; SET &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;PROJECT_ID&quot; = NULL WHERE &quot;PROJECT_EXTRA_PROPERTIES&quot;.&quot;PROJECT_ID&quot; = :a1  [[&quot;project_id&quot;, 1]]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# select * from projects where project_name = NULL&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# select * from projects where project_name is NULL&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;以上两条语句查询出的结果不一样
+&lt;code class=&quot;highlighter-rouge&quot;&gt;project_name = NULL&lt;/code&gt; 永远不会为 &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;用 &lt;code class=&quot;highlighter-rouge&quot;&gt;project_name is NULL&lt;/code&gt; 代替&lt;/p&gt;</content><author><name></name></author><summary type="html">1. 沙盒(sandbox)模式 可用沙盒模式进行测试，rails c --sandbox # Any modifications you make will be rolled back on exit sandbox 模式，会模拟 增删改 数据以及关联关系，并不会提交事务，所以不会插入到库， 所有的操作都会在退出的时候 rollback</summary></entry><entry><title type="html">rmagick 和 minimagick 切图的使用</title><link href="http://localhost:4000/2019/09/20/magick.html" rel="alternate" type="text/html" title="rmagick 和 minimagick 切图的使用" /><published>2019-09-20T16:57:22+08:00</published><updated>2019-09-20T16:57:22+08:00</updated><id>http://localhost:4000/2019/09/20/magick</id><content type="html" xml:base="http://localhost:4000/2019/09/20/magick.html">&lt;h3 id=&quot;1-区别&quot;&gt;1. 区别：&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;
     &lt;h4 id=&quot;rmagick-有内存泄漏的问题&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rmagick&lt;/code&gt; 有内存泄漏的问题&lt;/h4&gt;
@@ -621,17 +636,4 @@
 &lt;ul&gt;
   &lt;li&gt;2.7.5. 设置和重置 Session 级别的配置
 通过 SET 命令设置当前 Session 的配置， 例如：&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">1. 使用 Homebrew 安装 PostgreSQL 安装 $ brew install postgres</summary></entry><entry><title type="html">delegate 处理程序适用于当前或未来的元素</title><link href="http://localhost:4000/2018/10/22/delegate.html" rel="alternate" type="text/html" title="delegate 处理程序适用于当前或未来的元素" /><published>2018-10-22T09:33:22+08:00</published><updated>2018-10-22T09:33:22+08:00</updated><id>http://localhost:4000/2018/10/22/delegate</id><content type="html" xml:base="http://localhost:4000/2018/10/22/delegate.html">&lt;p&gt;js代码如下：
-关闭窗口，点击事件会使当前窗口close&lt;/p&gt;
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.btn-close-ask-why-delay-dialog&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;click&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;vg&quot;&gt;$target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#ask_why_delay_div&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;vg&quot;&gt;$target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dialog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;close&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;有些时候js加载在页面局部块&lt;code class=&quot;highlighter-rouge&quot;&gt;.btn-close-ask-why-delay-dialog&lt;/code&gt;的前面，如果再想执行这段js，就会报错，可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;delegate&lt;/code&gt;
-使用 delegate() 方法的事件处理程序适用于当前或未来的元素,代码如下：&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'.btn-close-ask-why-delay-dialog'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'click'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;vg&quot;&gt;$target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;#ask_why_delay_div&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;vg&quot;&gt;$target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dialog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;close&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">js代码如下： 关闭窗口，点击事件会使当前窗口close $(&quot;.btn-close-ask-why-delay-dialog&quot;).click -&amp;gt; $target = $(&quot;#ask_why_delay_div&quot;) $target.dialog(&quot;close&quot;)</summary></entry></feed>
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">1. 使用 Homebrew 安装 PostgreSQL 安装 $ brew install postgres</summary></entry></feed>
