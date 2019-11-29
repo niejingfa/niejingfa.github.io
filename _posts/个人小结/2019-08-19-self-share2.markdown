@@ -44,6 +44,15 @@ categories:
     $ echo "127.0.0.1 $(hostname)" | sudo tee -a /etc/hosts
   {% endhighlight %}
 
+{% highlight ruby %}
+  gem install ruby-oci8 失败
+{% endhighlight %}
+  - - [解决方法：](https://github.com/kubo/ruby-oci8/issues/89)
+  {% highlight ruby %}
+    $ export OCI_DIR=/opt/oracle/instantclient_11_2
+  {% endhighlight %}
+
+
 - #### 9. git stash 命令
 {% highlight ruby %}
   git stash list //查看stash 列表
