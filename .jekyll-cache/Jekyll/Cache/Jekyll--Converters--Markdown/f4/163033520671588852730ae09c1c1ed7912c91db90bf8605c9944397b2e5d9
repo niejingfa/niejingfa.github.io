@@ -1,0 +1,97 @@
+I"�	<h2 id="text"><code class="highlighter-rouge">text</code></h2>
+
+<ul>
+  <li>
+    <p>把数据列转成字符串进行操作查询</p>
+  </li>
+  <li>
+    <p>例如： <code class="highlighter-rouge">cutoff_id::text</code></p>
+  </li>
+</ul>
+
+<h2 id="substring"><code class="highlighter-rouge">substring</code></h2>
+
+<ul>
+  <li>
+    <p>切割字符串</p>
+  </li>
+  <li>
+    <p>例如： <code class="highlighter-rouge">substring(cutoff_id::text from 1 for 4)</code></p>
+  </li>
+  <li>
+    <p><strong>1: 哪个字符开始</strong></p>
+  </li>
+  <li>
+    <p><strong>4: 截取几个字符</strong></p>
+  </li>
+  <li>
+    <p><em>_取 <code class="highlighter-rouge">cutoff_id</code> 的 第 1 个字符开始，取 4 个_</em></p>
+  </li>
+</ul>
+
+<h2 id="lpad"><code class="highlighter-rouge">lpad</code></h2>
+
+<ul>
+  <li>
+    <p>字符拼接</p>
+  </li>
+  <li>
+    <p>例如：<code class="highlighter-rouge">lpad(substring(cutoff_id::text, 10, '0')</code></p>
+  </li>
+  <li>
+    <p><strong>10: <code class="highlighter-rouge">cutoff_id</code> 要生成 10 位数</strong></p>
+  </li>
+  <li>
+    <p><strong>‘0’: <code class="highlighter-rouge">cutoff_id</code> 少于 10 位，在左边补 ‘0’</strong></p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>扩展阅读：<em>_rpad_</em></p>
+</blockquote>
+
+<h2 id="char_length"><code class="highlighter-rouge">char_length</code></h2>
+
+<ul>
+  <li>
+    <p>返回数据列的数据长度</p>
+  </li>
+  <li>
+    <p>例如：<code class="highlighter-rouge">char_length(cutoff_id::text)</code></p>
+  </li>
+  <li>
+    <p>如果 <code class="highlighter-rouge">cutoff_id</code> 是 <code class="highlighter-rouge">2019101</code>, 返回 7</p>
+  </li>
+</ul>
+
+<h2 id="right"><code class="highlighter-rouge">RIGHT</code></h2>
+
+<ul>
+  <li>
+    <p>从右边开始截取字符</p>
+  </li>
+  <li>
+    <p>例如： <code class="highlighter-rouge">RIGHT(cutoff_id::text, 1)</code></p>
+  </li>
+  <li>
+    <p><strong>1: 1 个字符</strong></p>
+  </li>
+  <li>
+    <p>返回 <code class="highlighter-rouge">cutoff_id</code> 最右边的 1 个字符</p>
+  </li>
+</ul>
+
+<h2><code class="highlighter-rouge">||</code></h2>
+
+<ul>
+  <li>
+    <p>合并字符串</p>
+  </li>
+  <li>
+    <p>例如： <code class="highlighter-rouge">substring(cutoff_id::text from 1 for 4)||RIGHT(cutoff_id::text, 1)</code></p>
+  </li>
+  <li>
+    <p>如果：<code class="highlighter-rouge">cutoff_id</code> 为 <code class="highlighter-rouge">2019112</code>, 返回：’20192’</p>
+  </li>
+</ul>
+:ET

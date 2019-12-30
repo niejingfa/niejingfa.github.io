@@ -1,0 +1,38 @@
+I"�<h1 id="solr-批量创建索引"><code class="highlighter-rouge">Solr</code> 批量创建索引</h1>
+
+<h2 id="第一种">第一种</h2>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Project</span><span class="p">.</span><span class="nf">find_in_batches</span> <span class="k">do</span> <span class="o">|</span><span class="n">group</span><span class="o">|</span>
+  <span class="no">Sunspot</span><span class="p">.</span><span class="nf">session</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="no">Sunspot</span><span class="p">.</span><span class="nf">session</span><span class="p">.</span><span class="nf">commit</span>
+</code></pre></div></div>
+
+<p><strong>一次提交，但是会生成很多 <code class="highlighter-rouge">has_many</code> 的 <code class="highlighter-rouge">SQL</code>, 创建索引还是很慢</strong></p>
+
+<p>比如生成的SQL：</p>
+
+<pre><code class="language-SQL">ProjectSubcatVal Load (7.8ms)  SELECT "PROJECT_SUBCAT_VALS".* FROM "PROJECT_SUBCAT_VALS" WHERE "PROJECT_SUBCAT_VALS"."PROJECT_ID" = :a1 AND "PROJECT_SUBCAT_VALS"."IS_NEW" = :a2  [["project_id", 35899], ["is_new", 0]]
+</code></pre>
+
+<p><em>*分析原因，慢在SQL查询上，减少 n+1 查询, 一次查询*</em></p>
+
+<h2 id="第二种">第二种</h2>
+
+<p><strong>把 solr searchable 中用到的 has_many 表先 includes 进来</strong></p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="no">Project</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="ss">:subcat_vals</span><span class="p">,</span> <span class="ss">:project_new_subcat_vals</span><span class="p">,</span> <span class="ss">:project_subcat_vals</span><span class="p">,</span> <span class="ss">:firmtenders</span><span class="p">,</span> <span class="ss">:tenders</span><span class="p">,</span> <span class="ss">:city</span><span class="p">,</span> <span class="ss">:project_cat_floors</span><span class="p">).</span><span class="nf">find_in_batches</span> <span class="k">do</span> <span class="o">|</span><span class="n">group</span><span class="o">|</span>
+    <span class="no">Sunspot</span><span class="p">.</span><span class="nf">session</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="no">Sunspot</span><span class="p">.</span><span class="nf">session</span><span class="p">.</span><span class="nf">commit</span>
+</code></pre></div></div>
+<p><strong>在查询数据库层面减少了 SQL 查询，速度快了很多</strong></p>
+
+<h2 id="总结">总结</h2>
+
+<p><strong>solr创建索引分为几步</strong></p>
+
+<ul>
+  <li>数据库查询数据</li>
+  <li>SOLR 创建索引</li>
+  <li>SOLR 事务提交</li>
+</ul>
+:ET

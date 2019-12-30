@@ -1,4 +1,4 @@
-I"�&<ul>
+I"�)<ul>
   <li>
     <h4 id="1-div-不支持失焦-聚焦blur-focus-使用-v-click-outside">1. div 不支持失焦 聚焦(@blur, @focus) 使用 <a href="https://github.com/ndelvalle/v-click-outside">v-click-outside</a></h4>
   </li>
@@ -60,6 +60,19 @@
 </ul>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="err">$</span> <span class="n">echo</span> <span class="s2">"127.0.0.1 $(hostname)"</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">-</span><span class="n">a</span> <span class="sr">/etc/</span><span class="n">hosts</span>
+  </code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="n">gem</span> <span class="n">install</span> <span class="n">ruby</span><span class="o">-</span><span class="n">oci8</span> <span class="err">失败</span></code></pre></figure>
+
+<ul>
+  <li>
+    <ul>
+      <li><a href="https://github.com/kubo/ruby-oci8/issues/89">解决方法：</a></li>
+    </ul>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="err">$</span> <span class="n">export</span> <span class="no">OCI_DIR</span><span class="o">=</span><span class="sr">/opt/o</span><span class="n">racle</span><span class="o">/</span><span class="n">instantclient_11_2</span>
   </code></pre></figure>
 
 <ul>
