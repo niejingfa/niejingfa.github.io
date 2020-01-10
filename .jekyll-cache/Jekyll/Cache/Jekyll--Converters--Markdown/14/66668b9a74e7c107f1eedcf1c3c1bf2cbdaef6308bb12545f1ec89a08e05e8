@@ -1,4 +1,5 @@
-I"�<h2 id="第一种">第一种</h2>
+I"f
+<h2 id="第一种">第一种</h2>
 <ul>
   <li>需求背景：取出一对多数据中的最后一条做 <code class="highlighter-rouge">SQL</code> 
 <code class="highlighter-rouge">JOIN</code> 查询</li>
@@ -33,5 +34,22 @@ join (select max(rp.id) as rp_id, rp.project_id as project_id from rejected_proj
 <h2 id="第二种---子查询">第二种 - 子查询</h2>
 <ul>
   <li>需求背景：某些联表查询</li>
+  <li>
+    <p>例子： 表 <code class="highlighter-rouge">project</code> 1 对 n 表 <code class="highlighter-rouge">rejected_projects</code>， 外键： <code class="highlighter-rouge">project_id</code></p>
+  </li>
+  <li><em>JOIN SQL</em></li>
+</ul>
+
+<pre><code class="language-SQL">select * from projects p join rejected_projects rp on rp.project_id = p.id where rp.created_at &gt; '2019-12-11 00:00:00'
+</code></pre>
+<ul>
+  <li><em>EXISTS SQL</em></li>
+</ul>
+
+<pre><code class="language-SQL">select * from projects where 
+exists (select 1 from rejected_projects rp where rp.project_id=projects.id and rp.created_at &gt; '2019-12-11 00:00:00')
+</code></pre>
+<ul>
+  <li>适用场景: 被 JOIN 的表很大</li>
 </ul>
 :ET
