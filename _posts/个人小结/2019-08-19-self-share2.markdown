@@ -98,4 +98,10 @@ categories:
   rake listener:test
 {% endhighlight %}
 
+
+- #### 12. 前端 `yarn` 换镜像源
+- yarn install 换镜像源
+- yarn config get registry
+- yarn config set registry https://registry.npm.taobao.org/
+
   
