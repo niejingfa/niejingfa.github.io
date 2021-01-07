@@ -29,9 +29,219 @@ Vue.use(VueCompositionAPI)
 ```
 
 ## 2. 使用
+### 2.1 `reactive` 和 `ref`
+#### 2.2.1 `reactive`
+接收一个普通对象然后返回该普通对象的响应式代理。
 
+响应式转换是“深层的”：会影响对象内部所有嵌套的属性。基于 ES2015 的 Proxy 实现，返回的代理对象不等于原始对象。建议仅使用代理对象而避免依赖原始对象。
+```vue
+<template>
+  <div>
+    <span>{{ people.name }}</span>
+    <br>
+    <span>{{ people.age }}</span>
+    <br>
+    <button @click='addAge'>改变属性</button>
+    <button @click='changePeople'>改变对象</button>
+    <button @click='changeObject'>改变 reactive</button>
+  </div>
+</template>
+<script>
+// 导入 reactive
+import { reactive } from '@vue/composition-api'
 
+export default {
+  // 代替之前的 beforeCreate, create
+  setup () {
+    let people = reactive({name: 'blank', age: 25})
+    function addAge () {
+      people.age ++
+    }
 
+    function changePeople () {
+      people = { name: 'shawn', age: 21 }
+      console.log(people)
+    }
+
+    function changeObject () {
+      people = reactive({ name: 'jesse', age: 18 })
+      console.log(people)
+    }
+
+    // 返回用到的方法和数据
+    return { people, addAge, changePeople, changeObject }
+  }
+}
+</script>
+```
+
+#### 2.2.1 `ref`
+接受一个参数值并返回一个响应式且可改变的 `ref` 对象。ref 对象拥有一个指向内部值的单一属性 `.value`
+
+如果传入 `ref` 的是一个对象，将调用 `reactive` 方法进行深层响应转换。
+
+```vue
+<template>
+  <div>
+    <!-- > age 默认不用加 value < -->
+    <span>{{ age }}</span>
+    <br>
+    <button @click='addAge'>改变</button>
+  </div>
+</template>
+<script>
+import { ref } from '@vue/composition-api'
+
+export default {
+  setup () {
+    let age = ref(25)
+    function addAge () {
+      // 需要 .value
+      age.value ++
+    }
+    return { age, addAge }
+  }
+}
+</script>
+```
+
+### `watch`
+和 `vue2.x` 中的 `watch` 一样
+
+```vue
+<template>
+  <div>
+    <!-- > age 默认不用加 value < -->
+    <span>{{ age }}</span>
+    <br>
+    <button @click='addAge'>改变</button>
+  </div>
+</template>
+<script>
+import { watch } from '@vue/composition-api'
+
+export default {
+  setup () {
+    let age = ref(25)
+    function addAge () {
+      // 需要 .value
+      age.value ++
+    }
+    watch(
+      () => age.value,
+      (to, from) => {
+        alert(to);
+      }
+    )
+    return { age, addAge }
+  }
+}
+</script>
+
+```
+
+- beforeCreate -> 使用 setup()
+- created -> 使用 setup()
+- beforeMount -> onBeforeMount
+- mounted -> onMounted
+- beforeUpdate -> onBeforeUpdate
+- updated -> onUpdated
+- beforeDestroy -> onBeforeUnmount
+- destroyed -> onUnmounted
+- errorCaptured -> onErrorCaptured
+
+**注：`setup()` 中 `this` 不可用，是 `undefined`**
+
+### `setup` 中传入的属性
+
+- props
+- context
+  - root: `vue2.x` 中的 `this`
+  - emit: `vue2.x` 中的 `this.$emit`
+  - attrs: `vue2.x` 中的 `this.$attrs`
+  - slots: `vue2.x` 中的 `this.$slots`
+
+```vue
+<script>
+import { watch } from '@vue/composition-api'
+
+export default {
+  // props： 组件中传递的参数
+  setup (props, context) {
+    // this
+    console.log(context.root)
+    // this.$emit
+    console.log(context.emit)
+    // this.$attrs
+    console.log(context.attrs)
+    // this.$slots
+    console.log(context.slots)
+  }
+}
+</script>
+```
+
+### 依赖注入 `provide` 和 `inject`
+`provide` 和 `inject` 提供依赖注入，功能类似 `2.x` 的 `provide/inject`。两者都只能在当前活动组件实例的 `setup()` 中调用
+
+```vue
+<template>
+  <div>
+    <span>{{ person }}</span>
+    <button @click='addAge'>改变</button>
+    <InjectVue />
+  </div>
+</template>
+<script>
+import { provide, reactive } from '@vue/composition-api'
+
+import InjectVue from './inject.vue'
+
+export default {
+  setup () {
+    let person = reactive({name: 'blank', age: 25})
+    provide('person', person)
+
+    function addAge () {
+      person.age ++
+    }
+
+    return { person, addAge }
+  },
+  components: {
+    InjectVue
+  }
+}
+</script>
+```
+
+`inject.vue`
+```vue
+<template>
+  <div>
+    <span>inject: {{ person }}</span>
+    <button @click='changePerson'>改变</button>
+  </div>
+</template>
+<script>
+import { inject } from '@vue/composition-api'
+
+export default {
+  setup () {
+    let person = inject('person')
+
+    function changePerson () {
+      person = {name: 'shawn', age: 21}
+      console.log(person)
+    }
+
+    return { person, changePerson }
+  }
+}
+</script>
+```
+
+**可以使用 `ref` 来保证 `provided` 和 `injected` 之间值的响应**
 
 ## 参考文档：
 > https://composition-api.vuejs.org/zh/api.html
@@ -39,3 +249,32 @@ Vue.use(VueCompositionAPI)
 https://github.com/vuejs/composition-api
 <br>
 https://v3.cn.vuejs.org/api/composition-api.html
+
+
+
+----
+
+
+### 自定义排序
+
+比如说，我们有这样一个字段： type ( 1, 2, 3 )
+然后有这样一个需求，要按照 2, 1, 3 这样排序
+oracle：
+```sql
+select id from projects where id IN (36611, 36612, 36613) order by decode(id, 36612,36613,36611)
+```
+mysql: 
+```sql
+select id from bid_infos where id in (21692416, 21692672, 21693184) order by field(id, 21692672, 21693184, 21692416) desc
+```
+postgres:
+```sql
+SELECT * FROM pj_projects
+where id IN (35771, 35772, 35773)
+  ORDER BY
+  CASE
+    WHEN id=35772 THEN 1
+    WHEN id=35771 THEN 2
+    WHEN id=35773 THEN 3
+  END asc
+```
