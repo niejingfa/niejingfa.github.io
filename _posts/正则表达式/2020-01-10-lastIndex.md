@@ -4,14 +4,12 @@ title: "RegExp.lastIndex 属性"
 date:   2020-01-10 18:10:22 +0800
 categories:
 ---
-# `RegExp.lastIndex` 属性
-
 遇到一个[售后](http://jira.rccchina.com/browse/PG-2081) ，
 `Regexp` 匹配数据时，有时候数据能匹配出来，有时候不能匹配出来
 
 总结了一下 `Regexp` 的问题
 
-- 代码示例如下：
+#### 1. 代码示例如下：
 ```js
 let reg = new RegExp('c.*', 'g')
 
@@ -22,7 +20,7 @@ reg.test('chen') // false
 
 同样两次比对，第一次返回 true， 第二次返回 false
 
-- 查找原因
+#### 2. 查找原因
 
 查阅资料后发现，是正则的 `lastIndex` 改变了
 

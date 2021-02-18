@@ -1,0 +1,276 @@
+I"�_<h3 id="前言">前言</h3>
+<p>使用 <code class="highlighter-rouge">Composition API</code> 编写的代码更易读，并且场景不复杂，这使得阅读和学习变得更容易。</p>
+
+<p>解决了 <code class="highlighter-rouge">vue 2.x</code> 选项式 API 的一些痛点：</p>
+<ul>
+  <li>基于 <code class="highlighter-rouge">Vue2</code> 的大型组件很难维护。</li>
+  <li>基于 <code class="highlighter-rouge">Vue2</code> 封装的组件逻辑复用困难。</li>
+  <li><code class="highlighter-rouge">Vue2</code> 对 <code class="highlighter-rouge">TypeScript</code> 支持有限。</li>
+</ul>
+
+<p>一般我们的项目都是 <code class="highlighter-rouge">vue 2.x</code>, 如果想使用 <code class="highlighter-rouge">composition-api</code>
+可以使用这个插件： <a href="https://github.com/vuejs/composition-api">@vue/composition-api</a></p>
+
+<h3 id="一-引入到项目中">一、 引入到项目中</h3>
+<h4 id="1-安装">1. 安装</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> @vue/composition-api
+<span class="c"># or</span>
+yarn add @vue/composition-api
+</code></pre></div></div>
+<h4 id="2-配置">2. 配置</h4>
+
+<p>在 <code class="highlighter-rouge">main.js</code> 中添加一下配置：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">VueCompositionAPI</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@vue/composition-api</span><span class="dl">'</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueCompositionAPI</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="二-使用">二、 使用</h3>
+<h4 id="1-reactive-和-ref">1. reactive 和 ref</h4>
+<h4 id="11-reactive">1.1. reactive</h4>
+<p>接收一个普通对象然后返回该普通对象的响应式代理。</p>
+
+<p>响应式转换是“深层的”：会影响对象内部所有嵌套的属性。基于 ES2015 的 Proxy 实现，返回的代理对象不等于原始对象。建议仅使用代理对象而避免依赖原始对象。</p>
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;span&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;span&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">'addAge'</span><span class="nt">&gt;</span>改变属性<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">'changePeople'</span><span class="nt">&gt;</span>改变对象<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">'changeObject'</span><span class="nt">&gt;</span>改变 reactive<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="k">script</span><span class="nt">&gt;</span>
+<span class="c1">// 导入 reactive</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">reactive</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@vue/composition-api</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="c1">// 代替之前的 beforeCreate, create</span>
+  <span class="nx">setup</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">people</span> <span class="o">=</span> <span class="nx">reactive</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">blank</span><span class="dl">'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
+    <span class="kd">function</span> <span class="nx">addAge</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">people</span><span class="p">.</span><span class="nx">age</span> <span class="o">++</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">changePeople</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">people</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">shawn</span><span class="dl">'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">21</span> <span class="p">}</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">people</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">changeObject</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">people</span> <span class="o">=</span> <span class="nx">reactive</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">jesse</span><span class="dl">'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">18</span> <span class="p">})</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">people</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 返回用到的方法和数据</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">people</span><span class="p">,</span> <span class="nx">addAge</span><span class="p">,</span> <span class="nx">changePeople</span><span class="p">,</span> <span class="nx">changeObject</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<h4 id="12-ref">1.2. ref</h4>
+<p>接受一个参数值并返回一个响应式且可改变的 <code class="highlighter-rouge">ref</code> 对象。ref 对象拥有一个指向内部值的单一属性 <code class="highlighter-rouge">.value</code></p>
+
+<p>如果传入 <code class="highlighter-rouge">ref</code> 的是一个对象，将调用 <code class="highlighter-rouge">reactive</code> 方法进行深层响应转换。</p>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="c">&lt;!-- &gt; age 默认不用加 value </span><span class="nt">&lt;</span> <span class="nt">--&gt;</span>
+    <span class="nt">&lt;span&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">'addAge'</span><span class="nt">&gt;</span>改变<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="k">script</span><span class="nt">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ref</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@vue/composition-api</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">setup</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">age</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+    <span class="kd">function</span> <span class="nx">addAge</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// 需要 .value</span>
+      <span class="nx">age</span><span class="p">.</span><span class="nx">value</span> <span class="o">++</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">age</span><span class="p">,</span> <span class="nx">addAge</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<h3 id="watch"><code class="highlighter-rouge">watch</code></h3>
+<p>和 <code class="highlighter-rouge">vue2.x</code> 中的 <code class="highlighter-rouge">watch</code> 一样</p>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="c">&lt;!-- &gt; age 默认不用加 value </span><span class="nt">&lt;</span> <span class="nt">--&gt;</span>
+    <span class="nt">&lt;span&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">'addAge'</span><span class="nt">&gt;</span>改变<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="k">script</span><span class="nt">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">watch</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@vue/composition-api</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">setup</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">age</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+    <span class="kd">function</span> <span class="nx">addAge</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// 需要 .value</span>
+      <span class="nx">age</span><span class="p">.</span><span class="nx">value</span> <span class="o">++</span>
+    <span class="p">}</span>
+    <span class="nx">watch</span><span class="p">(</span>
+      <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">age</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span>
+      <span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="k">from</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">to</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">age</span><span class="p">,</span> <span class="nx">addAge</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>beforeCreate -&gt; 使用 setup()</li>
+  <li>created -&gt; 使用 setup()</li>
+  <li>beforeMount -&gt; onBeforeMount</li>
+  <li>mounted -&gt; onMounted</li>
+  <li>beforeUpdate -&gt; onBeforeUpdate</li>
+  <li>updated -&gt; onUpdated</li>
+  <li>beforeDestroy -&gt; onBeforeUnmount</li>
+  <li>destroyed -&gt; onUnmounted</li>
+  <li>errorCaptured -&gt; onErrorCaptured</li>
+</ul>
+
+<p><strong>注：<code class="highlighter-rouge">setup()</code> 中 <code class="highlighter-rouge">this</code> 不可用，是 <code class="highlighter-rouge">undefined</code></strong></p>
+
+<h3 id="setup-中传入的属性"><code class="highlighter-rouge">setup</code> 中传入的属性</h3>
+
+<ul>
+  <li>props</li>
+  <li>context
+    <ul>
+      <li>root: <code class="highlighter-rouge">vue2.x</code> 中的 <code class="highlighter-rouge">this</code></li>
+      <li>emit: <code class="highlighter-rouge">vue2.x</code> 中的 <code class="highlighter-rouge">this.$emit</code></li>
+      <li>attrs: <code class="highlighter-rouge">vue2.x</code> 中的 <code class="highlighter-rouge">this.$attrs</code></li>
+      <li>slots: <code class="highlighter-rouge">vue2.x</code> 中的 <code class="highlighter-rouge">this.$slots</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">script</span><span class="nt">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">watch</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@vue/composition-api</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="c1">// props： 组件中传递的参数</span>
+  <span class="nx">setup</span> <span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// this</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">root</span><span class="p">)</span>
+    <span class="c1">// this.$emit</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">emit</span><span class="p">)</span>
+    <span class="c1">// this.$attrs</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">attrs</span><span class="p">)</span>
+    <span class="c1">// this.$slots</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">slots</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<h3 id="依赖注入-provide-和-inject">依赖注入 <code class="highlighter-rouge">provide</code> 和 <code class="highlighter-rouge">inject</code></h3>
+<p><code class="highlighter-rouge">provide</code> 和 <code class="highlighter-rouge">inject</code> 提供依赖注入，功能类似 <code class="highlighter-rouge">2.x</code> 的 <code class="highlighter-rouge">provide/inject</code>。两者都只能在当前活动组件实例的 <code class="highlighter-rouge">setup()</code> 中调用</p>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;span&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">'addAge'</span><span class="nt">&gt;</span>改变<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;InjectVue</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="k">script</span><span class="nt">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">provide</span><span class="p">,</span> <span class="nx">reactive</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@vue/composition-api</span><span class="dl">'</span>
+
+<span class="k">import</span> <span class="nx">InjectVue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./inject.vue</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">setup</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">person</span> <span class="o">=</span> <span class="nx">reactive</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">blank</span><span class="dl">'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
+    <span class="nx">provide</span><span class="p">(</span><span class="dl">'</span><span class="s1">person</span><span class="dl">'</span><span class="p">,</span> <span class="nx">person</span><span class="p">)</span>
+
+    <span class="kd">function</span> <span class="nx">addAge</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">person</span><span class="p">.</span><span class="nx">age</span> <span class="o">++</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">person</span><span class="p">,</span> <span class="nx">addAge</span> <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">InjectVue</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">inject.vue</code></p>
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;span&gt;</span>inject: <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">'changePerson'</span><span class="nt">&gt;</span>改变<span class="nt">&lt;/button&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="k">script</span><span class="nt">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">inject</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@vue/composition-api</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">setup</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">person</span> <span class="o">=</span> <span class="nx">inject</span><span class="p">(</span><span class="dl">'</span><span class="s1">person</span><span class="dl">'</span><span class="p">)</span>
+
+    <span class="kd">function</span> <span class="nx">changePerson</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">shawn</span><span class="dl">'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">21</span><span class="p">}</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">person</span><span class="p">,</span> <span class="nx">changePerson</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p><strong>可以使用 <code class="highlighter-rouge">ref</code> 来保证 <code class="highlighter-rouge">provided</code> 和 <code class="highlighter-rouge">injected</code> 之间值的响应</strong></p>
+
+<h2 id="参考文档">参考文档：</h2>
+<blockquote>
+  <p>https://composition-api.vuejs.org/zh/api.html
+<br />
+https://github.com/vuejs/composition-api
+<br />
+https://v3.cn.vuejs.org/api/composition-api.html</p>
+</blockquote>
+
+<hr />
+
+<h3 id="自定义排序">自定义排序</h3>
+
+<p>比如说，我们有这样一个字段： type ( 1, 2, 3 )
+然后有这样一个需求，要按照 2, 1, 3 这样排序
+oracle：</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">id</span> <span class="k">from</span> <span class="n">projects</span> <span class="k">where</span> <span class="n">id</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">36611</span><span class="p">,</span> <span class="mi">36612</span><span class="p">,</span> <span class="mi">36613</span><span class="p">)</span> <span class="k">order</span> <span class="k">by</span> <span class="n">decode</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="mi">36612</span><span class="p">,</span><span class="mi">36613</span><span class="p">,</span><span class="mi">36611</span><span class="p">)</span>
+</code></pre></div></div>
+<p>mysql:</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">id</span> <span class="k">from</span> <span class="n">bid_infos</span> <span class="k">where</span> <span class="n">id</span> <span class="k">in</span> <span class="p">(</span><span class="mi">21692416</span><span class="p">,</span> <span class="mi">21692672</span><span class="p">,</span> <span class="mi">21693184</span><span class="p">)</span> <span class="k">order</span> <span class="k">by</span> <span class="n">field</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="mi">21692672</span><span class="p">,</span> <span class="mi">21693184</span><span class="p">,</span> <span class="mi">21692416</span><span class="p">)</span> <span class="k">desc</span>
+</code></pre></div></div>
+<p>postgres:</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pj_projects</span>
+<span class="k">where</span> <span class="n">id</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">35771</span><span class="p">,</span> <span class="mi">35772</span><span class="p">,</span> <span class="mi">35773</span><span class="p">)</span>
+  <span class="k">ORDER</span> <span class="k">BY</span>
+  <span class="k">CASE</span>
+    <span class="k">WHEN</span> <span class="n">id</span><span class="o">=</span><span class="mi">35772</span> <span class="k">THEN</span> <span class="mi">1</span>
+    <span class="k">WHEN</span> <span class="n">id</span><span class="o">=</span><span class="mi">35771</span> <span class="k">THEN</span> <span class="mi">2</span>
+    <span class="k">WHEN</span> <span class="n">id</span><span class="o">=</span><span class="mi">35773</span> <span class="k">THEN</span> <span class="mi">3</span>
+  <span class="k">END</span> <span class="k">asc</span>
+</code></pre></div></div>
+:ET

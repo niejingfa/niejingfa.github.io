@@ -1,0 +1,42 @@
+I"�<h3 id="一-join-查询">一、 JOIN 查询</h3>
+<ul>
+  <li>需求背景：取出一对多数据中的最后一条做 <code class="highlighter-rouge">SQL</code> 
+<code class="highlighter-rouge">JOIN</code> 查询</li>
+  <li>例子： 表 <code class="highlighter-rouge">project</code> 1 对 n 表 <code class="highlighter-rouge">rejected_projects</code>， 外键： <code class="highlighter-rouge">project_id</code></li>
+  <li>描述：通过 <code class="highlighter-rouge">GROUP BY</code> 对外键 <code class="highlighter-rouge">project_id</code> 分组，按条件取出最后一条数据，做成一个id集合， 然后 <code class="highlighter-rouge">JOIN</code> 这个集合取出整条记录的集合， 最后 <code class="highlighter-rouge">JOIN</code> 这个记录的集合进行复查查询</li>
+</ul>
+
+<h4 id="sql-实例"><strong><code class="highlighter-rouge">SQL</code> 实例:</strong></h4>
+<h4 id="1-id-集合">1. <code class="highlighter-rouge">id</code> 集合：</h4>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">rp</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">as</span> <span class="n">rp_id</span><span class="p">,</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span> <span class="k">as</span> <span class="n">project_id</span> <span class="k">from</span> <span class="n">rejected_projects</span> <span class="n">rp</span> <span class="k">group</span> <span class="k">by</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span>
+</code></pre></div></div>
+
+<h4 id="2-join-这个-id-集合取出整条记录的集合">2. <code class="highlighter-rouge">JOIN</code> 这个 <code class="highlighter-rouge">id</code> 集合取出整条记录的集合</h4>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">rp</span><span class="p">.</span><span class="o">*</span> <span class="k">from</span> <span class="n">rejected_projects</span> <span class="n">rp</span>
+<span class="k">join</span> <span class="p">(</span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">rp</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">as</span> <span class="n">rp_id</span><span class="p">,</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span> <span class="k">as</span> <span class="n">project_id</span> <span class="k">from</span> <span class="n">rejected_projects</span> <span class="n">rp</span> <span class="k">group</span> <span class="k">by</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span><span class="p">)</span> <span class="n">rp_dump</span> <span class="k">on</span> <span class="n">rp_dump</span><span class="p">.</span><span class="n">rp_id</span> <span class="o">=</span> <span class="n">rp</span><span class="p">.</span><span class="n">id</span>
+</code></pre></div></div>
+
+<h4 id="3-join-这个记录集合进行复杂查询">3. <code class="highlighter-rouge">JOIN</code> 这个记录集合进行复杂查询</h4>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">projects</span> <span class="k">JOIN</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="n">rp</span><span class="p">.</span><span class="o">*</span> <span class="k">from</span> <span class="n">rejected_projects</span> <span class="n">rp</span>
+  <span class="k">join</span> <span class="p">(</span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">rp</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">as</span> <span class="n">rp_id</span><span class="p">,</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span> <span class="k">as</span> <span class="n">project_id</span> <span class="k">from</span> <span class="n">rejected_projects</span> <span class="n">rp</span> <span class="k">group</span> <span class="k">by</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span><span class="p">)</span> <span class="n">rp_dump</span> <span class="k">on</span> <span class="n">rp_dump</span><span class="p">.</span><span class="n">rp_id</span> <span class="o">=</span> <span class="n">rp</span><span class="p">.</span><span class="n">id</span>
+<span class="p">)</span> <span class="n">rp2</span> <span class="k">on</span> <span class="n">rp2</span><span class="p">.</span><span class="n">project_id</span> <span class="o">=</span> <span class="n">projects</span><span class="p">.</span><span class="n">id</span>
+</code></pre></div></div>
+<h3 id="2-子查询">2. 子查询</h3>
+<ul>
+  <li>需求背景：某些联表查询</li>
+  <li>例子： 表 <code class="highlighter-rouge">project</code> 1 对 n 表 <code class="highlighter-rouge">rejected_projects</code>， 外键： <code class="highlighter-rouge">project_id</code></li>
+</ul>
+
+<h4 id="1-join-sql">1. <code class="highlighter-rouge">JOIN SQL</code></h4>
+
+<pre><code class="language-SQL">select * from projects p join rejected_projects rp on rp.project_id = p.id where rp.created_at &gt; '2019-12-11 00:00:00'
+</code></pre>
+<h4 id="2-exists-sql">2. <code class="highlighter-rouge">EXISTS SQL</code></h4>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">projects</span> <span class="k">where</span> 
+<span class="k">exists</span> <span class="p">(</span><span class="k">select</span> <span class="mi">1</span> <span class="k">from</span> <span class="n">rejected_projects</span> <span class="n">rp</span> <span class="k">where</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span><span class="o">=</span><span class="n">projects</span><span class="p">.</span><span class="n">id</span> <span class="k">and</span> <span class="n">rp</span><span class="p">.</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2019-12-11 00:00:00'</span><span class="p">)</span>
+</code></pre></div></div>
+<p><strong>适用场景: 被 JOIN 的表很大</strong></p>
+:ET

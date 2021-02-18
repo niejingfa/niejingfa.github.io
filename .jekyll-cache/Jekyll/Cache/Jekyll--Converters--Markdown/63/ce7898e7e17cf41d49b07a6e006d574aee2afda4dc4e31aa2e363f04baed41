@@ -1,0 +1,5 @@
+I"�<h3 id="1-步骤">1. 步骤</h3>
+<h3 id="1-rm-gemfilelock">1. rm Gemfile.lock</h3>
+<h3 id="2-bundle-update">2. bundle update</h3>
+<h3 id="3-rails-appupdate">3. rails app:update</h3>
+:ET

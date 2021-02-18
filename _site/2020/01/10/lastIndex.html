@@ -7,15 +7,15 @@
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="RegExp.lastIndex 属性" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="RegExp.lastIndex 属性" />
-<meta property="og:description" content="RegExp.lastIndex 属性" />
+<meta name="description" content="遇到一个售后 ， Regexp 匹配数据时，有时候数据能匹配出来，有时候不能匹配出来" />
+<meta property="og:description" content="遇到一个售后 ， Regexp 匹配数据时，有时候数据能匹配出来，有时候不能匹配出来" />
 <link rel="canonical" href="http://localhost:4000/2020/01/10/lastIndex.html" />
 <meta property="og:url" content="http://localhost:4000/2020/01/10/lastIndex.html" />
 <meta property="og:site_name" content="blank的个人博客" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-01-10T18:10:22+08:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/01/10/lastIndex.html"},"url":"http://localhost:4000/2020/01/10/lastIndex.html","description":"RegExp.lastIndex 属性","@type":"BlogPosting","headline":"RegExp.lastIndex 属性","dateModified":"2020-01-10T18:10:22+08:00","datePublished":"2020-01-10T18:10:22+08:00","@context":"https://schema.org"}</script>
+{"url":"http://localhost:4000/2020/01/10/lastIndex.html","@type":"BlogPosting","headline":"RegExp.lastIndex 属性","dateModified":"2020-01-10T18:10:22+08:00","datePublished":"2020-01-10T18:10:22+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/01/10/lastIndex.html"},"description":"遇到一个售后 ， Regexp 匹配数据时，有时候数据能匹配出来，有时候不能匹配出来","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blank的个人博客" /></head>
 <body><header class="site-header" role="banner">
@@ -45,38 +45,33 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <h1 id="regexplastindex-属性"><code class="highlighter-rouge">RegExp.lastIndex</code> 属性</h1>
-
-<p>遇到一个<a href="http://jira.rccchina.com/browse/PG-2081">售后</a> ，
+    <p>遇到一个<a href="http://jira.rccchina.com/browse/PG-2081">售后</a> ，
 <code class="highlighter-rouge">Regexp</code> 匹配数据时，有时候数据能匹配出来，有时候不能匹配出来</p>
 
 <p>总结了一下 <code class="highlighter-rouge">Regexp</code> 的问题</p>
 
-<ul>
-  <li>代码示例如下：
-```javascript
-let reg = new RegExp(‘c.*’, ‘g’)</li>
-</ul>
+<h4 id="1-代码示例如下">1. 代码示例如下：</h4>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">reg</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="dl">'</span><span class="s1">c.*</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">g</span><span class="dl">'</span><span class="p">)</span>
 
-<p>reg.test(‘chen’) // true
-reg.test(‘chen’) // false</p>
+<span class="nx">reg</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">chen</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">reg</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">chen</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// false</span>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-同样两次比对，第一次返回 true， 第二次返回 false
+</code></pre></div></div>
 
-- 查找原因
+<p>同样两次比对，第一次返回 true， 第二次返回 false</p>
 
-查阅资料后发现，是正则的 `lastIndex` 改变了
+<h4 id="2-查找原因">2. 查找原因</h4>
 
-```js
-let reg = new RegExp('c.*', 'g')
-console.log(reg.lastIndex) // 0
+<p>查阅资料后发现，是正则的 <code class="highlighter-rouge">lastIndex</code> 改变了</p>
 
-reg.test('chen') // true
-console.log(reg.lastIndex) // 4
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">reg</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="dl">'</span><span class="s1">c.*</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">g</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">reg</span><span class="p">.</span><span class="nx">lastIndex</span><span class="p">)</span> <span class="c1">// 0</span>
 
-reg.test('chen') // false
-console.log(reg.lastIndex) // 0
+<span class="nx">reg</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">chen</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">reg</span><span class="p">.</span><span class="nx">lastIndex</span><span class="p">)</span> <span class="c1">// 4</span>
+
+<span class="nx">reg</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">chen</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">reg</span><span class="p">.</span><span class="nx">lastIndex</span><span class="p">)</span> <span class="c1">// 0</span>
 </code></pre></div></div>
 
 <blockquote>

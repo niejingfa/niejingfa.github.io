@@ -1,0 +1,47 @@
+I"�<h3 id="1-join-查询">1. JOIN 查询</h3>
+<ul>
+  <li>需求背景：取出一对多数据中的最后一条做 <code class="highlighter-rouge">SQL</code> 
+<code class="highlighter-rouge">JOIN</code> 查询</li>
+  <li>例子： 表 <code class="highlighter-rouge">project</code> 1 对 n 表 <code class="highlighter-rouge">rejected_projects</code>， 外键： <code class="highlighter-rouge">project_id</code></li>
+  <li>描述：通过 <code class="highlighter-rouge">GROUP BY</code> 对外键 <code class="highlighter-rouge">project_id</code> 分组，按条件取出最后一条数据，做成一个id集合， 然后 <code class="highlighter-rouge">JOIN</code> 这个集合取出整条记录的集合， 最后 <code class="highlighter-rouge">JOIN</code> 这个记录的集合进行复查查询</li>
+</ul>
+
+<p><code class="highlighter-rouge">SQL</code> 实例:</p>
+<h4 id="1-id集合">1. id集合：</h4>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">rp</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">as</span> <span class="n">rp_id</span><span class="p">,</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span> <span class="k">as</span> <span class="n">project_id</span> <span class="k">from</span> <span class="n">rejected_projects</span> <span class="n">rp</span> <span class="k">group</span> <span class="k">by</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span>
+</code></pre></div></div>
+
+<h4 id="2-join-这个id集合取出整条记录的集合">2. <code class="highlighter-rouge">JOIN</code> 这个id集合取出整条记录的集合</h4>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">rp</span><span class="p">.</span><span class="o">*</span> <span class="k">from</span> <span class="n">rejected_projects</span> <span class="n">rp</span>
+<span class="k">join</span> <span class="p">(</span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">rp</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">as</span> <span class="n">rp_id</span><span class="p">,</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span> <span class="k">as</span> <span class="n">project_id</span> <span class="k">from</span> <span class="n">rejected_projects</span> <span class="n">rp</span> <span class="k">group</span> <span class="k">by</span> <span class="n">rp</span><span class="p">.</span><span class="n">project_id</span><span class="p">)</span> <span class="n">rp_dump</span> <span class="k">on</span> <span class="n">rp_dump</span><span class="p">.</span><span class="n">rp_id</span> <span class="o">=</span> <span class="n">rp</span><span class="p">.</span><span class="n">id</span>
+</code></pre></div></div>
+
+<h4 id="3-join-这个记录集合进行复杂查询">3. <code class="highlighter-rouge">JOIN</code> 这个记录集合进行复杂查询</h4>
+
+<pre><code class="language-SQL">select * from projects JOIN (
+  select rp.* from rejected_projects rp
+  join (select max(rp.id) as rp_id, rp.project_id as project_id from rejected_projects rp group by rp.project_id) rp_dump on rp_dump.rp_id = rp.id
+) rp2 on rp2.project_id = projects.id
+</code></pre>
+<h3 id="2-子查询">2. 子查询</h3>
+<ul>
+  <li>需求背景：某些联表查询</li>
+  <li>
+    <p>例子： 表 <code class="highlighter-rouge">project</code> 1 对 n 表 <code class="highlighter-rouge">rejected_projects</code>， 外键： <code class="highlighter-rouge">project_id</code></p>
+  </li>
+  <li><em>JOIN SQL</em></li>
+</ul>
+
+<pre><code class="language-SQL">select * from projects p join rejected_projects rp on rp.project_id = p.id where rp.created_at &gt; '2019-12-11 00:00:00'
+</code></pre>
+<ul>
+  <li><em>EXISTS SQL</em></li>
+</ul>
+
+<pre><code class="language-SQL">select * from projects where 
+exists (select 1 from rejected_projects rp where rp.project_id=projects.id and rp.created_at &gt; '2019-12-11 00:00:00')
+</code></pre>
+<ul>
+  <li>适用场景: 被 JOIN 的表很大</li>
+</ul>
+:ET

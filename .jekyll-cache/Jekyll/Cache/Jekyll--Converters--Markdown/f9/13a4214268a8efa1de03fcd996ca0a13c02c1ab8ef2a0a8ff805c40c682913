@@ -1,0 +1,17 @@
+I"<h3 id="一ruby-配置">一、ruby 配置</h3>
+<h4 id="1-rack-使用-puma-运行起来">1. rack 使用 puma 运行起来</h4>
+<p>项目下新建一个 <code class="highlighter-rouge">faye.ru</code> 文件, 配置 <code class="highlighter-rouge">faye</code></p>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'faye'</span>
+<span class="n">bayeux</span> <span class="o">=</span> <span class="no">Faye</span><span class="o">::</span><span class="no">RackAdapter</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">:mount</span> <span class="o">=&gt;</span> <span class="s1">'/faye'</span><span class="p">,</span> <span class="ss">:timeout</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">run</span> <span class="n">bayeux</span>
+</code></pre></div></div>
+<ul>
+  <li>启一个 <code class="highlighter-rouge">faye rack</code> 服务
+    <div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rackup</span> <span class="n">config</span><span class="p">.</span><span class="nf">ru</span> <span class="o">-</span><span class="n">s</span> <span class="n">puma</span> <span class="o">-</span><span class="no">E</span> <span class="n">production</span> <span class="o">-</span><span class="nb">p</span> <span class="mi">9292</span>
+</code></pre></div>    </div>
+    <blockquote>
+      <p>这是通过 <code class="highlighter-rouge">puma</code> 启起来的, 通过其他方式配置， 参见 <code class="highlighter-rouge">ruby faye</code> 的相关<a href="https://github.com/faye/faye-websocket-ruby">文档</a></p>
+    </blockquote>
+  </li>
+</ul>
+:ET

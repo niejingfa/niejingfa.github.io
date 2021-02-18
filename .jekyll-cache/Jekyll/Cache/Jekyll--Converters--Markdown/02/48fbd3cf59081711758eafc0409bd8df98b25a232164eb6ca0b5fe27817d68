@@ -1,0 +1,72 @@
+I"6<h3 id="一ruby-配置">一、ruby 配置</h3>
+<h4 id="1-rack-使用-puma-运行起来">1. rack 使用 puma 运行起来</h4>
+<ul>
+  <li>项目下新建一个 <code class="highlighter-rouge">faye.ru</code> 文件</li>
+  <li>配置 <code class="highlighter-rouge">faye</code>
+    <div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'faye'</span>
+<span class="n">bayeux</span> <span class="o">=</span> <span class="no">Faye</span><span class="o">::</span><span class="no">RackAdapter</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">:mount</span> <span class="o">=&gt;</span> <span class="s1">'/faye'</span><span class="p">,</span> <span class="ss">:timeout</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">run</span> <span class="n">bayeux</span>
+</code></pre></div>    </div>
+  </li>
+  <li>启一个 faye rack` 服务
+    <div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rackup</span> <span class="n">config</span><span class="p">.</span><span class="nf">ru</span> <span class="o">-</span><span class="n">s</span> <span class="n">puma</span> <span class="o">-</span><span class="no">E</span> <span class="n">production</span> <span class="o">-</span><span class="nb">p</span> <span class="mi">9292</span>
+</code></pre></div>    </div>
+    <blockquote>
+      <p>这是通过 <code class="highlighter-rouge">puma</code> 启起来的, 通过其他方式配置， 参见 <code class="highlighter-rouge">ruby faye</code> 的相关<a href="https://github.com/faye/faye-websocket-ruby">文档</a></p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="2-发布消息">2. 发布消息</h4>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">post_form</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="ss">message: </span><span class="n">message</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+  <li>uri: <code class="highlighter-rouge">faye</code> 服务启的地址</li>
+  <li>message: <code class="highlighter-rouge">json</code> 格式(字符串), <code class="highlighter-rouge">channel</code>(发送数据的频道), <code class="highlighter-rouge">data</code>(发送的数据)</li>
+</ul>
+
+<p>例如：</p>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">post_form</span><span class="p">(</span><span class="no">URI</span><span class="p">(</span><span class="s1">'http://127.0.0.1:9292/faye/events'</span><span class="p">),</span> <span class="ss">message: </span><span class="p">{</span> <span class="ss">channel: </span><span class="s1">'/foo'</span><span class="p">,</span> <span class="ss">data: </span><span class="s1">'1223'</span> <span class="p">}.</span><span class="nf">to_json</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="一前端订阅">一、前端订阅</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">HTML</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+  <span class="o">&lt;!-</span> <span class="err">引入</span> <span class="nx">JQuery</span> <span class="o">-&gt;</span>
+  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>  <span class="o">&lt;!-</span> <span class="err">引入</span> <span class="nx">faye</span> <span class="nx">js</span> <span class="o">-&gt;</span>
+  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span> <span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">http://127.0.0.1:9292/faye/client.js</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/head</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">faye</span><span class="err">测试</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/body</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="o">&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1111</span><span class="p">)</span>
+
+  <span class="c1">// 启一个订阅</span>
+  <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Faye</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://127.0.0.1:9292/faye</span><span class="dl">'</span><span class="p">);</span>
+
+    <span class="nx">client</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">'</span><span class="s1">/foo</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+    <span class="p">});</span>
+  <span class="p">})</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/html</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<h2 id="3-faye-文档">3. <code class="highlighter-rouge">faye</code> 文档</h2>
+<ul>
+  <li><a href="https://www.rubydoc.info/gems/faye/1.2.5/Faye"><code class="highlighter-rouge">faye</code></a> gem 的文档, 写了一堆看不懂的东西</li>
+  <li><code class="highlighter-rouge">faye</code>的核心<a href="https://github.com/faye/faye">代码</a></li>
+  <li><code class="highlighter-rouge">faye</code> 的官方<a href="https://faye.jcoglan.com/">文档</a>, 这个有用</li>
+  <li><code class="highlighter-rouge">ruby faye</code> 的相关<a href="https://github.com/faye/faye-websocket-ruby">文档</a>, 在<code class="highlighter-rouge">ruby</code>环境里怎么运行起来</li>
+</ul>
+
+<h2 id="4-拓展">4. 拓展</h2>
+<blockquote>
+  <p><a href="https://docs.anycable.io/v1/#/">anycable</a> ， 和 <code class="highlighter-rouge">faye</code> 类似</p>
+</blockquote>
+:ET

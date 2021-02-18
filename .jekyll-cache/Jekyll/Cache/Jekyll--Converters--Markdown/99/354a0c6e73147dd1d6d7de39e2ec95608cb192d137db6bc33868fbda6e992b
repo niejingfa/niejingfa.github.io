@@ -1,0 +1,4 @@
+I"�<h3 id="1-安装">1. 安装</h3>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">gem</span> <span class="s1">'sentry-ruby'</span>
+</code></pre></div></div>
+:ET

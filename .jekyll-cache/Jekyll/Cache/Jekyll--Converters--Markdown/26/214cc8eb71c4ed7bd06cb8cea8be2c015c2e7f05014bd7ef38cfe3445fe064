@@ -1,0 +1,6 @@
+I"3<h2 id="前言">前言</h2>
+<ol>
+  <li>使用 <code class="highlighter-rouge">Composition API</code> 编写的代码更易读，并且场景不复杂，这使得阅读和学习变得更容易。</li>
+  <li>解决了 <code class="highlighter-rouge">vue 2.x</code> 选项式 API 的一些痛点：</li>
+</ol>
+:ET

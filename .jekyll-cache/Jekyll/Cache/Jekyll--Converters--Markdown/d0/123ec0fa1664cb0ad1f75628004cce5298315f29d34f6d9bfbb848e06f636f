@@ -1,0 +1,6 @@
+I"2<h3 id="-步骤">. 步骤</h3>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span><span class="p">.</span> <span class="nf">rm</span> <span class="no">Gemfile</span><span class="p">.</span><span class="nf">lock</span>
+<span class="mi">2</span><span class="p">.</span> <span class="nf">bundle</span> <span class="n">update</span>
+<span class="mi">3</span><span class="p">.</span> <span class="nf">rails</span> <span class="n">app</span><span class="ss">:update</span>
+</code></pre></div></div>
+:ET
