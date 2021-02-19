@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "TypeScript 语法"
-date:   2021-02-19 10:52:22 +0800
 categories:
 ---
 
