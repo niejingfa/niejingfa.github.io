@@ -1,7 +1,0 @@
-I"�<ul>
-  <li>安装
-    <div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="s1">'sentry-ruby'</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-:ET

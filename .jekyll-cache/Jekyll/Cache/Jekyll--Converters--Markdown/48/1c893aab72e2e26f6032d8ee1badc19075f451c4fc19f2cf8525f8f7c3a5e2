@@ -1,0 +1,10 @@
+I"�<h1 id="鼠标选中---键盘上下控制选中---enter选上">鼠标选中 - 键盘上下控制选中 - enter选上</h1>
+
+<h2 id="1-控制鼠标选中">1. 控制鼠标选中</h2>
+<ul>
+  <li>给标签加上 <code class="highlighter-rouge">class="hover"</code> 就可以默认鼠标选中</li>
+  <li><code class="highlighter-rouge">$event</code> 可以获取上一个组件传过来的参数</li>
+  <li>给标签加上 <code class="highlighter-rouge">ref</code> 属性， 比如： <code class="highlighter-rouge">ref='aaa'</code>, 就可以通过 <code class="highlighter-rouge">this.$refs['aaa'].$el</code> 获取这个标签的所有属性</li>
+  <li></li>
+</ul>
+:ET

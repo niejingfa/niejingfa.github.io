@@ -1,0 +1,171 @@
+I"�L<h2 id="1-foreach">1. <code class="highlighter-rouge">ForEach</code></h2>
+
+<p><code class="highlighter-rouge">Javascript</code> <code class="highlighter-rouge">Array</code> <code class="highlighter-rouge">forEach</code>() 中无法 <code class="highlighter-rouge">return</code> 和 <code class="highlighter-rouge">break</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">break</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+<p>会报如下错误：</p>
+
+<p><img src="/images/Front-VueJS/ForEach-And-For/forEach_break.png" alt="" /></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+<p>使用return也不能跳出整个循环：</p>
+
+<p><img src="/images/Front-VueJS/ForEach-And-For/forEach_return.png" alt="" />
+<img src="forEach_return.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">forEach</code> 实现的源代码</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">forEach</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fun</span> <span class="cm">/*, thisp*/</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">fun</span> <span class="o">!=</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">();</span>
+
+  <span class="kd">var</span> <span class="nx">thisp</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="k">this</span><span class="p">)</span>
+      <span class="nx">fun</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">thisp</span><span class="p">,</span> <span class="k">this</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">i</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><strong>针对这个问题可以使用数组的另外两个方法some()与every()：</strong></p>
+
+<p>some()：当内部return true时跳出整个循环</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// 1</span>
+<span class="c1">// 2</span>
+<span class="c1">// true</span>
+</code></pre></div></div>
+
+<p>every()：当内部return false时跳出整个循环</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+       <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// 1</span>
+<span class="c1">// 2</span>
+<span class="c1">// false</span>
+</code></pre></div></div>
+
+<h2 id="2-for-和-foreach-性能对比">2. <code class="highlighter-rouge">for</code> 和 <code class="highlighter-rouge">forEach</code> 性能对比</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">arrs</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">100</span><span class="nx">_000</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arrs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">arrs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">arr</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// for: 2.275146484375ms</span>
+<span class="c1">// forEach: 0.23486328125ms</span>
+</code></pre></div></div>
+<p>在10万这个级别下， <code class="highlighter-rouge">forEach</code> 的性能是<code class="highlighter-rouge">for</code>的 10 倍</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">arrs</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">1</span><span class="nx">_000_000</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arrs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">arrs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">arr</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// for: 9.620849609375ms</span>
+<span class="c1">// forEach: 2.5791015625ms</span>
+</code></pre></div></div>
+<p>在100万这个级别下， <code class="highlighter-rouge">forEach</code> 的性能是<code class="highlighter-rouge">for</code>的 4 倍</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">arrs</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">100</span><span class="nx">_000_000</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arrs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">arrs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">arr</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// for: 769.68017578125ms</span>
+<span class="c1">// forEach: 1661.35009765625ms</span>
+</code></pre></div></div>
+
+<p>在1亿这个级别下， <code class="highlighter-rouge">for</code> 的性能是<code class="highlighter-rouge">forEach</code>的 2 倍多</p>
+
+<p>数据量越大，<code class="highlighter-rouge">forEach</code>的性能低于<code class="highlighter-rouge">for</code>的性能</p>
+
+<h2 id="3-for-嵌套循环">3. <code class="highlighter-rouge">for</code> 嵌套循环</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">first time</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">first time</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">two time</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">two time</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// first time: 289.223876953125ms</span>
+<span class="c1">// two time: 432.072021484375ms</span>
+</code></pre></div></div>
+
+<p><strong>为什么呢？</strong></p>
+
+<p>1、i会循环100次，判断i&lt;100 100次
+j会循环100 * 1000次，判断j&lt;100 100 * 1000次
+k会循环100 * 1000 * 10000次，判断k&lt;100 100 * 1000 * 10000次</p>
+
+<p>2、i会循环10000次，判断i&lt;100 10000次
+j会循环10000 * 1000次，判断j&lt;100 10000 * 1000次
+k会循环100 * 1000 * 10000次， 判断k&lt;100 100 * 1000 * 10000次</p>
+
+<p>虽然判断k&lt;100的次数都是一样的 但是前面两种判断（i 和 j）就不一样了，由此可以看见时间长短。</p>
+:ET

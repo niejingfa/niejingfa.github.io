@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>浅谈 ForEach 和 For | blank的个人博客</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="浅谈 ForEach 和 For" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. ForEach" />
+<meta property="og:description" content="1. ForEach" />
+<link rel="canonical" href="http://localhost:4000/2019/12/12/" />
+<meta property="og:url" content="http://localhost:4000/2019/12/12/" />
+<meta property="og:site_name" content="blank的个人博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-12T18:01:22+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/2019/12/12/","@type":"BlogPosting","headline":"浅谈 ForEach 和 For","dateModified":"2019-12-12T18:01:22+08:00","datePublished":"2019-12-12T18:01:22+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/12/12/"},"description":"1. ForEach","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blank的个人博客" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">blank的个人博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">浅谈 ForEach 和 For</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-12-12T18:01:22+08:00" itemprop="datePublished">Dec 12, 2019
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="1-foreach">1. <code class="highlighter-rouge">ForEach</code></h2>
+
+<p><code class="highlighter-rouge">Javascript</code> <code class="highlighter-rouge">Array</code> <code class="highlighter-rouge">forEach</code>() 中无法 <code class="highlighter-rouge">return</code> 和 <code class="highlighter-rouge">break</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">break</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+<p>会报如下错误：</p>
+
+<p><img src="/images/Front-VueJS/ForEach-And-For/forEach_break.png" alt="" /></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+<p>使用return也不能跳出整个循环：</p>
+
+<p><img src="/images/Front-VueJS/ForEach-And-For/forEach_return.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">forEach</code> 实现的源代码</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">forEach</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fun</span> <span class="cm">/*, thisp*/</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">fun</span> <span class="o">!=</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">();</span>
+
+  <span class="kd">var</span> <span class="nx">thisp</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="k">this</span><span class="p">)</span>
+      <span class="nx">fun</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">thisp</span><span class="p">,</span> <span class="k">this</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">i</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><strong>针对这个问题可以使用数组的另外两个方法some()与every()：</strong></p>
+
+<p>some()：当内部return true时跳出整个循环</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// 1</span>
+<span class="c1">// 2</span>
+<span class="c1">// true</span>
+</code></pre></div></div>
+
+<p>every()：当内部return false时跳出整个循环</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+       <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// 1</span>
+<span class="c1">// 2</span>
+<span class="c1">// false</span>
+</code></pre></div></div>
+
+<h2 id="2-for-和-foreach-性能对比">2. <code class="highlighter-rouge">for</code> 和 <code class="highlighter-rouge">forEach</code> 性能对比</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">arrs</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">100</span><span class="nx">_000</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arrs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">arrs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">arr</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// for: 2.275146484375ms</span>
+<span class="c1">// forEach: 0.23486328125ms</span>
+</code></pre></div></div>
+<p>在10万这个级别下， <code class="highlighter-rouge">forEach</code> 的性能是<code class="highlighter-rouge">for</code>的 10 倍</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">arrs</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">1</span><span class="nx">_000_000</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arrs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">arrs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">arr</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// for: 9.620849609375ms</span>
+<span class="c1">// forEach: 2.5791015625ms</span>
+</code></pre></div></div>
+<p>在100万这个级别下， <code class="highlighter-rouge">forEach</code> 的性能是<code class="highlighter-rouge">for</code>的 4 倍</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">arrs</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">100</span><span class="nx">_000_000</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arrs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">for</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">arrs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">arr</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">forEach</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// for: 769.68017578125ms</span>
+<span class="c1">// forEach: 1661.35009765625ms</span>
+</code></pre></div></div>
+
+<p>在1亿这个级别下， <code class="highlighter-rouge">for</code> 的性能是<code class="highlighter-rouge">forEach</code>的 2 倍多</p>
+
+<p>数据量越大，<code class="highlighter-rouge">forEach</code>的性能低于<code class="highlighter-rouge">for</code>的性能</p>
+
+<h2 id="3-for-嵌套循环">3. <code class="highlighter-rouge">for</code> 嵌套循环</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">first time</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">first time</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">two time</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">two time</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// first time: 289.223876953125ms</span>
+<span class="c1">// two time: 432.072021484375ms</span>
+</code></pre></div></div>
+
+<p><strong>为什么呢？</strong></p>
+
+<p>1、i会循环100次，判断i&lt;100 100次
+j会循环100 * 1000次，判断j&lt;100 100 * 1000次
+k会循环100 * 1000 * 10000次，判断k&lt;100 100 * 1000 * 10000次</p>
+
+<p>2、i会循环10000次，判断i&lt;100 10000次
+j会循环10000 * 1000次，判断j&lt;100 10000 * 1000次
+k会循环100 * 1000 * 10000次， 判断k&lt;100 100 * 1000 * 10000次</p>
+
+<p>虽然判断k&lt;100的次数都是一样的 但是前面两种判断（i 和 j）就不一样了，由此可以看见时间长短。</p>
+
+  </div><a class="u-url" href="/2019/12/12/index.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">blank的个人博客</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">blank的个人博客</li><li><a class="u-email" href="mailto:jingfa.nie@gmail.com">jingfa.nie@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/niejingfa"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">niejingfa</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

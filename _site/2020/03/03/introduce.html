@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Docker 介绍 | blank的个人博客</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Docker 介绍" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. 为什么要用docker?" />
+<meta property="og:description" content="1. 为什么要用docker?" />
+<link rel="canonical" href="http://localhost:4000/2020/03/03/introduce.html" />
+<meta property="og:url" content="http://localhost:4000/2020/03/03/introduce.html" />
+<meta property="og:site_name" content="blank的个人博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-03T18:01:22+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/2020/03/03/introduce.html","@type":"BlogPosting","headline":"Docker 介绍","dateModified":"2020-03-03T18:01:22+08:00","datePublished":"2020-03-03T18:01:22+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/03/03/introduce.html"},"description":"1. 为什么要用docker?","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blank的个人博客" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">blank的个人博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Docker 介绍</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-03-03T18:01:22+08:00" itemprop="datePublished">Mar 3, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="1-为什么要用docker">1. 为什么要用docker?</h2>
+
+<p>对开发和运维（devop）人员来说，最希望的就是一次创建或配置，可以在任意地方正常运行。</p>
+
+<p>有时候环境真的很难搭，网络原因，之前的包原因，各种版本的不兼容原因</p>
+<blockquote>
+  <p><a href="https://wiki.jikexueyuan.com/project/docker-technology-and-combat/why.html">详细</a></p>
+</blockquote>
+
+<h2 id="2-dockerfile-的配置">2. dockerfile 的配置</h2>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 定制的镜像都是基于 FROM 的镜像</span>
+<span class="k">FROM</span><span class="s"> ruby:2.5.1-alpine3.7</span>
+
+<span class="c"># throw errors if Gemfile has been modified since Gemfile.lock</span>
+<span class="k">RUN </span>bundle config mirror.https://rubygems.org https://gems.ruby-china.com
+
+<span class="c"># 改 apk 的镜像源</span>
+<span class="k">RUN </span><span class="nb">echo</span> <span class="s1">'http://mirrors.aliyun.com/alpine/edge/community'</span> <span class="o">&gt;&gt;</span> /etc/apk/repositories
+<span class="k">RUN </span><span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g'</span> /etc/apk/repositories
+<span class="c"># 安装一些要用到的系统包</span>
+<span class="k">RUN </span>apk add <span class="nt">--no-cache</span> <span class="nt">--virtual</span> build-deps build-base postgresql-dev
+
+<span class="k">WORKDIR</span><span class="s"> /usr/src/app</span>
+
+<span class="k">COPY</span><span class="s"> . .</span>
+<span class="k">RUN </span>bundle <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>查看容器列表</p>
+
+<p><code class="highlighter-rouge">docker ps -a</code></p>
+
+<p>通过容器 id 删除容器</p>
+
+<p><code class="highlighter-rouge">docker rm container</code></p>
+
+<p>查看镜像列表</p>
+
+<p><code class="highlighter-rouge">docker images</code></p>
+
+<p>通过镜像 id 删除镜像</p>
+
+<p><code class="highlighter-rouge">docker rmi image</code></p>
+
+<p>运行并进入容器</p>
+
+<p><code class="highlighter-rouge">docker run -it my_demo /bin/sh</code></p>
+
+<p>进入容器</p>
+
+<p><code class="highlighter-rouge">docker exec -it my_demo /bin/sh</code></p>
+
+<p>打包镜像</p>
+
+<p><code class="highlighter-rouge">docker build -t my_rails:latest .</code></p>
+
+<p>运行容器</p>
+
+<p><code class="highlighter-rouge">docker run --name my_rails -i -t -p 3000:3000 --network host  -v ~/Documents/:/var/www my_rails:latest /bin/sh</code></p>
+
+<p>-v ~/webs/:/var/www，这个参数的作用是将外部的文件夹~/webs映射到容器内/var/www中，在容器内可以共享外面的文件（代码）了。</p>
+
+<h2 id="3-招内-docker">3. 招内 docker</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM ruby:2.1.4
+RUN bundle config mirror.https://rubygems.org https://gems.ruby-china.com
+EXPOSE 3000
+EXPOSE 3306
+WORKDIR /usr/src/app
+COPY . .
+RUN gem install highline -v '1.6.21'
+RUN bundle
+</code></pre></div></div>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">docker</span><span class="w"> </span><span class="nx">build</span><span class="w"> </span><span class="nt">-t</span><span class="w"> </span><span class="nx">bid-ms:latest</span><span class="w"> </span><span class="o">.</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">docker</span><span class="w"> </span><span class="nx">run</span><span class="w"> </span><span class="nt">--name</span><span class="w"> </span><span class="nx">bid-ms</span><span class="w"> </span><span class="nt">-i</span><span class="w"> </span><span class="nt">-t</span><span class="w"> </span><span class="nt">-p</span><span class="w"> </span><span class="nx">3000:3000</span><span class="w"> </span><span class="nt">--network</span><span class="w"> </span><span class="nx">host</span><span class="w">  </span><span class="nt">-v</span><span class="w"> </span><span class="nx">~/Documents/:/var/www</span><span class="w"> </span><span class="nx">bid-ms:latest</span><span class="w"> </span><span class="nx">/bin/bash</span><span class="w">
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">mac</code> 链接本地的服务</p>
+
+<p><code class="highlighter-rouge">localhost =&gt; host.docker.internal</code></p>
+
+<p><code class="highlighter-rouge">linux</code> 链接本地的服务 <code class="highlighter-rouge">127.0.0.1</code></p>
+
+<h2 id="4-想搜索一下有哪些-tags">4. 想搜索一下有哪些 tags</h2>
+
+<p>这是 shell 脚本：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span><span class="nt">-lt</span> 1 <span class="o">]</span>
+<span class="k">then
+</span><span class="nb">cat</span> <span class="o">&lt;&lt;</span> <span class="no">HELP</span><span class="sh">
+
+dockertags  --  list all tags for a Docker image on a remote registry.
+
+EXAMPLE: 
+    - list all tags for ubuntu:
+       dockertags ubuntu
+
+    - list all php tags containing apache:
+       dockertags php apache
+</span><span class="no">
+HELP
+</span><span class="k">fi
+
+</span><span class="nv">image</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+<span class="nv">tags</span><span class="o">=</span><span class="sb">`</span>wget <span class="nt">-q</span> https://registry.hub.docker.com/v1/repositories/<span class="k">${</span><span class="nv">image</span><span class="k">}</span>/tags <span class="nt">-O</span> -  | <span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">'s/[][]//g'</span> <span class="nt">-e</span> <span class="s1">'s/"//g'</span> <span class="nt">-e</span> <span class="s1">'s/ //g'</span> | <span class="nb">tr</span> <span class="s1">'}'</span> <span class="s1">'\n'</span>  | <span class="nb">awk</span> <span class="nt">-F</span>: <span class="s1">'{print $3}'</span><span class="sb">`</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nv">tags</span><span class="o">=</span><span class="sb">`</span> <span class="nb">echo</span> <span class="s2">"</span><span class="k">${</span><span class="nv">tags</span><span class="k">}</span><span class="s2">"</span> | <span class="nb">grep</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span> <span class="sb">`</span>
+<span class="k">fi
+
+</span><span class="nb">echo</span> <span class="s2">"</span><span class="k">${</span><span class="nv">tags</span><span class="k">}</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>命名为 <code class="highlighter-rouge">dockertags</code>, 把路劲放在 <code class="highlighter-rouge">~/.zshrc</code> 或者 <code class="highlighter-rouge">~/.bashrc</code>下： <code class="highlighter-rouge">alias dockertags='${path}'</code></p>
+
+<p>可以使用 <code class="highlighter-rouge">dockertags ruby</code> 可以查看 <code class="highlighter-rouge">ruby</code> 所有的 <code class="highlighter-rouge">tags</code></p>
+
+<p>具体的 <code class="highlighter-rouge">ruby tags</code> 可以在<a href="https://hub.docker.com/_/ruby?tab=tags">这里</a>查看</p>
+
+<h3 id="5扩展">5.扩展</h3>
+<blockquote>
+  <ol>
+    <li>http://in4.rccchina.com/doc/index.html#/doc/d864855f</li>
+    <li>docker-compose 编排</li>
+  </ol>
+</blockquote>
+
+  </div><a class="u-url" href="/2020/03/03/introduce.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">blank的个人博客</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">blank的个人博客</li><li><a class="u-email" href="mailto:jingfa.nie@gmail.com">jingfa.nie@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/niejingfa"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">niejingfa</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

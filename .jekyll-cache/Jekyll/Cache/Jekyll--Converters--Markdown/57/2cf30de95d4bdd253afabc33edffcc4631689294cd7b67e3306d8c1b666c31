@@ -1,0 +1,14 @@
+I"/<h3 id="基础类型">基础类型</h3>
+<h4 id="数字类型-any">数字类型 any</h4>
+<p>任意值是 TypeScript 针对编程时类型不明确的变量使用的一种数据类型，它常用于以下三种情况。<br /></p>
+
+<h4 id="字符串类型-number">字符串类型 number</h4>
+<h4 id="布尔类型-boolean">布尔类型 boolean</h4>
+<h4 id="数组类型">数组类型</h4>
+<h4 id="元组">元组</h4>
+<h4 id="枚举-enum">枚举 enum</h4>
+<h4 id="void">void</h4>
+<h4 id="null">null</h4>
+<h4 id="undefined">undefined</h4>
+<h4 id="never">never</h4>
+:ET

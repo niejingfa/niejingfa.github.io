@@ -1,8 +1,0 @@
-I""<h3 id="第一种">第一种</h3>
-<ul>
-  <li>需求背景：取出一对多数据中的最后一条做 <code class="highlighter-rouge">SQL</code> 
-<code class="highlighter-rouge">JOIN</code> 查询</li>
-  <li>例子： 表 <code class="highlighter-rouge">project</code> 1 对 n 表 <code class="highlighter-rouge">rejected_projects</code>， 外键： <code class="highlighter-rouge">project_id</code></li>
-  <li>描述：通过 <code class="highlighter-rouge">GROUP BY</code> 对外键 <code class="highlighter-rouge">project_id</code> 分组，按条件取出最后一条数据，做成一个id集合， 然后 <code class="highlighter-rouge">JOIN</code> 这个集合取出整条记录的集合， 最后 <code class="highlighter-rouge">JOIN</code> 这个记录的集合进行复查查询</li>
-</ul>
-:ET

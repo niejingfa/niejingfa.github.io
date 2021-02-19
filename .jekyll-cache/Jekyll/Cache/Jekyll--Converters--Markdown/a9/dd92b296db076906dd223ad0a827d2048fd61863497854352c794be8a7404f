@@ -1,6 +1,0 @@
-I"ˆ<h3 id="1-rm-gemfilelock">1. rm Gemfile.lock</h3>
-<h3 id="2-bundle-update">2. bundle update</h3>
-<ol>
-  <li>rails app:update</li>
-</ol>
-:ET

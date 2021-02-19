@@ -1,6 +1,0 @@
-I"�<h3 id="1-步骤">1. 步骤</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. rm Gemfile.lock
-2. bundle update
-3. rails app:update
-</code></pre></div></div>
-:ET

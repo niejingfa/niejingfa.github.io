@@ -1,0 +1,172 @@
+I"�1<h1 id="分布式锁-redis-的实现">分布式锁 Redis 的实现</h1>
+<p>系统中有些业务，我们需要先读取，然后在进行保存，称为 CAS(check-and-set), 此时很容易遇到并发问题，无法保证业务的原子性</p>
+
+<h2 id="问题">问题</h2>
+<p>系统中有多个并行的 sidekiq Job，都是同样的逻辑
+代码如下：</p>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 查询</span>
+<span class="n">project_link_status</span> <span class="o">=</span> <span class="no">ProjectLinkStatus</span><span class="p">.</span><span class="nf">find_or_initialize_by</span><span class="p">(</span><span class="ss">project_id: </span><span class="n">xxx</span><span class="p">)</span>
+<span class="c1"># project_link_status = ProjectLinkStatus.where(project_id: xxx)</span>
+<span class="c1"># project_link_status ||= ProjectLinkStatus.new</span>
+
+<span class="c1"># 保存</span>
+<span class="n">project_link_status</span><span class="p">.</span><span class="nf">save!</span>
+</code></pre></div></div>
+<p>现象：数据库会保存两条 <code class="highlighter-rouge">project_id</code> 一样的数据<br />
+结论：遇到了并发<br /></p>
+
+<h2 id="解决方案">解决方案</h2>
+<ol>
+  <li>通过加数据唯一索引的方式</li>
+  <li>加 redis 分布式锁</li>
+</ol>
+
+<h2 id="redis-分布式锁">Redis 分布式锁</h2>
+
+<p>开始我是想用 <code class="highlighter-rouge">redis</code> 做一个中间的缓存队列，数据都往 <code class="highlighter-rouge">redis</code> 里面塞，<code class="highlighter-rouge">redis</code> 再定时去消费</p>
+
+<p>后来经过大佬推荐，可以使用 <code class="highlighter-rouge">redis</code> 分布式锁</p>
+
+<h2 id="实现">实现</h2>
+<p><code class="highlighter-rouge">Redis</code> 锁主要利用 <code class="highlighter-rouge">Redis</code> 的 <code class="highlighter-rouge">setnx</code> 命令。因为 <code class="highlighter-rouge">redis</code> 是单线程，操作是原子性的，所以不存在并发生成锁的问题。</p>
+
+<p>就是给这个 <code class="highlighter-rouge">Job</code> 操作命一个 <code class="highlighter-rouge">key</code>, 通过 <code class="highlighter-rouge">setnx</code> 生成一个锁，当代码执行的时候，能取到这个锁，就可以往下执行，否则就等待。执行完成之后就把锁给删掉。</p>
+
+<p>伪代码如下：</p>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">setnx</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+    <span class="n">expire</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">try</span> <span class="p">{</span>
+      <span class="c1"># TODO 业务逻辑</span>
+    <span class="p">}</span> <span class="n">finally</span> <span class="p">{</span>
+        <span class="n">del</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>我们按照这个逻辑转换成 ruby 代码：</p>
+
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">def</span> <span class="nf">perform</span>
+  <span class="n">key</span> <span class="o">=</span> <span class="s1">'setnx:test'</span>
+  <span class="n">check_run</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">check_run</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+  <span class="k">if</span> <span class="vg">$redis</span><span class="p">.</span><span class="nf">setnx</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="vg">$redis</span><span class="p">.</span><span class="nf">expire</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="c1"># 执行逻辑</span>
+    <span class="c1"># 执行完成</span>
+    <span class="c1"># 释放锁</span>
+  <span class="k">else</span>
+    <span class="nb">sleep</span> <span class="mi">3</span>
+    <span class="n">check_run</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>这样就解决了吗？真的这么轻松吗？<br /><br /><br /><br /><br /></p>
+
+<p>并没有，这样还存在 redis 两次操作不是原子性的问题<br />
+如果 <code class="highlighter-rouge">setnx</code> 成功， 服务器挂了，或者重启了， 等等，<code class="highlighter-rouge">expire</code> 就失败了<br />
+那这个锁就永远不会释放了，就会造成死锁了<br />
+<br />
+为了保证 redis 两次操作的原子性，我们可以使用 <code class="highlighter-rouge">lua</code> 脚本, 什么是 <code class="highlighter-rouge">lua</code> 脚本?<br /></p>
+<blockquote>
+  <p>Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放， 其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。</p>
+</blockquote>
+
+<p>然后结合 <code class="highlighter-rouge">redis eval</code> 一起使用, <code class="highlighter-rouge">eval</code> 有什么作用呢？</p>
+
+<blockquote>
+  <p>Redis 使用单个 Lua 解释器去运行所有脚本，并且， Redis 也保证脚本会以原子性(atomic)的方式执行：当某个脚本正在运行的时候，不会有其他脚本或 Redis 命令被执行。这和使用 MULTI / EXEC 包围的事务很类似。在其他别的客户端看来，脚本的效果(effect)要么是不可见的(not visible)，要么就是已完成的(already completed)。</p>
+</blockquote>
+
+<blockquote>
+  <p>另一方面，这也意味着，执行一个运行缓慢的脚本并不是一个好主意。写一个跑得很快很顺溜的脚本并不难，因为脚本的运行开销(overhead)非常少，但是当你不得不使用一些跑得比较慢的脚本时，请小心，因为当这些蜗牛脚本在慢吞吞地运行的时候，其他客户端会因为服务器正忙而无法执行命令。</p>
+</blockquote>
+
+<p>大致代码如下：</p>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">def</span> <span class="nf">perform</span>
+  <span class="n">key</span> <span class="o">=</span> <span class="s1">'setnx:test'</span>
+  <span class="n">check_run</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="k">end</span>
+
+
+<span class="k">def</span> <span class="nf">check_run</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+  <span class="k">if</span> <span class="vg">$redis</span><span class="p">.</span><span class="nf">eval</span><span class="p">(</span><span class="s2">"if (redis.call('setnx',KEYS[1],ARGV[1]) &lt; 1) then return 0; end; redis.call('expire',KEYS[1],tonumber(ARGV[2])); return 1;"</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+    <span class="c1"># 执行逻辑</span>
+    <span class="c1"># 执行完成</span>
+    <span class="c1"># 释放锁</span>
+  <span class="k">else</span>
+    <span class="nb">sleep</span> <span class="mi">3</span>
+    <span class="n">check_run</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>这样就解决了吗？会不会还有问题？<br /><br /><br /><br /></p>
+
+<p>这样还会存在一个问题：
+假如说有两个线程运行，分别为 <code class="highlighter-rouge">Thead1</code>, <code class="highlighter-rouge">Thead2</code><br /></p>
+
+<ol>
+  <li><code class="highlighter-rouge">Thead1</code> 先取到资源锁 <code class="highlighter-rouge">lock1</code>，执行超过了 <code class="highlighter-rouge">30s</code>, 资源锁 <code class="highlighter-rouge">lock1</code> 过期了</li>
+  <li><code class="highlighter-rouge">Thead2</code> 然后取到了资源锁 <code class="highlighter-rouge">lock2</code>, 此时 <code class="highlighter-rouge">Thead1</code> 和 <code class="highlighter-rouge">Thead2</code> 并发执行了</li>
+  <li><code class="highlighter-rouge">Thead1</code> 执行完毕，要释放资源锁 <code class="highlighter-rouge">lock1</code>（但是 <code class="highlighter-rouge">lock1</code>已经不存在了）, 因为锁没有区分标记，这时 <code class="highlighter-rouge">Thead1</code> 会把的 <code class="highlighter-rouge">lock2</code> 给释放掉</li>
+</ol>
+
+<p>这样就会存在两个问题</p>
+<ul>
+  <li>
+    <ol>
+      <li><code class="highlighter-rouge">Thead1</code> 把 <code class="highlighter-rouge">Thead2</code> 的锁给释放掉了</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li><code class="highlighter-rouge">Thead1</code> 和 <code class="highlighter-rouge">Thead2</code> 并发执行了</li>
+    </ol>
+  </li>
+</ul>
+
+<p>解决：<br />
+第一个问题我们可以给每个线程加 <code class="highlighter-rouge">uuid</code> 来标识，只有对应的 <code class="highlighter-rouge">uuid</code> 才能解对应的锁。<br />
+第二个问题， 一般有两种方式解决该问题：</p>
+<ul>
+  <li>将过期时间设置足够长，确保代码逻辑在锁释放之前能够执行完成。</li>
+  <li>为获取锁的线程增加守护线程，为将要过期但未释放的锁增加有效时间。</li>
+</ul>
+
+<p>进行到这里，我准备用过期时间设置足够长解决这个问题了</p>
+
+<p>然后还有一种解决思路就是通过，<code class="highlighter-rouge">redis</code> 发布和订阅来获取锁和释放锁，
+这样就又多了几次 <code class="highlighter-rouge">redis</code> 操作。</p>
+
+<p>最终代码大致如下：</p>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">def</span> <span class="nf">perform</span>
+  <span class="n">key</span> <span class="o">=</span> <span class="s1">'setnx:test'</span>
+  <span class="n">uuid</span> <span class="o">=</span> <span class="no">UUID</span><span class="p">.</span><span class="nf">generate</span>
+  <span class="n">check_run</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">uuid</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">check_run</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">uuid</span><span class="p">)</span>
+  <span class="k">if</span> <span class="vg">$redis</span><span class="p">.</span><span class="nf">eval</span><span class="p">(</span><span class="s2">"if (redis.call('setnx',KEYS[1],ARGV[1]) &lt; 1) then return 0; end; redis.call('expire',KEYS[1],tonumber(ARGV[2])); return 1;"</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="p">[</span><span class="n">uuid</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+    <span class="c1"># 执行逻辑</span>
+    <span class="c1"># 执行完成</span>
+    <span class="k">if</span> <span class="vg">$redis</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="n">uuid</span>
+      <span class="c1"># 释放锁</span>
+    <span class="k">end</span>
+  <span class="k">else</span>
+    <span class="nb">sleep</span> <span class="mi">3</span>
+    <span class="n">check_run</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">uuid</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="参考">参考</h2>
+<blockquote>
+  <p>https://xiaomi-info.github.io/2019/12/17/redis-distributed-lock/</p>
+</blockquote>
+:ET

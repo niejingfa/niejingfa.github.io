@@ -1,0 +1,34 @@
+I"|
+<h3 id="前言">前言</h3>
+<p>TypeScript 是 JavaScript 的一个超集，支持 ECMAScript 6 标准<br />
+TypeScript 由微软开发的自由和开源的编程语言。<br />
+TypeScript 设计目标是开发大型应用，它可以编译成纯 JavaScript，编译出来的 JavaScript 可以运行在任何浏览器上。</p>
+
+<h3 id="安装">安装</h3>
+<h4 id="npm-安装-typescript">NPM 安装 TypeScript</h4>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-g</span> typescript
+</code></pre></div></div>
+
+<h4 id="yarn-安装-typescript">YARN 安装 TypeScript</h4>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn global add typescript
+</code></pre></div></div>
+<hr />
+<p>安装成之后，我们就可以通过 <code class="highlighter-rouge">tsc</code> 命令来执行 <code class="highlighter-rouge">TypeScript</code> 相关代码，以下是查看版本号：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>tsc <span class="nt">-v</span>
+Version 4.1.5
+</code></pre></div></div>
+<p>也可以通过 <code class="highlighter-rouge">tsc</code> 命令来编译 <code class="highlighter-rouge">ts</code> 代码：<br />
+<code class="highlighter-rouge">ts</code> 代码如下：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// typescript-example.ts</span>
+<span class="kd">var</span> <span class="nx">message</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hello World</span><span class="dl">"</span> 
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+</code></pre></div></div>
+<p>执行 <code class="highlighter-rouge">tsc typescript-example.ts</code>，生成 .js 文件</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// typescript-example.js</span>
+<span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hello World</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="更多-typescript-语法">更多 TypeScript 语法</h3>
+<p>…</p>
+:ET

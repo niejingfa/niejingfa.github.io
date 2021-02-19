@@ -1,8 +1,0 @@
-I"�<h3 id="1-步骤">1. 步骤</h3>
-<p>```</p>
-<ol>
-  <li>rm Gemfile.lock</li>
-  <li>bundle update</li>
-  <li>rails app:update</li>
-</ol>
-:ET
