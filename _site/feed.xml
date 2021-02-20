@@ -1,4 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-19T11:47:25+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">TypeScript 简介</title><link href="http://localhost:4000/2021/02/19/TypeScript-1.html" rel="alternate" type="text/html" title="TypeScript 简介" /><published>2021-02-19T09:52:22+08:00</published><updated>2021-02-19T09:52:22+08:00</updated><id>http://localhost:4000/2021/02/19/TypeScript-1</id><content type="html" xml:base="http://localhost:4000/2021/02/19/TypeScript-1.html">&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-20T16:47:26+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank的个人博客</title><subtitle>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</subtitle><entry><title type="html">vue-cli-service 的使用</title><link href="http://localhost:4000/2021/02/20/vue-cli-service.html" rel="alternate" type="text/html" title="vue-cli-service 的使用" /><published>2021-02-20T16:47:22+08:00</published><updated>2021-02-20T16:47:22+08:00</updated><id>http://localhost:4000/2021/02/20/vue-cli-service</id><content type="html" xml:base="http://localhost:4000/2021/02/20/vue-cli-service.html">&lt;h4 id=&quot;1-全局安装-vue-cli-service&quot;&gt;1. 全局安装 vue-cli-service&lt;/h4&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; @vue/cli
+&lt;span class=&quot;c&quot;&gt;# OR&lt;/span&gt;
+yarn global add @vue/cli
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;2-问题&quot;&gt;2. 问题&lt;/h4&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zsh: &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;not found: vue-cli-service
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;是因为vue-cli-service 并没有加入到环境变量里。
+手动在命令行里手动加上&lt;/p&gt;
+
+&lt;h4 id=&quot;3-解决&quot;&gt;3. 解决&lt;/h4&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 添加vue-cli-service的环境变量&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;:./node_modules/.bin
+ 
+&lt;span class=&quot;c&quot;&gt;#查看添加后的环境变量&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;之后 vue-cli-service 命令就可以使用了。&lt;/p&gt;
+
+&lt;p&gt;但是这样仅在本次terminal有效，每次都添加一次也太麻烦了，我们需要永久添加：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 编辑根目录下的.bash_profile文件&lt;/span&gt;
+vim ~/.bash_profile
+ 
+&lt;span class=&quot;c&quot;&gt;# 在文件最后添加&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;:./node_modules/.bin
+ 
+&lt;span class=&quot;c&quot;&gt;# 添加文件后,再执行source立即生效，就可以永久保存啦&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.bash_profile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">1. 全局安装 vue-cli-service npm install -g @vue/cli # OR yarn global add @vue/cli</summary></entry><entry><title type="html">TypeScript 简介</title><link href="http://localhost:4000/2021/02/19/TypeScript-1.html" rel="alternate" type="text/html" title="TypeScript 简介" /><published>2021-02-19T09:52:22+08:00</published><updated>2021-02-19T09:52:22+08:00</updated><id>http://localhost:4000/2021/02/19/TypeScript-1</id><content type="html" xml:base="http://localhost:4000/2021/02/19/TypeScript-1.html">&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
 &lt;p&gt;TypeScript 是 JavaScript 的一个超集，支持 ECMAScript 6 标准&lt;br /&gt;
 TypeScript 由微软开发的自由和开源的编程语言。&lt;br /&gt;
 TypeScript 设计目标是开发大型应用，它可以编译成纯 JavaScript，编译出来的 JavaScript 可以运行在任何浏览器上。&lt;/p&gt;
@@ -29,7 +61,37 @@ Version 4.1.5
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;更多-typescript-语法&quot;&gt;更多 TypeScript 语法&lt;/h3&gt;
-&lt;p&gt;…&lt;/p&gt;</content><author><name></name></author><summary type="html">前言 TypeScript 是 JavaScript 的一个超集，支持 ECMAScript 6 标准 TypeScript 由微软开发的自由和开源的编程语言。 TypeScript 设计目标是开发大型应用，它可以编译成纯 JavaScript，编译出来的 JavaScript 可以运行在任何浏览器上。</summary></entry><entry><title type="html">Rails 6.1 升级</title><link href="http://localhost:4000/2021/01/07/Rails6.1-upgrade.html" rel="alternate" type="text/html" title="Rails 6.1 升级" /><published>2021-01-07T18:10:22+08:00</published><updated>2021-01-07T18:10:22+08:00</updated><id>http://localhost:4000/2021/01/07/Rails6.1-upgrade</id><content type="html" xml:base="http://localhost:4000/2021/01/07/Rails6.1-upgrade.html">&lt;h3 id=&quot;一-步骤&quot;&gt;一、 步骤&lt;/h3&gt;
+&lt;p&gt;…&lt;/p&gt;</content><author><name></name></author><summary type="html">前言 TypeScript 是 JavaScript 的一个超集，支持 ECMAScript 6 标准 TypeScript 由微软开发的自由和开源的编程语言。 TypeScript 设计目标是开发大型应用，它可以编译成纯 JavaScript，编译出来的 JavaScript 可以运行在任何浏览器上。</summary></entry><entry><title type="html">Sentry 的使用</title><link href="http://localhost:4000/2021/01/07/sentry.html" rel="alternate" type="text/html" title="Sentry 的使用" /><published>2021-01-07T18:10:22+08:00</published><updated>2021-01-07T18:10:22+08:00</updated><id>http://localhost:4000/2021/01/07/sentry</id><content type="html" xml:base="http://localhost:4000/2021/01/07/sentry.html">&lt;h3 id=&quot;1-安装&quot;&gt;1. 安装&lt;/h3&gt;
+&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'sentry-ruby'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-配置&quot;&gt;2. 配置&lt;/h3&gt;
+&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# config/initializers/sentry_config.rb&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Sentry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# 配置 dsn&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dsn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SENTRY_DSN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# 配置 environment&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SENTRY_ENVIRONMENT'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-使用&quot;&gt;3. 使用&lt;/h3&gt;
+&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ApplicationApi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Grape&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;API&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;....&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# 放在最后, 打印所有异常&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rescue_from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;StandardError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Sentry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;capture_exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;4-参考文档&quot;&gt;4. 参考文档：&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;https://docs.sentry.io/platforms/ruby/performance/&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name></name></author><summary type="html">1. 安装 gem 'sentry-ruby'</summary></entry><entry><title type="html">Rails 6.1 升级</title><link href="http://localhost:4000/2021/01/07/Rails6.1-upgrade.html" rel="alternate" type="text/html" title="Rails 6.1 升级" /><published>2021-01-07T18:10:22+08:00</published><updated>2021-01-07T18:10:22+08:00</updated><id>http://localhost:4000/2021/01/07/Rails6.1-upgrade</id><content type="html" xml:base="http://localhost:4000/2021/01/07/Rails6.1-upgrade.html">&lt;h3 id=&quot;一-步骤&quot;&gt;一、 步骤&lt;/h3&gt;
 &lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Gemfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;lock&lt;/span&gt;
 &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;
 &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:update&lt;/span&gt;
@@ -313,37 +375,7 @@ Did you mean?  update_attribute):
   &lt;li&gt;where.not&lt;/li&gt;
   &lt;li&gt;can’t modify frozen attributes&lt;/li&gt;
   &lt;li&gt;ActiveRecord::Base.has_many_inversing = true&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">一、 步骤 1. rm Gemfile.lock 2. bundle update 3. rails app:update</summary></entry><entry><title type="html">Sentry 的使用</title><link href="http://localhost:4000/2021/01/07/sentry.html" rel="alternate" type="text/html" title="Sentry 的使用" /><published>2021-01-07T18:10:22+08:00</published><updated>2021-01-07T18:10:22+08:00</updated><id>http://localhost:4000/2021/01/07/sentry</id><content type="html" xml:base="http://localhost:4000/2021/01/07/sentry.html">&lt;h3 id=&quot;1-安装&quot;&gt;1. 安装&lt;/h3&gt;
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'sentry-ruby'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-配置&quot;&gt;2. 配置&lt;/h3&gt;
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# config/initializers/sentry_config.rb&lt;/span&gt;
-&lt;span class=&quot;no&quot;&gt;Sentry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# 配置 dsn&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dsn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SENTRY_DSN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# 配置 environment&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SENTRY_ENVIRONMENT'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3-使用&quot;&gt;3. 使用&lt;/h3&gt;
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ApplicationApi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Grape&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;API&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;....&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# 放在最后, 打印所有异常&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;rescue_from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;StandardError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;Sentry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;capture_exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  
-  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;nf&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h3 id=&quot;4-参考文档&quot;&gt;4. 参考文档：&lt;/h3&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;https://docs.sentry.io/platforms/ruby/performance/&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name></name></author><summary type="html">1. 安装 gem 'sentry-ruby'</summary></entry><entry><title type="html">Vue 3.0 之 composition-api</title><link href="http://localhost:4000/2020/12/13/composition-api.html" rel="alternate" type="text/html" title="Vue 3.0 之 composition-api" /><published>2020-12-13T16:57:22+08:00</published><updated>2020-12-13T16:57:22+08:00</updated><id>http://localhost:4000/2020/12/13/composition-api</id><content type="html" xml:base="http://localhost:4000/2020/12/13/composition-api.html">&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">一、 步骤 1. rm Gemfile.lock 2. bundle update 3. rails app:update</summary></entry><entry><title type="html">Vue 3.0 之 composition-api</title><link href="http://localhost:4000/2020/12/13/composition-api.html" rel="alternate" type="text/html" title="Vue 3.0 之 composition-api" /><published>2020-12-13T16:57:22+08:00</published><updated>2020-12-13T16:57:22+08:00</updated><id>http://localhost:4000/2020/12/13/composition-api</id><content type="html" xml:base="http://localhost:4000/2020/12/13/composition-api.html">&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
 &lt;p&gt;使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;Composition API&lt;/code&gt; 编写的代码更易读，并且场景不复杂，这使得阅读和学习变得更容易。&lt;/p&gt;
 
 &lt;p&gt;解决了 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue 2.x&lt;/code&gt; 选项式 API 的一些痛点：&lt;/p&gt;
@@ -1474,70 +1506,4 @@ select id from projects where production_stage_id = 20
 &lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:nth-of-type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:nth-of-type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;err&quot;&gt;为父元素的第&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;Number&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;个&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">1. flex 布局是什么？ ``` Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 任何一个容器都可以指定为 Flex 布局。</summary></entry><entry><title type="html">搭建一个 faye 服务</title><link href="http://localhost:4000/2020/05/17/faye.html" rel="alternate" type="text/html" title="搭建一个 faye 服务" /><published>2020-05-17T16:57:22+08:00</published><updated>2020-05-17T16:57:22+08:00</updated><id>http://localhost:4000/2020/05/17/faye</id><content type="html" xml:base="http://localhost:4000/2020/05/17/faye.html">&lt;h3 id=&quot;一ruby-配置&quot;&gt;一、ruby 配置&lt;/h3&gt;
-&lt;h4 id=&quot;1-rack-使用-puma-运行起来&quot;&gt;1. rack 使用 puma 运行起来&lt;/h4&gt;
-&lt;p&gt;项目下新建一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;faye.ru&lt;/code&gt; 文件, 配置 &lt;code class=&quot;highlighter-rouge&quot;&gt;faye&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'faye'&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;bayeux&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Faye&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RackAdapter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:mount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/faye'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:timeout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bayeux&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;启一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;faye rack&lt;/code&gt; 服务&lt;/p&gt;
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;rackup&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ru&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;puma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;production&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9292&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;这是通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;puma&lt;/code&gt; 启起来的, 通过其他方式配置， 参见 &lt;code class=&quot;highlighter-rouge&quot;&gt;ruby faye&lt;/code&gt; 的相关&lt;a href=&quot;https://github.com/faye/faye-websocket-ruby&quot;&gt;文档&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;2-发布消息&quot;&gt;2. 发布消息&lt;/h4&gt;
-&lt;p&gt;使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;ruby&lt;/code&gt; 自带的 &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP&lt;/code&gt; 请求&lt;/p&gt;
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;post_form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;message: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# uri: faye 服务启的地址&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# message: json 格式(字符串), channel(发送数据的频道), data(发送的数据)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;例如：&lt;/p&gt;
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;post_form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;URI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'http://127.0.0.1:9292/faye/events'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;message: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;channel: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/foo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;data: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'1223'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;二前端订阅&quot;&gt;二、前端订阅&lt;/h3&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DOCTYPE&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTML&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;&amp;lt;!-&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;引入&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JQuery&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;lt;!-&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;引入&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;faye&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;text/javascript&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;http://127.0.0.1:9292/faye/client.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/head&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;faye&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;测试&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/div&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/body&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;text/javascript&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1111&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// 启一个订阅&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Faye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;http://127.0.0.1:9292/faye&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/foo&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;222&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/html&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;三-faye-相关文档&quot;&gt;三、 faye 相关文档&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;faye&lt;/code&gt; 的官方&lt;a href=&quot;https://faye.jcoglan.com/&quot;&gt;文档&lt;/a&gt;, 这个有用&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby faye&lt;/code&gt; 的相关&lt;a href=&quot;https://github.com/faye/faye-websocket-ruby&quot;&gt;文档&lt;/a&gt;, 在&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby&lt;/code&gt;环境里怎么运行起来&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.rubydoc.info/gems/faye/1.2.5/Faye&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;faye&lt;/code&gt;&lt;/a&gt; gem 的文档, 写了一堆看不懂的东西&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;faye&lt;/code&gt;的核心&lt;a href=&quot;https://github.com/faye/faye&quot;&gt;代码&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;四-拓展&quot;&gt;四. 拓展&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://docs.anycable.io/v1/#/&quot;&gt;anycable&lt;/a&gt; ， 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;faye&lt;/code&gt; 类似&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name></name></author><summary type="html">一、ruby 配置 1. rack 使用 puma 运行起来 项目下新建一个 faye.ru 文件, 配置 faye require 'faye' bayeux = Faye::RackAdapter.new(:mount =&amp;gt; '/faye', :timeout =&amp;gt; 25) run bayeux 启一个 faye rack 服务 rackup config.ru -s puma -E production -p 9292 这是通过 puma 启起来的, 通过其他方式配置， 参见 ruby faye 的相关文档</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">1. flex 布局是什么？ ``` Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 任何一个容器都可以指定为 Flex 布局。</summary></entry></feed>
