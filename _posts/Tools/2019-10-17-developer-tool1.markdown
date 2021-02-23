@@ -34,4 +34,10 @@ categories:
 
 * [ppt](https://github.com/zulko/eagle.js/) 一个用Vue.js构建的易破解的幻灯片框架
 
+* [alfred](https://www.alfredapp.com/) mac 效率神器
+
+* [uTools](https://u.tools/) 跨平台中文效率神器
+
+* [Xnip] mac 剪切工具
+
 * 未完待续...
