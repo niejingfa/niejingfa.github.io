@@ -1,0 +1,11 @@
+I"�<p>新建一张简单的表</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">create_table</span> <span class="ss">:blank_tests</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">integer</span> <span class="ss">:test_id</span><span class="p">,</span> <span class="ss">index: </span><span class="kp">true</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:test_text</span><span class="p">,</span> <span class="ss">limit: </span><span class="mi">50</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<h2 id="1-createarray">1. create(Array)</h2>
+<p>```ruby
+data = [{ test_id: 1, test_text: ‘哈哈哈’}] * 1000
+Benchmark.measure { BlankTest.create!(data) }</p>
+:ET

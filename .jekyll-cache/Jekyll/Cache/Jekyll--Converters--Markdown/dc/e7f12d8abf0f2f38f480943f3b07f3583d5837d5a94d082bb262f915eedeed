@@ -1,0 +1,57 @@
+I"�<p>新建一张简单的表</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">create_table</span> <span class="ss">:blank_tests</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">integer</span> <span class="ss">:test_id</span><span class="p">,</span> <span class="ss">index: </span><span class="kp">true</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:test_text</span><span class="p">,</span> <span class="ss">limit: </span><span class="mi">50</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<h2 id="1-createarray">1. create(Array)</h2>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="p">[{</span> <span class="ss">test_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">test_text: </span><span class="s1">'哈哈哈'</span><span class="p">}]</span> <span class="o">*</span> <span class="mi">1000</span>
+<span class="no">Benchmark</span><span class="p">.</span><span class="nf">measure</span> <span class="p">{</span> <span class="no">BlankTest</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="vi">@cstime</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="vi">@cutime</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="vi">@label</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+<span class="vi">@real</span><span class="o">=</span><span class="mf">27.468047000002116</span><span class="p">,</span>
+<span class="vi">@stime</span><span class="o">=</span><span class="mf">0.2811629999999994</span><span class="p">,</span>
+<span class="vi">@total</span><span class="o">=</span><span class="mf">2.2014759999999924</span><span class="p">,</span>
+<span class="vi">@utime</span><span class="o">=</span><span class="mf">1.920312999999993</span>
+</code></pre></div></div>
+<p>生成 10w 条 <code class="highlighter-rouge">insert</code> <code class="highlighter-rouge">sql</code></p>
+
+<h2 id="2-insert_all-rails-6--">2. insert_all (Rails 6 + )</h2>
+<p>oracle 数据库没有id</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span> <span class="o">=</span> <span class="p">[{</span> <span class="ss">test_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">test_text: </span><span class="s1">'哈哈哈'</span><span class="p">}]</span> <span class="o">*</span> <span class="mi">100000</span>
+<span class="no">Benchmark</span><span class="p">.</span><span class="nf">measure</span> <span class="p">{</span> <span class="no">BlankTest</span><span class="p">.</span><span class="nf">insert_all!</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="p">}</span>
+</code></pre></div></div>
+<p>生成 1 条 <code class="highlighter-rouge">insert</code> <code class="highlighter-rouge">sql</code></p>
+
+<h2 id="3-exec_arrayruby-oci8-仅针对-oracle-数据库">3. exec_array(ruby-oci8) 仅针对 oracle 数据库</h2>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">count</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="no">Benchmark</span><span class="p">.</span><span class="nf">measure</span> <span class="p">{</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="no">BlankTest</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">raw_connection</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span>
+  <span class="s2">"insert into blank_tests \
+    (id,test_id,test_text) VALUES \
+    (survey_operation_histories_seq.nextval,:test_id,:test_text)"</span>
+<span class="p">)</span>
+<span class="n">cursor</span><span class="p">.</span><span class="nf">max_array_size</span> <span class="o">=</span> <span class="n">count</span>
+<span class="n">cursor</span><span class="p">.</span><span class="nf">bind_param_array</span><span class="p">(</span><span class="ss">:test_id</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">count</span><span class="p">)</span>
+<span class="n">cursor</span><span class="p">.</span><span class="nf">bind_param_array</span><span class="p">(</span><span class="ss">:test_text</span><span class="p">,</span> <span class="p">[</span><span class="s1">'哈哈哈'</span><span class="p">]</span><span class="o">*</span><span class="n">count</span><span class="p">)</span>
+<span class="n">cursor</span><span class="p">.</span><span class="nf">exec_array</span>
+<span class="n">conn</span><span class="p">.</span><span class="nf">commit</span>
+<span class="n">cursor</span><span class="p">.</span><span class="nf">close</span>
+<span class="p">}</span>
+
+<span class="vi">@cstime</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="vi">@cutime</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="vi">@label</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+<span class="vi">@real</span><span class="o">=</span><span class="mf">1.8525600000284612</span><span class="p">,</span>
+<span class="vi">@stime</span><span class="o">=</span><span class="mf">0.09075399999999867</span><span class="p">,</span>
+<span class="vi">@total</span><span class="o">=</span><span class="mf">0.3080840000000027</span><span class="p">,</span>
+<span class="vi">@utime</span><span class="o">=</span><span class="mf">0.21733000000000402</span>
+</code></pre></div></div>
+
+<h2 id="4-纯sql批量插入">4. 纯sql批量插入</h2>
+
+<p>同 2 一样,生成一条 <code class="highlighter-rouge">SQL</code></p>
+:ET

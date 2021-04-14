@@ -1,0 +1,6 @@
+I"F<h4 id="1-全局安装-vue-cli-service">1. 全局安装 vue-cli-service</h4>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-g</span> @vue/cli
+<span class="c"># OR</span>
+yarn global add @vue/cli
+</code></pre></div></div>
+:ET

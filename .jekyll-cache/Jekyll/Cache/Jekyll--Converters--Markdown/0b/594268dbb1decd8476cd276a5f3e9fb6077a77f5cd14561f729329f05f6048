@@ -1,0 +1,147 @@
+I"�<h1 id="前言">前言</h1>
+<p>数据库索引大概分为单列索引、复合索引、唯一索引、聚簇索引、非聚簇索引、唯一聚簇索引</p>
+
+<p>数据库只做两件事情：存储数据、检索数据。而索引是在你存储的数据之外，额外保存一些路标（一般是B+树），以减少检索数据的时间。所以索引是主数据衍生的附加结构。</p>
+
+<p>常用的索引数据结构</p>
+<ul>
+  <li><code class="highlighter-rouge">Hash</code> 索引</li>
+  <li><code class="highlighter-rouge">B+ tree</code> 索引</li>
+</ul>
+
+<h2 id="1-单列索引-与-复合索引">1. 单列索引 与 复合索引</h2>
+<p>只包含一个字段的索引叫做单列索引，包含两个或以上字段的索引叫做复合索引（或组合索引）。建立复合索引时，字段的顺序极其重要。</p>
+
+<p>下面这个SQL语句在 列X，列Y，列Z 上建立了一个复合索引。</p>
+<pre><code class="language-SQL">CREATE INDEX 索引名 ON 表名(列名X, 列名Y, 列名Z);
+</code></pre>
+<p>其实这相当于建立了三个索引，分别是：</p>
+
+<ul>
+  <li>1、单列索引（列X）</li>
+  <li>2、复合索引（列X, 列Y）</li>
+  <li>3、复合索引（列X，列Y，列Z）。</li>
+</ul>
+
+<p>如何理解呢？</p>
+
+<p>我们可以把多个字段组合的索引比喻成一个老式的纸质电话簿，三列分别是：</p>
+
+<p>姓 - 名 - 电话号码</p>
+
+<p>电话簿中的内容先按照姓氏的拼音排序，相同姓氏再按名字的拼音排序，这相当于在（姓，名）上建立了一个复合索引。你可以通过这个索引快速找到所有具有特定姓氏的人的电话号码，也可以快速找到具有特定 姓-名 组合的人的电话号码。然而，想象一下，如果你想找到某个特定名字的人，其实这个索引是没有用的，你只能从头到尾遍历整个电话簿。</p>
+
+<h2 id="2-唯一索引">2. 唯一索引</h2>
+<p>唯一索引是在表上一个或者多个字段组合建立的索引，这个（或这几个）字段的值组合起来在表中不可以重复。一张表可以建立任意多个唯一索引，但一般只建立一个。</p>
+
+<p>主键是一种特殊的唯一索引，区别在于，唯一索引列允许null值，而主键列不允许为null值。一张表最多建立一个主键，也可以不建立主键。</p>
+<h2 id="3-聚簇索引非聚簇索引唯一聚簇索引">3. 聚簇索引、非聚簇索引、唯一聚簇索引</h2>
+<p>聚簇索引的叶子节点就是数据节点，而非聚簇索引的叶子节点则是主键的值，
+严格来说，聚簇索引不一定是唯一索引，聚簇索引的索引值并不要求是唯一的，唯一聚簇索引才是！</p>
+
+<p><strong>聚簇索引的性能比非聚簇索引快</strong></p>
+
+<p>聚簇索引创建方法：</p>
+<pre><code class="language-SQL">CREATE CLUSTERED INDEX mycolumn_clust_index ON mytable(mycolumn) WITH ALLOW_DUP_ROW
+SQL
+
+怎么理解呢？
+
+如果是通过聚簇索引查询数据，只需一次查询，整行数据就都会出来了
+如果是通过非聚簇索引查询，首先会查到这行数据的 `ID`, 然后再通过 `ID` 去`回表` 查询数据, 但是回表也不是一定的，如果要查询的列中就在非聚簇索引里，就不需要回表查询了
+
+比如：有一个 `test` 表有索引 `idx_key1_key2`，当我通过 `SQL` 语句：
+```SQL
+select key2 from test where key1 = 'aaa'
+</code></pre>
+<p>就可以通过覆盖索引查询，无需回表</p>
+
+<p>聚簇索引的顺序，就是数据在硬盘上的物理顺序。一般情况下主键就是默认的聚簇索引。</p>
+
+<p>一张表只允许存在一个聚簇索引，因为真实数据的物理顺序只能有一种。如果一张表上还没有聚簇索引，为它新创建聚簇索引时，就需要对已有数据重新进行排序，所以对表进行修改速度较慢是聚簇索引的缺点，对于经常更新的列不宜建立聚簇索引。</p>
+
+<p>聚簇索引性能最好，因为一旦具有第一个索引值的记录被找到，具有连续索引值的记录也一定物理地紧跟其后。一张表只能有一个聚簇索引，所以非常珍贵，必须慎重设置，一般要根据这个表最常用的SQL查询方式选择某个（或多个）字段作为聚簇索引（或复合聚簇索引）。</p>
+
+<h2 id="4-附加--工作中常见的几种-sql-索引查询">4. 附加 — 工作中常见的几种 SQL 索引查询</h2>
+
+<ol>
+  <li>
+    <p>对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</p>
+  </li>
+  <li>
+    <p>应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描。</p>
+  </li>
+</ol>
+
+<p>比如：</p>
+<pre><code class="language-SQL">select id from projects where production_stage_id is null
+</code></pre>
+<p>可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：</p>
+<pre><code class="language-SQL">select id from projects where production_stage_id = 0
+</code></pre>
+<ol>
+  <li>应尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描。</li>
+</ol>
+
+<p>比如：</p>
+<pre><code class="language-SQL">select id from projects where production_stage_id = 10 or production_stage_id = 20
+</code></pre>
+<p>可以这样查询：</p>
+<pre><code class="language-SQL">select id from projects where production_stage_id = 10
+
+union all
+
+select id from projects where production_stage_id = 20
+</code></pre>
+<ol>
+  <li>对于连续的数值，能用 between 就不要用 in 了</li>
+</ol>
+
+<p>比如：</p>
+<pre><code class="language-SQL">select id from projects where production_stage_id in (1,2,3)
+</code></pre>
+<p>可以这样查询：</p>
+
+<pre><code class="language-SQL">select id from projects where production_stage_id between 1 and 3
+</code></pre>
+<ol>
+  <li>很多时候用 exists 代替 in 是一个好的选择</li>
+</ol>
+
+<p>比如：</p>
+<pre><code class="language-SQL">select id from projects where id in (select id from projects@pl where id = 1)
+</code></pre>
+<p>可以这样查询：</p>
+<pre><code class="language-SQL">select id from projects where exists(select 1 from projects@pl where id = 1)
+</code></pre>
+<ol>
+  <li>应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。</li>
+</ol>
+
+<p>比如：</p>
+<pre><code class="language-SQL">select id from projects where rownum/2 &gt; 50
+</code></pre>
+<p>可以这样查询：</p>
+<pre><code class="language-SQL">select id from projects where rownum &gt; 100
+</code></pre>
+<ol>
+  <li>like 查询, %关键字在前面，索引会失效</li>
+</ol>
+
+<p>比如：</p>
+<pre><code class="language-SQL">select id from projects where l_project_name like '%项目%' --索引失效
+</code></pre>
+<pre><code class="language-SQL">select id from projects where l_project_name like '项目%' --索引生效
+</code></pre>
+
+<ol>
+  <li>在 where 字句中尽量避免用函数表达式</li>
+</ol>
+
+<p>比如：</p>
+<pre><code class="language-SQL">select id from projects where NVL(production_stage_id, -1) = 1
+</code></pre>
+<p>可以这样查询：</p>
+<pre><code class="language-SQL">
+</code></pre>
+:ET
