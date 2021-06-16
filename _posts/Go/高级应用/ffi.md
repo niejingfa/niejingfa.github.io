@@ -1,0 +1,281 @@
+---
+layout: post
+title:  "FFI 调用 Go/Rust 动态链接库"
+date:   2021-06-12 15:27:22 +0800
+categories:
+---
+# FFI 调用 Go/Rust 动态链接库
+## 前言
+下面有两个例子
+```rb
+# fib.rb
+def fib(n)
+  return n if n <= 1
+  fib(n - 1) + fib(n - 2)
+end
+
+puts fib(40)
+```
+
+运行：
+```shell
+$ time ruby fib.rb
+102334155
+ruby fib.rb  9.06s user 0.06s system 99% cpu 9.204 total
+```
+- `CPU` 占比 99%
+- 总耗时: 9s 多
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func fib(n uint) uint {
+	if n <= 1 {
+    return n
+  } else {
+    return fib(n - 1) + fib(n - 2)
+  }
+}
+
+func main() {
+  fmt.Println(fib(40))
+}
+```
+```shell
+$ time go run fib.go
+102334155
+go run fib.go  0.77s user 0.37s system 94% cpu 1.202 total
+```
+- `CPU` 占用 90% 左右
+- 总耗时 1.1s 左右
+
+先编译后执行
+```shell
+$ go build fib.go
+$ time ./fib
+102334155
+./fib  0.57s user 0.00s system 99% cpu 0.577 total
+```
+结论: 效率更高了
+
+
+对比一下性能，可想而知，go 语言的性能是非常高的，将近20倍
+由上可知，其实 ruby 在某一些方面性能确实不如别的语言好
+
+我们就会有这样的场景，在 A 语言写的函数可以在 B 语言里面调用
+这时一般有两种解决方案：
+
+- 一是将函数做成一个服务，通过进程间通信(IPC)或网络协议通信(RPC, RESTful等)
+- 二就是直接通过 FFI 调用。
+
+前者需要至少两个独立的进程才能实现，而后者直接将其它语言的接口内嵌到本语言中，所以调用效率比前者高。
+
+## FFI 简介
+全名: 语言交互接口 (`Foreign function interface`)
+
+一个可以在某种计算机语言中调用其它语言的接口
+
+## FFI 简单应用
+
+### 使用 Go 编写和生成共享库
+使用 Go 编写共享库和写普通的 Go 程序差别不大，主要是在代码里 import 一个名为 "C" 的伪包，然后在执行 go build 编译的时候加上 -buildmode=c-shared 参数。
+
+#### 我们先来写一下作为共享库的 fibonacci 函数
+
+```go
+package main
+
+import (
+	"C"
+)
+
+//export fib
+func fib(n uint) uint {
+	if n <= 1 {
+		return n
+	} else {
+		return fib(n-1) + fib(n-2)
+	}
+}
+
+func main() {}
+```
+**注：可调用的函数是通过添加注释 //export fib 来实现的，因此这行注释是必须的。**
+
+编译生成共享库
+- Mac OS
+  ```shell
+  go build -buildmode=c-shared -ldflags -s -o fib.dylib fib.go
+  ```
+- Linux:
+  ```shell
+  go build -buildmode=c-shared -o fib.dylib fib.go
+  ```
+编译好了会生成两个文件
+  - fib.h 文件
+  - fib.dylib 二进制文件
+
+#### 引用共享库
+
+1. 安装 `gem install 'ffi'`
+2. ruby 代码如下：
+
+```rb
+# fib.rb
+require "ffi"
+
+module Fib
+  extend FFI::Library
+  # 下面是我在 macOS 上运行的写法，如果在 Linux 上调用的文件为 "fib.so"
+  ffi_lib "fib.dylib"
+  attach_function :fib, [:int], :int
+end
+
+puts Fib.fib(40)
+```
+
+```shell
+$ time ruby fib.rb
+102334155
+ruby ffi/fib/fib.rb  0.63s user 0.04s system 95% cpu 0.709 total
+```
+性能提升了很多
+
+## FFI 实际应用
+链接数据库查询的小 `demo`
+
+`go` 语言如下：
+```go
+package main
+
+import (
+	"C"
+	"database/sql"
+	"fmt"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+type Food struct {
+	id   int
+	name string
+}
+
+// var db *gorm.DB
+
+//export test
+func test() {
+
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/food_dev")
+	//设置数据库最大连接数
+	db.SetConnMaxLifetime(10)
+	//设置上数据库最大闲置连接数
+	db.SetMaxIdleConns(3)
+	if err != nil {
+		return
+	}
+	defer db.Close()
+
+	rows, e := db.Query("select id, name from foods where id in (1,2,3)")
+
+	// fmt.Println(e)
+	if e != nil {
+		fmt.Println(e)
+	}
+
+	for rows.Next() {
+		var food Food
+		e := rows.Scan(&food.id, &food.name)
+		if e == nil {
+			fmt.Println(food)
+		}
+	}
+}
+
+func main() {
+	test()
+}
+```
+
+编译生成共享函数库
+```shell
+  go build -buildmode=c-shared -ldflags -s -o test.dylib test.go
+```
+
+ruby 代码如下:
+```rb
+require "ffi"
+
+module Test
+  extend FFI::Library
+  # macOS: fib.dylib，Linux: "fib.so"
+  ffi_lib "test.dylib"
+  attach_function :test, [], :void
+end
+Test.test
+```
+运行一下：
+```shell
+time ruby test.rb 
+{1 小麦}
+{2 该粉}
+{3 小麦粉(标准粉)}
+ruby test.rb  0.10s user 0.07s system 44% cpu 0.377 total
+```
+所以我们就可以在自己的项目里愉快的写 `golang` 了
+
+但是这对 `FFI` 来说仅仅是不够的。
+
+## 扩展
+我们也可以对任何 `C` 系语言进行扩展
+比如我们写烦了 `golang`, 也可以尝试一下 `Rust`
+
+举个例子：
+
+
+Rust 实现 `fibonacci` 代码如下:
+```rs
+// 正如上一章讲述的，为了能让rust的函数通过ffi被调用，需要加上extern "C"对函数进行修饰。
+// 但由于rust支持重载，所以函数名会被编译器进行混淆，就像c++一样。因此当你的函数被编译完毕后，函数名会带上一串表明函数签名的字符串。
+// 比如：fn test() {}会变成_ZN4test20hf06ae59e934e5641haaE. 这样的函数名为ffi调用带来了困难，因此，rust提供了#[no_mangle]属性为函数修饰。 对于带有#[no_mangle]属性的函数，rust编译器不会为它进行函数名混淆
+#[no_mangle]
+extern "C" fn fib(i: i32) -> i32 {
+  if i <= 0 {
+      panic!("索引要大于0");
+  }
+  return if i <= 2 { 1 } else { fib(i - 1) + fib(i - 2) };
+}
+
+fn main() {
+    println!("fib is {}", fib(40));
+}
+```
+
+编译生成共享行数：
+```shell
+rustc --crate-type dylib fib.rs
+```
+
+ruby 代码如下：
+```rb
+require "ffi"
+
+module FibRust
+  extend FFI::Library
+  # macOS: fib.dylib，Linux: "fib.so"
+  ffi_lib "libfib.dylib"
+  attach_function :fib, [:int], :int
+end
+
+puts FibRust.fib(40)
+```
+
+```shell
+$ time ruby fib.rb  
+102334155
+ruby fib.rb  0.64s user 0.04s system 97% cpu 0.696 total
+```
