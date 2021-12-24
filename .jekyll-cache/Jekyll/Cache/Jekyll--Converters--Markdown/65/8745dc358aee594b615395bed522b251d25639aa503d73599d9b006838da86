@@ -1,0 +1,3 @@
+I"�<h1 id="redis-的三种集群方式">Redis 的三种集群方式</h1>
+<p><code class="highlighter-rouge">redis</code> 有三种集群方式：主从复制，哨兵模式和集群</p>
+:ET

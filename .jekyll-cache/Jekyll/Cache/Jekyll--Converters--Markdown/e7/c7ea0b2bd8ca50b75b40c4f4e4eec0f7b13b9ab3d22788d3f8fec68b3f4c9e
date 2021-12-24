@@ -1,0 +1,20 @@
+I"�<h1 id="redis-的三种集群方式">Redis 的三种集群方式</h1>
+<p><code class="highlighter-rouge">redis</code> 有三种集群方式：主从复制，哨兵模式和集群</p>
+
+<h2 id="1-主从复制">1. 主从复制</h2>
+<ul>
+  <li>从服务器连接主服务器，发送 <code class="highlighter-rouge">SYNC</code> 命令;</li>
+  <li>主服务器接收到 <code class="highlighter-rouge">SYNC</code> 命名后，开始执行 <code class="highlighter-rouge">BGSAVE</code> 命令生成 <code class="highlighter-rouge">RDB</code> 文件并使用缓冲区记录此后执行的所有写命令；</li>
+  <li>主服务器 <code class="highlighter-rouge">BGSAVE</code> 执行完后，向所有从服务器发送快照文件，并在发送期间继续记录被执行的写命令；</li>
+  <li>从服务器收到快照文件后丢弃所有旧数据，载入收到的快照；</li>
+  <li>主服务器快照发送完毕后开始向从服务器发送缓冲区中的写命令；</li>
+  <li>从服务器完成对快照的载入，开始接收命令请求，并执行来自主服务器缓冲区的写命令；（从服务器初始化完成）</li>
+  <li>主服务器每执行一个写命令就会向从服务器发送相同的写命令，从服务器接收并执行收到的写命令（从服务器初始化完成后的操作）</li>
+</ul>
+
+<h3 id="11-优点">1.1. 优点</h3>
+<h3 id="12-缺点">1.2. 缺点</h3>
+
+<h2 id="2-哨兵模式">2. 哨兵模式</h2>
+<h2 id="3-集群">3. 集群</h2>
+:ET

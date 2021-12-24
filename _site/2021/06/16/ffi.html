@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>FFI 调用 Go/Rust 动态链接库 | blank的个人博客</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="FFI 调用 Go/Rust 动态链接库" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="FFI 调用 Go/Rust 动态链接库 前言 下面有两个例子 ```rb fib.rb def fib(n) return n if n &lt;= 1 fib(n - 1) + fib(n - 2) end" />
+<meta property="og:description" content="FFI 调用 Go/Rust 动态链接库 前言 下面有两个例子 ```rb fib.rb def fib(n) return n if n &lt;= 1 fib(n - 1) + fib(n - 2) end" />
+<link rel="canonical" href="http://localhost:4000/2021/06/16/ffi.html" />
+<meta property="og:url" content="http://localhost:4000/2021/06/16/ffi.html" />
+<meta property="og:site_name" content="blank的个人博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-16T15:27:22+08:00" />
+<script type="application/ld+json">
+{"description":"FFI 调用 Go/Rust 动态链接库 前言 下面有两个例子 ```rb fib.rb def fib(n) return n if n &lt;= 1 fib(n - 1) + fib(n - 2) end","@type":"BlogPosting","url":"http://localhost:4000/2021/06/16/ffi.html","headline":"FFI 调用 Go/Rust 动态链接库","dateModified":"2021-06-16T15:27:22+08:00","datePublished":"2021-06-16T15:27:22+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/06/16/ffi.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="blank的个人博客" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">blank的个人博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">FFI 调用 Go/Rust 动态链接库</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2021-06-16T15:27:22+08:00" itemprop="datePublished">Jun 16, 2021
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="ffi-调用-gorust-动态链接库">FFI 调用 Go/Rust 动态链接库</h1>
+<h2 id="前言">前言</h2>
+<p>下面有两个例子</p>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># fib.rb</span>
+<span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">n</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+  <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="n">fib</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>运行：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">time </span>ruby fib.rb
+102334155
+ruby fib.rb  9.06s user 0.06s system 99% cpu 9.204 total
+</code></pre></div></div>
+<ul>
+  <li><code class="highlighter-rouge">CPU</code> 占比 99%</li>
+  <li>总耗时: 9s 多</li>
+</ul>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"fmt"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="m">1</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">n</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="m">2</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="m">40</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">time </span>go run fib.go
+102334155
+go run fib.go  0.77s user 0.37s system 94% cpu 1.202 total
+</code></pre></div></div>
+<ul>
+  <li><code class="highlighter-rouge">CPU</code> 占用 90% 左右</li>
+  <li>总耗时 1.1s 左右</li>
+</ul>
+
+<p>先编译后执行</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>go build fib.go
+<span class="nv">$ </span><span class="nb">time</span> ./fib
+102334155
+./fib  0.57s user 0.00s system 99% cpu 0.577 total
+</code></pre></div></div>
+<p>结论: 效率更高了</p>
+
+<p>对比一下性能，可想而知，go 语言的性能是非常高的，将近20倍
+由上可知，其实 ruby 在某一些方面性能确实不如别的语言好</p>
+
+<p>我们就会有这样的场景，在 A 语言写的函数可以在 B 语言里面调用
+这时一般有两种解决方案：</p>
+
+<ul>
+  <li>一是将函数做成一个服务，通过进程间通信(IPC)或网络协议通信(RPC, RESTful等)</li>
+  <li>二就是直接通过 FFI 调用。</li>
+</ul>
+
+<p>前者需要至少两个独立的进程才能实现，而后者直接将其它语言的接口内嵌到本语言中，所以调用效率比前者高。</p>
+
+<h2 id="ffi-简介">FFI 简介</h2>
+<p>全名: 语言交互接口 (<code class="highlighter-rouge">Foreign function interface</code>)</p>
+
+<p>一个可以在某种计算机语言中调用其它语言的接口</p>
+
+<h2 id="ffi-简单应用">FFI 简单应用</h2>
+
+<h3 id="使用-go-编写和生成共享库">使用 Go 编写和生成共享库</h3>
+<p>使用 Go 编写共享库和写普通的 Go 程序差别不大，主要是在代码里 import 一个名为 “C” 的伪包，然后在执行 go build 编译的时候加上 -buildmode=c-shared 参数。</p>
+
+<h4 id="我们先来写一下作为共享库的-fibonacci-函数">我们先来写一下作为共享库的 fibonacci 函数</h4>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"C"</span>
+<span class="p">)</span>
+
+<span class="c">//export fib</span>
+<span class="k">func</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="m">1</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">n</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="m">2</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{}</span>
+</code></pre></div></div>
+<p><strong>注：可调用的函数是通过添加注释 //export fib 来实现的，因此这行注释是必须的。</strong></p>
+
+<p>编译生成共享库</p>
+<ul>
+  <li>Mac OS
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go build <span class="nt">-buildmode</span><span class="o">=</span>c-shared <span class="nt">-ldflags</span> <span class="nt">-s</span> <span class="nt">-o</span> fib.dylib fib.go
+</code></pre></div>    </div>
+  </li>
+  <li>Linux:
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go build <span class="nt">-buildmode</span><span class="o">=</span>c-shared <span class="nt">-o</span> fib.so fib.go
+</code></pre></div>    </div>
+    <p>编译好了会生成两个文件</p>
+    <ul>
+      <li>fib.h 文件</li>
+      <li>fib.dylib 二进制文件</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="引用共享库">引用共享库</h4>
+
+<ol>
+  <li>安装 <code class="highlighter-rouge">gem install 'ffi'</code></li>
+  <li>ruby 代码如下：</li>
+</ol>
+
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># fib.rb</span>
+<span class="nb">require</span> <span class="s2">"ffi"</span>
+
+<span class="k">module</span> <span class="nn">Fib</span>
+  <span class="kp">extend</span> <span class="no">FFI</span><span class="o">::</span><span class="no">Library</span>
+  <span class="c1"># 下面是我在 macOS 上运行的写法，如果在 Linux 上调用的文件为 "fib.so"</span>
+  <span class="n">ffi_lib</span> <span class="s2">"fib.dylib"</span>
+  <span class="n">attach_function</span> <span class="ss">:fib</span><span class="p">,</span> <span class="p">[</span><span class="ss">:int</span><span class="p">],</span> <span class="ss">:int</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="no">Fib</span><span class="p">.</span><span class="nf">fib</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">time </span>ruby fib.rb
+102334155
+ruby ffi/fib/fib.rb  0.63s user 0.04s system 95% cpu 0.709 total
+</code></pre></div></div>
+<p>性能提升了很多</p>
+
+<h2 id="ffi-实际应用">FFI 实际应用</h2>
+<p>链接数据库查询的小 <code class="highlighter-rouge">demo</code></p>
+
+<p><code class="highlighter-rouge">go</code> 语言如下：</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"C"</span>
+	<span class="s">"database/sql"</span>
+	<span class="s">"fmt"</span>
+
+	<span class="n">_</span> <span class="s">"github.com/go-sql-driver/mysql"</span>
+<span class="p">)</span>
+
+<span class="k">type</span> <span class="n">Food</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">id</span>   <span class="kt">int</span>
+	<span class="n">name</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="c">// var db *gorm.DB</span>
+
+<span class="c">//export test</span>
+<span class="k">func</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
+
+	<span class="n">db</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">sql</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s">"mysql"</span><span class="p">,</span> <span class="s">"root:@tcp(127.0.0.1:3306)/food_dev"</span><span class="p">)</span>
+	<span class="c">//设置数据库最大连接数</span>
+	<span class="n">db</span><span class="o">.</span><span class="n">SetConnMaxLifetime</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
+	<span class="c">//设置上数据库最大闲置连接数</span>
+	<span class="n">db</span><span class="o">.</span><span class="n">SetMaxIdleConns</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="n">db</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+
+	<span class="n">rows</span><span class="p">,</span> <span class="n">e</span> <span class="o">:=</span> <span class="n">db</span><span class="o">.</span><span class="n">Query</span><span class="p">(</span><span class="s">"select id, name from foods where id in (1,2,3)"</span><span class="p">)</span>
+
+	<span class="c">// fmt.Println(e)</span>
+	<span class="k">if</span> <span class="n">e</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="n">rows</span><span class="o">.</span><span class="n">Next</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">var</span> <span class="n">food</span> <span class="n">Food</span>
+		<span class="n">e</span> <span class="o">:=</span> <span class="n">rows</span><span class="o">.</span><span class="n">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="n">food</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">food</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">food</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">test</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>编译生成共享函数库</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  go build <span class="nt">-buildmode</span><span class="o">=</span>c-shared <span class="nt">-ldflags</span> <span class="nt">-s</span> <span class="nt">-o</span> test.dylib test.go
+</code></pre></div></div>
+
+<p>ruby 代码如下:</p>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"ffi"</span>
+
+<span class="k">module</span> <span class="nn">Test</span>
+  <span class="kp">extend</span> <span class="no">FFI</span><span class="o">::</span><span class="no">Library</span>
+  <span class="c1"># macOS: fib.dylib，Linux: "fib.so"</span>
+  <span class="n">ffi_lib</span> <span class="s2">"test.dylib"</span>
+  <span class="n">attach_function</span> <span class="ss">:test</span><span class="p">,</span> <span class="p">[],</span> <span class="ss">:void</span>
+<span class="k">end</span>
+<span class="no">Test</span><span class="p">.</span><span class="nf">test</span>
+</code></pre></div></div>
+<p>运行一下：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">time </span>ruby test.rb 
+<span class="o">{</span>1 小麦<span class="o">}</span>
+<span class="o">{</span>2 该粉<span class="o">}</span>
+<span class="o">{</span>3 小麦粉<span class="o">(</span>标准粉<span class="o">)}</span>
+ruby test.rb  0.10s user 0.07s system 44% cpu 0.377 total
+</code></pre></div></div>
+<p>所以我们就可以在自己的项目里愉快的写 <code class="highlighter-rouge">golang</code> 了</p>
+
+<p>但是这对 <code class="highlighter-rouge">FFI</code> 来说仅仅是不够的。</p>
+
+<h2 id="扩展">扩展</h2>
+<p>我们也可以对任何 <code class="highlighter-rouge">C</code> 系语言进行扩展
+比如我们写烦了 <code class="highlighter-rouge">golang</code>, 也可以尝试一下 <code class="highlighter-rouge">Rust</code></p>
+
+<p>举个例子：</p>
+
+<p>Rust 实现 <code class="highlighter-rouge">fibonacci</code> 代码如下:</p>
+<div class="language-rs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// 正如上一章讲述的，为了能让rust的函数通过ffi被调用，需要加上extern "C"对函数进行修饰。</span>
+<span class="c">// 但由于rust支持重载，所以函数名会被编译器进行混淆，就像c++一样。因此当你的函数被编译完毕后，函数名会带上一串表明函数签名的字符串。</span>
+<span class="c">// 比如：fn test() {}会变成_ZN4test20hf06ae59e934e5641haaE. 这样的函数名为ffi调用带来了困难，因此，rust提供了#[no_mangle]属性为函数修饰。 对于带有#[no_mangle]属性的函数，rust编译器不会为它进行函数名混淆</span>
+<span class="nd">#[no_mangle]</span>
+<span class="k">extern</span> <span class="s">"C"</span> <span class="k">fn</span> <span class="nf">fib</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
+      <span class="nd">panic!</span><span class="p">(</span><span class="s">"索引要大于0"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="p">{</span> <span class="mi">1</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="nf">fib</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fib</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"fib is {}"</span><span class="p">,</span> <span class="nf">fib</span><span class="p">(</span><span class="mi">40</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>编译生成共享行数：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rustc <span class="nt">--crate-type</span> dylib fib.rs
+</code></pre></div></div>
+
+<p>ruby 代码如下：</p>
+<div class="language-rb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"ffi"</span>
+
+<span class="k">module</span> <span class="nn">FibRust</span>
+  <span class="kp">extend</span> <span class="no">FFI</span><span class="o">::</span><span class="no">Library</span>
+  <span class="c1"># macOS: fib.dylib，Linux: "fib.so"</span>
+  <span class="n">ffi_lib</span> <span class="s2">"libfib.dylib"</span>
+  <span class="n">attach_function</span> <span class="ss">:fib</span><span class="p">,</span> <span class="p">[</span><span class="ss">:int</span><span class="p">],</span> <span class="ss">:int</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="no">FibRust</span><span class="p">.</span><span class="nf">fib</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">time </span>ruby fib.rb  
+102334155
+ruby fib.rb  0.64s user 0.04s system 97% cpu 0.696 total
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/2021/06/16/ffi.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">blank的个人博客</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">blank的个人博客</li><li><a class="u-email" href="mailto:jingfa.nie@gmail.com">jingfa.nie@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/niejingfa"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">niejingfa</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>个人的一个免费分享网站，可以转载，注明出处!! ←联系我github, gmail</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

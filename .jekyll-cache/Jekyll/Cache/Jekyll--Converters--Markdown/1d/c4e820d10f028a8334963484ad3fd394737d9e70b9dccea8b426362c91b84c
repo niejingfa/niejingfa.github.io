@@ -1,0 +1,15 @@
+I"�<blockquote>
+  <p>TF-IDF是 Term Frequency - Inverse Document Frequency的缩写，即“词频-逆文本频率”。</p>
+</blockquote>
+
+<p>它由两部分组成，TF和IDF。</p>
+
+<h3 id="1-tf">1. TF</h3>
+<blockquote>
+  <p>TF策略我在之前的高频词提取文章中进行过使用，TF用来表示词频，也就是某个词在文章中出现的总次数</p>
+</blockquote>
+
+<p>TF=某个词在文章中出现的总次数<br />
+但是考虑到每篇文章的长短是不同的，所以我们可以把上述内容进行一个标准化： TF=某个词在文章中出现的总次数/文章的总词数
+IDF用来表示逆文档频率，所谓逆文档频率其实是用来反映一个词在所有文档中出现的频率，当一个词在很多文档中出现的时候，其所对应的IDF值也应该变低，当一个词在很少的文档中出现的时候，其所对应的IDF值就会变高，用一个式子来表述一下： IDF=log(语料库中的文档总数 / (包含该词的文档数 + 1)) 如果一个词越常见，那么分母就越大，逆文档频率就越小越接近0。分母之所以要加1，是为了避免分母为0（即所有文档都不包含该词）。log表示对得到的值取对数。 TF-IDF = TF * IDF 为什么选 TF-IDF算法？ 1. 分词的标签适合我们项目, 因为我们项目的内容 2. 可以自己分析分词的权重值，比我们设置的更数据化。 数据化的权重值，有时候不能体检出分词的重要， 给予较大的权重 另外一个弊端则是对于一些多媒体的推荐（比如音乐、电影、图片等)由于很难提取内容特征，就很难进行推荐，一种解决方式则是人工给这些Item打标签。 words = [ [“电力”, “教育及科研设施”, “医疗”, “酒店”, “工业”, “基础建设”, ‘电力’], [“司法”, “开采”, “办公楼”, “石油化工”, “文娱康乐”, “住宅”, ‘基础建设’], [“零售”, “新市区开发”, “交通运输枢纽”, “展览”, “公用事业设施”, ‘文娱康乐’, ‘文娱康乐’], [“社区”, “停车场”, “园林绿化”, “仓储物流”, ‘园林绿化’, ‘园林绿化’, ‘园林绿化’] ] tags = words.flatten def frequency(words) words_tf_arr = [] words.each_with_index do |tags, index| # 总词频统计 doc_frequency = Hash.new(0) tags.each do |tag| doc_frequency[tag] += 1 end p “总词频统计： #{ doc_frequency }” # 计算每个词的TF值 word_tf = Hash.new(0) doc_frequency_sum = doc_frequency.values.sum doc_frequency.each do |key, value| word_tf[key] = (value / doc_frequency_sum.to_f).round(2) end words_tf_arr « word_tf p “每个词的TF值： #{ word_tf }” end words_tf_arr end words_tf_arr = frequency(words) 计算文档的相似度： https://github.com/jpmckinney/tf-idf-similarity https://www.cnblogs.com/lianyingteng/p/7755545.html —- users = { ‘blank’ =&gt; [‘电力’, ‘教育及科研设施’], ‘jaso’ =&gt; [‘新市区开发’, ‘xxx’], ‘zev’ =&gt; [‘aaa’, ‘bbb’], ‘shawn’ =&gt; [‘yyy’] } def tf_idf(word) # 包含该词的文档数 include_word_h = Hash.new(0) doc_frequency.each do |key, value| if tags.include?(key) include_word_h[key] += 1 end end p “包含该词的文档数： #{ include_word_h }” # 计算每个词的IDF值 word_idf = Hash.new(0) doc_frequency.each do |key, value| word_idf[key] = Math.log(tags.count, include_word_h[key] + 1) end p “每个词的IDF值： #{ word_idf }” # TF-IDF 权重值 word_tf_idf = Hash.new(0) doc_frequency.each do |key, value| word_tf_idf[key] = word_tf[key] * word_idf[key] end p “TF-IDF 权重值： #{ word_tf_idf }” end frequency(words.flatten)</p>
+:ET

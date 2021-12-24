@@ -1,0 +1,10 @@
+I"�<h1 id="ffi-调用-gorust-动态链接库">FFI 调用 Go/Rust 动态链接库</h1>
+<h2 id="前言">前言</h2>
+<p>下面有两个例子
+```rb</p>
+<h1 id="fibrb">fib.rb</h1>
+<p>def fib(n)
+  return n if n &lt;= 1
+  fib(n - 1) + fib(n - 2)
+end</p>
+:ET

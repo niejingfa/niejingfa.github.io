@@ -1,0 +1,5 @@
+I"�<h3 id="brew">Brew</h3>
+<p>快速安装 brew, 使用国内镜像</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/bin/zsh <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+:ET
